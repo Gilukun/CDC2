@@ -1,0 +1,8 @@
+C:\Users\Gilles\Documents\GameCodeur\CDC2\Cours POO\Heritage\obj\Debug\Heritage.csproj.AssemblyReference.cache
+C:\Users\Gilles\Documents\GameCodeur\CDC2\Cours POO\Heritage\obj\Debug\Heritage.csproj.SuggestedBindingRedirects.cache
+C:\Users\Gilles\Documents\GameCodeur\CDC2\Cours POO\Heritage\obj\Debug\Heritage.csproj.CoreCompileInputs.cache
+C:\Users\Gilles\Documents\GameCodeur\CDC2\Cours POO\Heritage\bin\Debug\Heritage.exe.config
+C:\Users\Gilles\Documents\GameCodeur\CDC2\Cours POO\Heritage\bin\Debug\Heritage.exe
+C:\Users\Gilles\Documents\GameCodeur\CDC2\Cours POO\Heritage\bin\Debug\Heritage.pdb
+C:\Users\Gilles\Documents\GameCodeur\CDC2\Cours POO\Heritage\obj\Debug\Heritage.exe
+C:\Users\Gilles\Documents\GameCodeur\CDC2\Cours POO\Heritage\obj\Debug\Heritage.pdb
