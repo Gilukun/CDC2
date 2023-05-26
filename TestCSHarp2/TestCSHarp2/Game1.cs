@@ -262,6 +262,7 @@ public class Game1 : Game
         5. else et else if ()  --> Il faut faire des {} à chaque fois et else if prend une condition
         6. SWITCH (condition) {case X : y break;} = selon la condition à tester dasn le cas ou c'est x je fait y
         On peut tester plusieurs cas en même temps.
+        Ne pas oublier de mettre un valeur defaut pour voir que le test fonctionne bien
         */
 
 

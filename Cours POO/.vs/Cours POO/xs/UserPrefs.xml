@@ -1,15 +1,18 @@
-﻿<Properties StartupConfiguration="{C5947EAC-914F-48E5-AE95-BDA0E4F8DBBB}|Default">
+﻿<Properties StartupConfiguration="{0164D9C7-9F46-4A19-B57B-D8FDE342AB60}|Default">
+  <MonoDevelop.Ide.ItemProperties.Cours_220POO PreferredExecutionTarget="MonoDevelop.Default" FirstBuild="True" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench ActiveDocument="Cours POO/Game1.cs">
+    <Files>
+      <File FileName="Cours POO/Game1.cs" Line="1" Column="1" />
+    </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="TestCSHarp2" expanded="True">
-            <Node name="TestCSHarp2" expanded="True">
-              <Node name="Content" expanded="True" />
-              <Node name="Program.cs" selected="True" />
+          <Node name="Cours POO" expanded="True">
+            <Node name="Cours POO" expanded="True">
+              <Node name="Game1.cs" selected="True" />
             </Node>
           </Node>
         </State>
@@ -19,7 +22,6 @@
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.ItemProperties.TestCSHarp2 PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MultiItemStartupConfigurations />

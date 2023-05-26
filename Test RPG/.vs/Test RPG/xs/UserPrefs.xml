@@ -1,0 +1,28 @@
+﻿<Properties StartupConfiguration="{D703A07F-A49D-4FD3-81D5-88C0CC538CCF}|Default">
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.Workbench ActiveDocument="Test RPG/Personnages.cs">
+    <Files>
+      <File FileName="Test RPG/Program.cs" Line="66" Column="1" />
+      <File FileName="Test RPG/EmptyClass.cs" Line="32" Column="63" />
+      <File FileName="Test RPG/EmptyClass.cs" Line="67" Column="62" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="Test RPG" expanded="True">
+            <Node name="TestRPG" expanded="True" />
+          </Node>
+        </State>
+      </Pad>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State />
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.TestRPG PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MultiItemStartupConfigurations />
+</Properties>

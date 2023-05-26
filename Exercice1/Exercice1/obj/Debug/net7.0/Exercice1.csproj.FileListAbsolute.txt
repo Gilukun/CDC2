@@ -1,0 +1,15 @@
+/Users/gillesv/Documents/Game Codeur/CDC2/Exercice1/Exercice1/bin/Debug/net7.0/Exercice1
+/Users/gillesv/Documents/Game Codeur/CDC2/Exercice1/Exercice1/bin/Debug/net7.0/Exercice1.deps.json
+/Users/gillesv/Documents/Game Codeur/CDC2/Exercice1/Exercice1/bin/Debug/net7.0/Exercice1.runtimeconfig.json
+/Users/gillesv/Documents/Game Codeur/CDC2/Exercice1/Exercice1/bin/Debug/net7.0/Exercice1.dll
+/Users/gillesv/Documents/Game Codeur/CDC2/Exercice1/Exercice1/bin/Debug/net7.0/Exercice1.pdb
+/Users/gillesv/Documents/Game Codeur/CDC2/Exercice1/Exercice1/obj/Debug/net7.0/Exercice1.csproj.AssemblyReference.cache
+/Users/gillesv/Documents/Game Codeur/CDC2/Exercice1/Exercice1/obj/Debug/net7.0/Exercice1.GeneratedMSBuildEditorConfig.editorconfig
+/Users/gillesv/Documents/Game Codeur/CDC2/Exercice1/Exercice1/obj/Debug/net7.0/Exercice1.AssemblyInfoInputs.cache
+/Users/gillesv/Documents/Game Codeur/CDC2/Exercice1/Exercice1/obj/Debug/net7.0/Exercice1.AssemblyInfo.cs
+/Users/gillesv/Documents/Game Codeur/CDC2/Exercice1/Exercice1/obj/Debug/net7.0/Exercice1.csproj.CoreCompileInputs.cache
+/Users/gillesv/Documents/Game Codeur/CDC2/Exercice1/Exercice1/obj/Debug/net7.0/Exercice1.dll
+/Users/gillesv/Documents/Game Codeur/CDC2/Exercice1/Exercice1/obj/Debug/net7.0/refint/Exercice1.dll
+/Users/gillesv/Documents/Game Codeur/CDC2/Exercice1/Exercice1/obj/Debug/net7.0/Exercice1.pdb
+/Users/gillesv/Documents/Game Codeur/CDC2/Exercice1/Exercice1/obj/Debug/net7.0/Exercice1.genruntimeconfig.cache
+/Users/gillesv/Documents/Game Codeur/CDC2/Exercice1/Exercice1/obj/Debug/net7.0/ref/Exercice1.dll
