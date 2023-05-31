@@ -14,8 +14,16 @@ namespace Heritage
         }
         public Sorcier(string pNom) : base(pNom)
         {
-            DePointsDeVie ="1D8";
             Console.WriteLine("Je créer un Sorcier");
+            DePointsDeVie ="1D6";
+
+            Des deSorcier;
+            deSorcier = new Des();
+            int point2vie = 0;
+            point2vie = deSorcier.LanceDe("1D6");
+            TotalDePointsDeVie = point2vie;
+            Console.WriteLine("Mon Sorcier a : " + TotalDePointsDeVie + " point de vie");
+            
         }
     }
 }

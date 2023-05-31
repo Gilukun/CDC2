@@ -1,22 +1,24 @@
-﻿<Properties StartupConfiguration="{494BA056-360D-47D6-959E-A07A27DB3C5B}|Default">
+﻿<Properties StartupConfiguration="{FE5B741D-7834-4DE1-9673-1074E1400947}|Default">
   <MultiItemStartupConfigurations />
   <MonoDevelop.Ide.Workbench>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="Exercice1" expanded="True">
-            <Node name="Exercice1" expanded="True" />
+          <Node name="Heritage" expanded="True">
+            <Node name="Heritage" expanded="True">
+              <Node name="Properties" expanded="True" />
+            </Node>
           </Node>
         </State>
       </Pad>
       <Pad Id="ClassPad">
         <State name="__root__">
-          <Node name="Exercice1" expanded="True" />
+          <Node name="Heritage" expanded="True" selected="True" />
         </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.ItemProperties.Exercice1 PreferredExecutionTarget="MonoDevelop.Default" FirstBuild="True" />
+  <MonoDevelop.Ide.ItemProperties.Heritage PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

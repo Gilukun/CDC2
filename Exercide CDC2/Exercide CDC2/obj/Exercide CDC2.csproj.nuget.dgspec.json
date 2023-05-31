@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/gillesv/Documents/Game Codeur/CDC2/Exercice1/Exercice1/Exercice1.csproj": {}
+    "/Users/gillesv/Documents/Game Codeur/CDC2/Exercide CDC2/Exercide CDC2/Exercide CDC2.csproj": {}
   },
   "projects": {
-    "/Users/gillesv/Documents/Game Codeur/CDC2/Exercice1/Exercice1/Exercice1.csproj": {
+    "/Users/gillesv/Documents/Game Codeur/CDC2/Exercide CDC2/Exercide CDC2/Exercide CDC2.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/gillesv/Documents/Game Codeur/CDC2/Exercice1/Exercice1/Exercice1.csproj",
-        "projectName": "Exercice1",
-        "projectPath": "/Users/gillesv/Documents/Game Codeur/CDC2/Exercice1/Exercice1/Exercice1.csproj",
+        "projectUniqueName": "/Users/gillesv/Documents/Game Codeur/CDC2/Exercide CDC2/Exercide CDC2/Exercide CDC2.csproj",
+        "projectName": "Exercide CDC2",
+        "projectPath": "/Users/gillesv/Documents/Game Codeur/CDC2/Exercide CDC2/Exercide CDC2/Exercide CDC2.csproj",
         "packagesPath": "/Users/gillesv/.nuget/packages/",
-        "outputPath": "/Users/gillesv/Documents/Game Codeur/CDC2/Exercice1/Exercice1/obj/",
+        "outputPath": "/Users/gillesv/Documents/Game Codeur/CDC2/Exercide CDC2/Exercide CDC2/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/gillesv/.nuget/NuGet/NuGet.Config"

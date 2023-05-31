@@ -12,7 +12,14 @@ namespace Heritage
         public Barbare(string pNom) : base (pNom)
             {
             Console.WriteLine("Je créer un nouveau barbare");
-            DePointsDeVie = "1D12";
-            }
+
+            Des monDe;
+            monDe = new Des();
+            int point2vie = 0;
+            point2vie = monDe.LanceDe("1D6");
+            TotalDePointsDeVie = point2vie;
+            Console.WriteLine("Mon barbare a : " + TotalDePointsDeVie + " point de vie");
+        }
+
     }
 }
