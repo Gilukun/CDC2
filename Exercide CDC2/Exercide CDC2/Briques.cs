@@ -5,6 +5,7 @@ namespace Exercide_CDC2
     {
         public Briques()
         {
+            Console.WriteLine("Je suis une classe brique");
         }
     }
 }

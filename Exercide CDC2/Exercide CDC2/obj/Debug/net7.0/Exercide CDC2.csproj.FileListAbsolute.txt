@@ -1,0 +1,5 @@
+C:\Users\Gilles\Documents\GameCodeur\CDC2\Exercide CDC2\Exercide CDC2\obj\Debug\net7.0\Exercide CDC2.csproj.AssemblyReference.cache
+C:\Users\Gilles\Documents\GameCodeur\CDC2\Exercide CDC2\Exercide CDC2\obj\Debug\net7.0\Exercide CDC2.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Gilles\Documents\GameCodeur\CDC2\Exercide CDC2\Exercide CDC2\obj\Debug\net7.0\Exercide CDC2.AssemblyInfoInputs.cache
+C:\Users\Gilles\Documents\GameCodeur\CDC2\Exercide CDC2\Exercide CDC2\obj\Debug\net7.0\Exercide CDC2.AssemblyInfo.cs
+C:\Users\Gilles\Documents\GameCodeur\CDC2\Exercide CDC2\Exercide CDC2\obj\Debug\net7.0\Exercide CDC2.csproj.CoreCompileInputs.cache

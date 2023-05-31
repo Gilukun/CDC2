@@ -1,26 +1,32 @@
 {
   "format": 1,
   "restore": {
-    "/Users/gillesv/Documents/Game Codeur/CDC2/Test RPG/Test RPG/TestRPG.csproj": {}
+    "C:\\Users\\Gilles\\Documents\\GameCodeur\\CDC2\\Test RPG\\Test RPG\\TestRPG.csproj": {}
   },
   "projects": {
-    "/Users/gillesv/Documents/Game Codeur/CDC2/Test RPG/Test RPG/TestRPG.csproj": {
+    "C:\\Users\\Gilles\\Documents\\GameCodeur\\CDC2\\Test RPG\\Test RPG\\TestRPG.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/gillesv/Documents/Game Codeur/CDC2/Test RPG/Test RPG/TestRPG.csproj",
-        "projectName": "TestRPG",
-        "projectPath": "/Users/gillesv/Documents/Game Codeur/CDC2/Test RPG/Test RPG/TestRPG.csproj",
-        "packagesPath": "/Users/gillesv/.nuget/packages/",
-        "outputPath": "/Users/gillesv/Documents/Game Codeur/CDC2/Test RPG/Test RPG/obj/",
+        "projectUniqueName": "C:\\Users\\Gilles\\Documents\\GameCodeur\\CDC2\\Test RPG\\Test RPG\\TestRPG.csproj",
+        "projectName": "Test RPG",
+        "projectPath": "C:\\Users\\Gilles\\Documents\\GameCodeur\\CDC2\\Test RPG\\Test RPG\\TestRPG.csproj",
+        "packagesPath": "C:\\Users\\Gilles\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Gilles\\Documents\\GameCodeur\\CDC2\\Test RPG\\Test RPG\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "/Users/gillesv/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\Gilles\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
         ],
         "sources": {
-          "/usr/local/share/dotnet/library-packs": {},
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -54,7 +60,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.102/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.302\\RuntimeIdentifierGraph.json"
         }
       }
     }

@@ -1,0 +1,8 @@
+C:\Users\Gilles\Documents\GameCodeur\CDC2\Cours POO\Briques2\obj\Debug\Briques2.csproj.AssemblyReference.cache
+C:\Users\Gilles\Documents\GameCodeur\CDC2\Cours POO\Briques2\obj\Debug\Briques2.csproj.SuggestedBindingRedirects.cache
+C:\Users\Gilles\Documents\GameCodeur\CDC2\Cours POO\Briques2\obj\Debug\Briques2.csproj.CoreCompileInputs.cache
+C:\Users\Gilles\Documents\GameCodeur\CDC2\Cours POO\Briques2\bin\Debug\Briques2.exe.config
+C:\Users\Gilles\Documents\GameCodeur\CDC2\Cours POO\Briques2\bin\Debug\Briques2.exe
+C:\Users\Gilles\Documents\GameCodeur\CDC2\Cours POO\Briques2\bin\Debug\Briques2.pdb
+C:\Users\Gilles\Documents\GameCodeur\CDC2\Cours POO\Briques2\obj\Debug\Briques2.exe
+C:\Users\Gilles\Documents\GameCodeur\CDC2\Cours POO\Briques2\obj\Debug\Briques2.pdb
