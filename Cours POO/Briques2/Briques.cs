@@ -19,6 +19,7 @@ namespace Briques2
         }
         public void setPosition( int pX, int pY)
         {
+            int lanceur = lanceur.getPosition(6);
             x = pX;
             y = pY;
             Console.WriteLine("Ma brique est positionnée à x :" + x + " y : " + y);

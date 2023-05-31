@@ -11,7 +11,7 @@ namespace Briques2
 
     internal class Program
     {
-        private static List<Briques> listeBriques; // pourquoi il m'oblique a mettre static ? 
+        private static List<Briques> listeBriques; // pourquoi il m'oblige à mettre static ? 
 
         static void Main(string[] args)
 
@@ -39,6 +39,10 @@ namespace Briques2
             {
                 items.briqueClass();
             }
+
+
+
+            
 
             foreach (Briques items in listeBriques)
             { 
