@@ -1,0 +1,43 @@
+C:\Users\Gilles\Documents\GameCodeur\CDC2\Cours POO\Sons et Musiques\bin\Debug\net6.0-windows\Content\cool.wma
+C:\Users\Gilles\Documents\GameCodeur\CDC2\Cours POO\Sons et Musiques\bin\Debug\net6.0-windows\Content\cool.xnb
+C:\Users\Gilles\Documents\GameCodeur\CDC2\Cours POO\Sons et Musiques\bin\Debug\net6.0-windows\Content\sfx_movement_jump13.xnb
+C:\Users\Gilles\Documents\GameCodeur\CDC2\Cours POO\Sons et Musiques\bin\Debug\net6.0-windows\Content\sfx_movement_jump13_landing.xnb
+C:\Users\Gilles\Documents\GameCodeur\CDC2\Cours POO\Sons et Musiques\bin\Debug\net6.0-windows\Content\techno.wma
+C:\Users\Gilles\Documents\GameCodeur\CDC2\Cours POO\Sons et Musiques\bin\Debug\net6.0-windows\Content\techno.xnb
+C:\Users\Gilles\Documents\GameCodeur\CDC2\Cours POO\Sons et Musiques\bin\Debug\net6.0-windows\Sons et Musiques.exe
+C:\Users\Gilles\Documents\GameCodeur\CDC2\Cours POO\Sons et Musiques\bin\Debug\net6.0-windows\Sons et Musiques.deps.json
+C:\Users\Gilles\Documents\GameCodeur\CDC2\Cours POO\Sons et Musiques\bin\Debug\net6.0-windows\Sons et Musiques.runtimeconfig.json
+C:\Users\Gilles\Documents\GameCodeur\CDC2\Cours POO\Sons et Musiques\bin\Debug\net6.0-windows\Sons et Musiques.dll
+C:\Users\Gilles\Documents\GameCodeur\CDC2\Cours POO\Sons et Musiques\bin\Debug\net6.0-windows\Sons et Musiques.pdb
+C:\Users\Gilles\Documents\GameCodeur\CDC2\Cours POO\Sons et Musiques\bin\Debug\net6.0-windows\Microsoft.CodeAnalysis.dll
+C:\Users\Gilles\Documents\GameCodeur\CDC2\Cours POO\Sons et Musiques\bin\Debug\net6.0-windows\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\Gilles\Documents\GameCodeur\CDC2\Cours POO\Sons et Musiques\bin\Debug\net6.0-windows\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\Gilles\Documents\GameCodeur\CDC2\Cours POO\Sons et Musiques\bin\Debug\net6.0-windows\MonoGame.Framework.dll
+C:\Users\Gilles\Documents\GameCodeur\CDC2\Cours POO\Sons et Musiques\bin\Debug\net6.0-windows\SharpDX.dll
+C:\Users\Gilles\Documents\GameCodeur\CDC2\Cours POO\Sons et Musiques\bin\Debug\net6.0-windows\SharpDX.Direct2D1.dll
+C:\Users\Gilles\Documents\GameCodeur\CDC2\Cours POO\Sons et Musiques\bin\Debug\net6.0-windows\SharpDX.Direct3D11.dll
+C:\Users\Gilles\Documents\GameCodeur\CDC2\Cours POO\Sons et Musiques\bin\Debug\net6.0-windows\SharpDX.Direct3D9.dll
+C:\Users\Gilles\Documents\GameCodeur\CDC2\Cours POO\Sons et Musiques\bin\Debug\net6.0-windows\SharpDX.DXGI.dll
+C:\Users\Gilles\Documents\GameCodeur\CDC2\Cours POO\Sons et Musiques\bin\Debug\net6.0-windows\SharpDX.Mathematics.dll
+C:\Users\Gilles\Documents\GameCodeur\CDC2\Cours POO\Sons et Musiques\bin\Debug\net6.0-windows\SharpDX.MediaFoundation.dll
+C:\Users\Gilles\Documents\GameCodeur\CDC2\Cours POO\Sons et Musiques\bin\Debug\net6.0-windows\SharpDX.XAudio2.dll
+C:\Users\Gilles\Documents\GameCodeur\CDC2\Cours POO\Sons et Musiques\bin\Debug\net6.0-windows\SharpDX.XInput.dll
+C:\Users\Gilles\Documents\GameCodeur\CDC2\Cours POO\Sons et Musiques\bin\Debug\net6.0-windows\runtimes\debian-x64\native\libuv.so
+C:\Users\Gilles\Documents\GameCodeur\CDC2\Cours POO\Sons et Musiques\bin\Debug\net6.0-windows\runtimes\fedora-x64\native\libuv.so
+C:\Users\Gilles\Documents\GameCodeur\CDC2\Cours POO\Sons et Musiques\bin\Debug\net6.0-windows\runtimes\opensuse-x64\native\libuv.so
+C:\Users\Gilles\Documents\GameCodeur\CDC2\Cours POO\Sons et Musiques\bin\Debug\net6.0-windows\runtimes\osx\native\libuv.dylib
+C:\Users\Gilles\Documents\GameCodeur\CDC2\Cours POO\Sons et Musiques\bin\Debug\net6.0-windows\runtimes\rhel-x64\native\libuv.so
+C:\Users\Gilles\Documents\GameCodeur\CDC2\Cours POO\Sons et Musiques\bin\Debug\net6.0-windows\runtimes\win7-arm\native\libuv.dll
+C:\Users\Gilles\Documents\GameCodeur\CDC2\Cours POO\Sons et Musiques\bin\Debug\net6.0-windows\runtimes\win7-x64\native\libuv.dll
+C:\Users\Gilles\Documents\GameCodeur\CDC2\Cours POO\Sons et Musiques\bin\Debug\net6.0-windows\runtimes\win7-x86\native\libuv.dll
+C:\Users\Gilles\Documents\GameCodeur\CDC2\Cours POO\Sons et Musiques\obj\Debug\net6.0-windows\Sons et Musiques.csproj.AssemblyReference.cache
+C:\Users\Gilles\Documents\GameCodeur\CDC2\Cours POO\Sons et Musiques\obj\Debug\net6.0-windows\Sons et Musiques.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Gilles\Documents\GameCodeur\CDC2\Cours POO\Sons et Musiques\obj\Debug\net6.0-windows\Sons et Musiques.AssemblyInfoInputs.cache
+C:\Users\Gilles\Documents\GameCodeur\CDC2\Cours POO\Sons et Musiques\obj\Debug\net6.0-windows\Sons et Musiques.AssemblyInfo.cs
+C:\Users\Gilles\Documents\GameCodeur\CDC2\Cours POO\Sons et Musiques\obj\Debug\net6.0-windows\Sons et Musiques.csproj.CoreCompileInputs.cache
+C:\Users\Gilles\Documents\GameCodeur\CDC2\Cours POO\Sons et Musiques\obj\Debug\net6.0-windows\Sons et Musiques.csproj.CopyComplete
+C:\Users\Gilles\Documents\GameCodeur\CDC2\Cours POO\Sons et Musiques\obj\Debug\net6.0-windows\Sons et Musiques.dll
+C:\Users\Gilles\Documents\GameCodeur\CDC2\Cours POO\Sons et Musiques\obj\Debug\net6.0-windows\refint\Sons et Musiques.dll
+C:\Users\Gilles\Documents\GameCodeur\CDC2\Cours POO\Sons et Musiques\obj\Debug\net6.0-windows\Sons et Musiques.pdb
+C:\Users\Gilles\Documents\GameCodeur\CDC2\Cours POO\Sons et Musiques\obj\Debug\net6.0-windows\Sons et Musiques.genruntimeconfig.cache
+C:\Users\Gilles\Documents\GameCodeur\CDC2\Cours POO\Sons et Musiques\obj\Debug\net6.0-windows\ref\Sons et Musiques.dll

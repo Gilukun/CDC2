@@ -1,0 +1,5 @@
+Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
+"C:/Users/Gilles/Documents/GameCodeur/CDC2/Cours POO/Sons et Musiques/Content/cool.mp3","C:/Users/Gilles/Documents/GameCodeur/CDC2/Cours POO/Sons et Musiques/Content/bin/Windows/cool.xnb","SongProcessor","SongContent",3884319,122,2,6420019
+"C:/Users/Gilles/Documents/GameCodeur/CDC2/Cours POO/Sons et Musiques/Content/sfx_movement_jump13_landing.wav","C:/Users/Gilles/Documents/GameCodeur/CDC2/Cours POO/Sons et Musiques/Content/bin/Windows/sfx_movement_jump13_landing.xnb","SoundEffectProcessor","SoundEffectContent",8628,8617,0,1758691
+"C:/Users/Gilles/Documents/GameCodeur/CDC2/Cours POO/Sons et Musiques/Content/sfx_movement_jump13.wav","C:/Users/Gilles/Documents/GameCodeur/CDC2/Cours POO/Sons et Musiques/Content/bin/Windows/sfx_movement_jump13.xnb","SoundEffectProcessor","SoundEffectContent",14484,14383,0,1677734
+"C:/Users/Gilles/Documents/GameCodeur/CDC2/Cours POO/Sons et Musiques/Content/techno.mp3","C:/Users/Gilles/Documents/GameCodeur/CDC2/Cours POO/Sons et Musiques/Content/bin/Windows/techno.xnb","SongProcessor","SongContent",6444658,124,2,3418038

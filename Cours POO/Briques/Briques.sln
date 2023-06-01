@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33723.286
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Briques", "Briques.csproj", "{9455CAED-D198-4E3B-846A-B7884310F4AB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Briques", "Briques.csproj", "{6306E9AA-65EF-4F4A-BAC3-203CF3F30716}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{9455CAED-D198-4E3B-846A-B7884310F4AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9455CAED-D198-4E3B-846A-B7884310F4AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9455CAED-D198-4E3B-846A-B7884310F4AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9455CAED-D198-4E3B-846A-B7884310F4AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6306E9AA-65EF-4F4A-BAC3-203CF3F30716}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6306E9AA-65EF-4F4A-BAC3-203CF3F30716}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6306E9AA-65EF-4F4A-BAC3-203CF3F30716}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6306E9AA-65EF-4F4A-BAC3-203CF3F30716}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {1C991E4D-41BD-4D65-8781-D0630AF0FBDC}
+		SolutionGuid = {C006BB4E-7177-46D5-B917-F9A25F7F0915}
 	EndGlobalSection
 EndGlobal
