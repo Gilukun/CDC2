@@ -1,2 +1,5 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
-"C:/Users/Gilles/Documents/GameCodeur/CDC2/Cours POO/Image/Content/slimePurple2.png","C:/Users/Gilles/Documents/GameCodeur/CDC2/Cours POO/Image/Content/bin/Windows/slimePurple2.xnb","TextureProcessor","Texture2DContent",1955,21909,0,1804013
+"C:/Users/Gilles/Documents/GameCodeur/CDC2/Cours POO/Image/Content/metalPanel.png","C:/Users/Gilles/Documents/GameCodeur/CDC2/Cours POO/Image/Content/bin/Windows/metalPanel.xnb","TextureProcessor","Texture2DContent",741,40085,0,1554092
+"C:/Users/Gilles/Documents/GameCodeur/CDC2/Cours POO/Image/Content/personnage.png","C:/Users/Gilles/Documents/GameCodeur/CDC2/Cours POO/Image/Content/bin/Windows/personnage.xnb","TextureProcessor","Texture2DContent",2706,24373,0,0029958
+"C:/Users/Gilles/Documents/GameCodeur/CDC2/Cours POO/Image/Content/slimePurple.png","C:/Users/Gilles/Documents/GameCodeur/CDC2/Cours POO/Image/Content/bin/Windows/slimePurple.xnb","TextureProcessor","Texture2DContent",3068,65621,0,005482
+"C:/Users/Gilles/Documents/GameCodeur/CDC2/Cours POO/Image/Content/slimePurple2.png","C:/Users/Gilles/Documents/GameCodeur/CDC2/Cours POO/Image/Content/bin/Windows/slimePurple2.xnb","TextureProcessor","Texture2DContent",1955,21909,0,0046633

@@ -1,0 +1,4 @@
+Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
+"C:/Users/Gilles/Documents/GameCodeur/CDC2/Cours POO/Background/Content/urban_scrolling1.png","C:/Users/Gilles/Documents/GameCodeur/CDC2/Cours POO/Background/Content/bin/Windows/urban_scrolling1.xnb","TextureProcessor","Texture2DContent",15592,1536085,0,2149274
+"C:/Users/Gilles/Documents/GameCodeur/CDC2/Cours POO/Background/Content/urban_scrolling2.png","C:/Users/Gilles/Documents/GameCodeur/CDC2/Cours POO/Background/Content/bin/Windows/urban_scrolling2.xnb","TextureProcessor","Texture2DContent",9402,1536085,0,0431514
+"C:/Users/Gilles/Documents/GameCodeur/CDC2/Cours POO/Background/Content/urban_scrolling3.png","C:/Users/Gilles/Documents/GameCodeur/CDC2/Cours POO/Background/Content/bin/Windows/urban_scrolling3.xnb","TextureProcessor","Texture2DContent",9494,1536085,0,0527702

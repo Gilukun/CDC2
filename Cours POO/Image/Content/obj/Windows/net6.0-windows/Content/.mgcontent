@@ -4,11 +4,13 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
+    <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/Cours POO/Image/Content/metalPanel.png</File>
     <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/Cours POO/Image/Content/personnage.png</File>
     <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/Cours POO/Image/Content/slimePurple.png</File>
     <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/Cours POO/Image/Content/slimePurple2.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
