@@ -48,7 +48,7 @@ namespace Liste_Image
         }
         public virtual void Affiche(SpriteBatch pSpriteBatch) // injection de dépendance. On ne doit pas utiliser de spriteBacth dans les class. On utilise le spritebatch du Game !
         {
-            pSpriteBatch.Draw(image, new Microsoft.Xna.Framework.Vector2(x, y), Color.White);
+            pSpriteBatch.Draw(image, position, Color.White);
         }
 
         public virtual void Move(GraphicsDeviceManager pGraphics)
