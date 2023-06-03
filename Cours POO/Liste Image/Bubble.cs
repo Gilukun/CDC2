@@ -16,7 +16,7 @@ namespace Liste_Image
         protected float speed;
         protected float speedMax;
         protected Vector2 position; 
-        protected Vector2 velocity;
+        protected Vector2 direction;
 
        
         protected Texture2D image;
@@ -42,6 +42,11 @@ namespace Liste_Image
         }
 
         public virtual void SetPosition(float pX, float pY)
+        {
+            position = new Vector2(pX, pY);
+
+        }
+        public virtual void SetPosition(float pX, float pY, float pDirectionX, float pDirectionY) // polymorphisme
         {
             position = new Vector2(pX, pY);
 

@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net.Http.Headers;
 using System.Text;
@@ -22,25 +23,63 @@ namespace ListeImages
             Random rnd = new Random();
 
             Bubble uneBulle = new Bubble(pContent);
-            Bubble uneBulleRouge = new bBouge(pContent);
-            Bubble uneBulleDown = new bBougeY(pContent);
-            Bubble uneBulleRebond = new bRebond(pContent);
+           
             
-            listeBulles.Add(uneBulleRouge);
+            
+
             listeBulles.Add(uneBulle);
-            listeBulles.Add(uneBulleDown);
-            listeBulles.Add(uneBulleRebond);
+           
+           
+
+            for (int i=1; i<=5; i++)
+            {
+                Bubble uneBulleX = new bBouge(pContent);
+                listeBulles.Add(uneBulleX);
+            }
+
+            for (int i=1; i<=6; i++)
+            {
+                Bubble uneBulleDown = new bBougeY(pContent);
+                listeBulles.Add(uneBulleDown);
+            }
+
+            for (int i = 1; i <=8; i++)
+            {
+                Bubble uneBulleRebond = new bRebond(pContent);
+                listeBulles.Add(uneBulleRebond);
+            }
+
+            int nBulleX = 0;
+            int nBulleY = 0;
+            int nBulleRebond = 0;
 
             foreach (Bubble item in listeBulles)
             {
-                for (int i = 1; i <= 10; i++)
-                {
                     int largeur = pGraphics.GraphicsDevice.Viewport.Width;
                     int hauteur = pGraphics.GraphicsDevice.Viewport.Height;
-
-                    item.SetPosition(rnd.Next(largeur - item.width), rnd.Next(hauteur - item.height));
+               
+                if (item is bBouge &&  nBulleX <= 5)
+                {
+                    
+                    item.SetPosition(rnd.Next(largeur - item.width), rnd.Next(hauteur - item.height), rnd.Next(-1, 1 + 1), 0);
+                    nBulleX++;
                 }
 
+                if (item is bBougeY && nBulleY <= 6)
+                {
+
+                    item.SetPosition(rnd.Next(largeur - item.width), rnd.Next(hauteur - item.height));
+                    nBulleY++;
+                }
+                if (item is bRebond && nBulleY <= 8)
+                {
+
+                    item.SetPosition(rnd.Next(largeur - item.width), rnd.Next(hauteur - item.height),rnd.Next(-1, 1 + 1), rnd.Next(-1, 1 + 1)) ;
+                    nBulleRebond++;
+                }
+
+
+                item.SetPosition(rnd.Next(largeur - item.width), rnd.Next(hauteur - item.height));
             }
         }
         public void Affiche(SpriteBatch spriteBatch) 
@@ -54,6 +93,7 @@ namespace ListeImages
             foreach (Bubble item in listeBulles)
                 item.Move(pGraphics); 
         }
+       
 
         public void Collisions(GraphicsDeviceManager pGraphics)
         {

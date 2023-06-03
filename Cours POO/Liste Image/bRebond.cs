@@ -14,17 +14,14 @@ namespace ListeImages
 {
     internal class bRebond : Bubble
     {
-
-        private float speed = 0.005f; 
-        private float speedMax = 1f; 
         public bRebond(ContentManager pContent) : base(pContent)
         {
         }
 
-        public override void SetPosition(float pX, float pY)
+        public override void SetPosition(float pX, float pY, float pDirectionX, float pDirectionY)
         {
             position = new Vector2(pX, pY);
-            velocity = new Vector2(1, 1);
+            direction = new Vector2(pDirectionX, pDirectionY);
 
         }
         public override void Affiche(SpriteBatch pSpriteBatch)
@@ -34,14 +31,20 @@ namespace ListeImages
 
         public override void Move(GraphicsDeviceManager pGraphics)
         {
-            speedMax = 2f;
-            speed = 0.05f; ;
-            position += velocity * speed;
-            if (Math.Abs(velocity.X) > speedMax)
+            speedMax = 1f;
+            speed = 0.005f;
+            direction += direction * speed;
+            if (Math.Abs(direction.X) > speedMax)
             {
-                velocity = new Vector2((velocity.X < 0 ? 0 - speedMax : speedMax), velocity.Y);  // création d'un if in line (a deux sorties) Estce que Velocity < 0 alors 0 - speedmax. Sinon : speedMax
+                direction = new Vector2((direction.X < 0 ? 0 - speedMax : speedMax), direction.Y);  // création d'un if in line (a deux sorties) Estce que Velocity < 0 alors 0 - speedmax. Sinon : speedMax
             }
-            position += velocity;
+
+            if (Math.Abs(direction.Y) > speedMax)
+            {
+                direction = new Vector2(direction.X, (direction.Y < 0 ? 0 - speedMax : speedMax));  // création d'un if in line (a deux sorties) Estce que Velocity < 0 alors 0 - speedmax. Sinon : speedMax
+            }
+
+            position += direction;
 
             int hauteur = pGraphics.GraphicsDevice.Viewport.Height;
             int largeur = pGraphics.GraphicsDevice.Viewport.Width;
@@ -49,25 +52,25 @@ namespace ListeImages
             if (position.X > largeur - width)
             {
                 position = new Vector2(largeur - width, position.Y);
-                velocity.X = -velocity.X;
+                direction.X = -direction.X;
                 Trace.WriteLine(position);
             }
             if (position.X < 0)
             {
                 position = new Vector2(0, position.Y);
-                velocity = new Vector2(-velocity.X, velocity.Y);
+                direction = new Vector2(-direction.X, direction.Y);
             }
 
             if (position.Y > hauteur - height)
             {
                 position = new Vector2(position.X, hauteur - height);
-                velocity.Y = -velocity.Y;
+                direction.Y = -direction.Y;
                 Trace.WriteLine(position);
             }
             if (position.Y < 0)
             {
                 position = new Vector2(position.X, 0);
-                velocity.Y = - velocity.Y;
+                direction.Y = - direction.Y;
             }
         }
 

@@ -18,9 +18,10 @@ namespace ListeImages
         {
         }
 
-        public override void SetPosition(float pX, float pY)
+        public override void SetPosition(float pX, float pY, float pDirectionX, float pDirectionY)
         {
             position = new Vector2(pX, pY);
+            direction = new Vector2(pDirectionX, pDirectionY);
 
         }
         public override void Affiche(SpriteBatch pSpriteBatch)
@@ -33,12 +34,12 @@ namespace ListeImages
 
             speedMax = 1.9f;
             speed = 0.005f; ;
-            velocity += new Vector2(0, speed);
-            if (Math.Abs(velocity.Y) > speedMax)
+            direction += new Vector2(0, speed);
+            if (Math.Abs(direction.Y) > speedMax)
             {
-                velocity = new Vector2(velocity.X, (velocity.Y < 0 ? 0 - speedMax : speedMax));  // création d'un if in line (a deux sorties) Estce que Velocity < 0 alors 0 - speedmax. Sinon : speedMax
+                direction = new Vector2(direction.X, (direction.Y < 0 ? 0 - speedMax : speedMax));  // création d'un if in line (a deux sorties) Estce que Velocity < 0 alors 0 - speedmax. Sinon : speedMax
             }
-            position += velocity;
+            position += direction;
 
         }
 
@@ -47,7 +48,7 @@ namespace ListeImages
             int hauteur = pGraphics.GraphicsDevice.Viewport.Width;
             if (position.Y > hauteur)
                 position = new Vector2(position.X, 0);
-            velocity = new Vector2(velocity.X, velocity.Y);
+            direction = new Vector2(direction.X, direction.Y);
 
         }
     }
