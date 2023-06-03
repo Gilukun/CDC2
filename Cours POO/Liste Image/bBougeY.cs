@@ -33,7 +33,7 @@ namespace ListeImages
         {
 
             speedMax = 1.9f;
-            speed = 0.005f; ;
+            speed = 0.03f; ;
             direction += new Vector2(0, speed);
             if (Math.Abs(direction.Y) > speedMax)
             {
@@ -48,8 +48,6 @@ namespace ListeImages
             int hauteur = pGraphics.GraphicsDevice.Viewport.Width;
             if (position.Y > hauteur)
                 position = new Vector2(position.X, 0);
-            direction = new Vector2(direction.X, direction.Y);
-
         }
     }
 }

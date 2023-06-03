@@ -49,10 +49,8 @@ namespace ListeImages
             int largeur = pGraphics.GraphicsDevice.Viewport.Width;
             if (position.X > largeur)
                 position = new Vector2(0, position.Y);
-                direction = new Vector2(direction.X, direction.Y);
             if (position.X < 0)
                 position = new Vector2(largeur, position.Y);
-                direction = new Vector2(direction.X, direction.Y);
         }
     }
 }

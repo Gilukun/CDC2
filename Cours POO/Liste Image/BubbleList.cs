@@ -23,13 +23,7 @@ namespace ListeImages
             Random rnd = new Random();
 
             Bubble uneBulle = new Bubble(pContent);
-           
-            
-            
-
             listeBulles.Add(uneBulle);
-           
-           
 
             for (int i=1; i<=5; i++)
             {
@@ -68,18 +62,18 @@ namespace ListeImages
                 if (item is bBougeY && nBulleY <= 6)
                 {
 
-                    item.SetPosition(rnd.Next(largeur - item.width), rnd.Next(hauteur - item.height));
+                    item.SetPosition(rnd.Next(largeur - item.width), rnd.Next(hauteur - item.height), 0, rnd.Next(-1, 1 + 1));
                     nBulleY++;
                 }
                 if (item is bRebond && nBulleY <= 8)
                 {
 
-                    item.SetPosition(rnd.Next(largeur - item.width), rnd.Next(hauteur - item.height),rnd.Next(-1, 1 + 1), rnd.Next(-1, 1 + 1)) ;
+                    item.SetPosition(rnd.Next(largeur - item.width), rnd.Next(hauteur - item.height), rnd.Next(-1, 1 + 1), rnd.Next(-1, 1 + 1));
                     nBulleRebond++;
                 }
 
-
-                item.SetPosition(rnd.Next(largeur - item.width), rnd.Next(hauteur - item.height));
+                else
+                { item.SetPosition(rnd.Next(largeur - item.width), rnd.Next(hauteur - item.height)); }
             }
         }
         public void Affiche(SpriteBatch spriteBatch) 
