@@ -13,7 +13,6 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace ListeImages
 {
-
     internal class BubbleList
     {
         List<Bubble> listeBulles = new List<Bubble>();

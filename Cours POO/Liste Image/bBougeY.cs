@@ -34,7 +34,7 @@ namespace ListeImages
 
             speedMax = 1.9f;
             speed = 0.03f; ;
-            direction += new Vector2(0, speed);
+            position += new Vector2(0, speed);
             if (Math.Abs(direction.Y) > speedMax)
             {
                 direction = new Vector2(direction.X, (direction.Y < 0 ? 0 - speedMax : speedMax));  // création d'un if in line (a deux sorties) Estce que Velocity < 0 alors 0 - speedmax. Sinon : speedMax

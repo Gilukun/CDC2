@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <SourceFile>C:/Users/Gilles/Documents/GameCodeur/CDC2/Cours POO/Template/Content/cool.mp3</SourceFile>
+  <SourceTime>2023-06-05T12:54:00.9401102+04:00</SourceTime>
+  <DestFile>C:/Users/Gilles/Documents/GameCodeur/CDC2/Cours POO/Template/Content/bin/DesktopGL/cool.xnb</DestFile>
+  <DestTime>2023-06-05T12:54:27.7017682+04:00</DestTime>
+  <Importer>Mp3Importer</Importer>
+  <ImporterTime>2022-07-26T15:44:56+04:00</ImporterTime>
+  <Processor>SongProcessor</Processor>
+  <ProcessorTime>2022-07-26T15:44:56+04:00</ProcessorTime>
+  <Parameters>
+    <Key>Quality</Key>
+    <Value>Best</Value>
+  </Parameters>
+  <Dependencies />
+  <BuildAsset />
+  <BuildOutput>
+    <string>C:/Users/Gilles/Documents/GameCodeur/CDC2/Cours POO/Template/Content/bin/DesktopGL/cool.ogg</string>
+  </BuildOutput>
+</PipelineBuildEvent>
