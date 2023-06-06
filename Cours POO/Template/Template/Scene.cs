@@ -19,7 +19,10 @@ namespace Template.Template
             listActors = new List<IActor>();
         }
 
-
+        public void Clean()
+        {
+            listActors.RemoveAll(item => item.ToRemove == true); // On supprime de la liste uniquement les items qui ont la propriété ToRemove= true
+        }
         public virtual void Load()
         {
             

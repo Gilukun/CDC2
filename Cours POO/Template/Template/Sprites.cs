@@ -20,6 +20,7 @@ namespace Template.Template
 
         // SPRITE
         public Texture2D Texture { get;}
+        public bool ToRemove { get; set; }
 
         // Constructeur d'images (textures)
 

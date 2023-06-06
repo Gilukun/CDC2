@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -14,10 +15,14 @@ namespace Template
    
     internal class SceneMenu : Scene
     {
+        // MEMBRES
         KeyboardState oldKbState;
         GamePadState oldGamePadState;
         MouseState newMState;
         private Boutons myButton;
+        private Song music; 
+
+        //
         public SceneMenu(MainGame pGame) : base (pGame)
         {
             Trace.WriteLine("je suis un menu");
@@ -28,6 +33,7 @@ namespace Template
             mainGame.gameState.ChangeScene(GameState.SceneType.Gameplay);
         }
 
+        
         public override void Load()
         {
             Trace.WriteLine("Je load le menu");
@@ -43,6 +49,10 @@ namespace Template
 
             oldKbState = Keyboard.GetState();
             oldGamePadState = GamePad.GetState(PlayerIndex.One, GamePadDeadZone.IndependentAxes);
+
+            music = mainGame.Content.Load<Song>("cool");
+            MediaPlayer.Play(music);
+            MediaPlayer.IsRepeating = true;
             base.Load();
 
         }
@@ -50,6 +60,7 @@ namespace Template
         public override void Unload()
         {
             Trace.WriteLine("J'unload le menu");
+            MediaPlayer.Stop(); 
             base.Unload();
         }
 

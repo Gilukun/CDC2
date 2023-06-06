@@ -1,10 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net.Mime;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,6 +17,7 @@ namespace Template.Template
     class Hero : Sprites
     {
         public int Energy;
+        
         public Hero(Texture2D pTexture) : base(pTexture)
         {
             Energy = 100;
@@ -54,9 +58,18 @@ namespace Template.Template
     {
         private KeyboardState oldKbState;
         GamePadState oldGamePadState;
-        private Hero Ship; 
+        private Hero Ship;
+        private Song musicGp;
+        private SoundEffect sndExplode; 
         public SceneGameplay(MainGame pGame) : base(pGame)
+
         {
+            // On passe l'asset pour la musique directement dans le constructeur.
+            /*
+            musicGp = AssetManager.MusicGameplay;
+            MediaPlayer.Play(musicGp);
+            MediaPlayer.IsRepeating = true;
+            */
         }
 
 
@@ -83,6 +96,15 @@ namespace Template.Template
             // on rajoute notre image à la liste d'acteur 
             listActors.Add(Ship);
 
+            // On peut mettre la musique a la main dans chaque scene ou alors créer un asset dans Asset manager et le passer dans le constructeur.
+            musicGp = mainGame.Content.Load<Song>("techno");
+            MediaPlayer.Play(musicGp);
+            MediaPlayer.IsRepeating = true;
+
+            sndExplode = mainGame.Content.Load<SoundEffect>("explode");
+
+
+
             base.Load();
 
 
@@ -90,11 +112,13 @@ namespace Template.Template
 
         public override void Unload()
         {
+            MediaPlayer.Stop();
             base.Unload();
         }
 
         public override void Update(GameTime gameTime)
         {
+            // Déplacement et collisions
             Rectangle Screen = mainGame.Window.ClientBounds;
             foreach (IActor Actor in listActors)
             {
@@ -128,17 +152,21 @@ namespace Template.Template
                     {
                         Ship.TouchBy(m);
                         m.TouchBy(Ship);
-
+                        m.ToRemove = true;
+                        sndExplode.Play();
                     }
                 }
 
             }
-
+            Clean(); // fonction dans la gestion de la scène globale
+           
+            // ==============================================================================
             KeyboardState NewKbState = Keyboard.GetState();
             GamePadCapabilities capabilities = GamePad.GetCapabilities(PlayerIndex.One); // vérifier si la manette est branchée.
             GamePadState newGamePadState;
             bool butB = false;
 
+            // Déplacements à la manette
             if (capabilities.IsConnected)
             {
                 newGamePadState = GamePad.GetState(PlayerIndex.One, GamePadDeadZone.IndependentAxes); // independantaxis pour récupérer les directions des sticks. Et la zone morte permet de pas avoir de drift
@@ -159,8 +187,8 @@ namespace Template.Template
                     { Ship.Move(-1, 0); }
                  oldGamePadState = newGamePadState;
             }
-            
-
+            //=============================================================================================
+            // Déplacements au clavier
             if (NewKbState.IsKeyDown(Keys.Up)) 
                 {Ship.Move(0, -1);}
             if (NewKbState.IsKeyDown(Keys.Down))
@@ -171,15 +199,11 @@ namespace Template.Template
                 { Ship.Move(-1, 0); }
             oldKbState = NewKbState;
 
-           
-
-
             base.Update(gameTime);
         }
 
         public override void Draw(GameTime gameTime)
         {
-
             mainGame._spriteBatch.DrawString(AssetManager.MainFont,
                                              "This is the GAMEPLAY",
                                              new Vector2(2, 1),

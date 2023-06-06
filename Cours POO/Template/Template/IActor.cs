@@ -17,5 +17,6 @@ namespace Template.Template
         void Update(GameTime pGametime); 
         void Draw(SpriteBatch pSpriteBatch);
         void TouchBy(IActor pBy); // fonction pour la réaction lorsqu'un acteur est touché
+        bool ToRemove { get;set; }  // propriété pour enlever les ennemis touchés
     }
 }
