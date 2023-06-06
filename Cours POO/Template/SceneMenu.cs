@@ -40,8 +40,8 @@ namespace Template
             Rectangle Screen = mainGame.Window.ClientBounds;
             myButton = new Boutons(mainGame.Content.Load<Texture2D>("button"));
             myButton.Position = new Vector2(
-                                            (Screen.Width / 2) - myButton.Texture.Width / 2,
-                                            (Screen.Height / 2) - myButton.Texture.Height / 2
+                                            (Screen.Width / 2) ,
+                                            (Screen.Height / 2)
                                             );
             myButton.onClick = OnClickPlay;
 

@@ -4,6 +4,7 @@
   <Platform>DesktopGL</Platform>
   <Config />
   <SourceFiles>
+    <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/Cours POO/Template/Content/Obus.png</File>
     <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/Cours POO/Template/Content/button.png</File>
     <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/Cours POO/Template/Content/cool.mp3</File>
     <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/Cours POO/Template/Content/explode.wav</File>
@@ -14,11 +15,6 @@
   </SourceFiles>
   <DestFiles>
     <File xsi:nil="true" />
-    <File xsi:nil="true" />
-    <File xsi:nil="true" />
     <File>MainFont.spritefont</File>
-    <File xsi:nil="true" />
-    <File xsi:nil="true" />
-    <File xsi:nil="true" />
   </DestFiles>
 </SourceFileCollection>

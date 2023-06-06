@@ -9,6 +9,7 @@
     <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/Cours POO/Template/Content/explode.wav</File>
     <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/Cours POO/Template/Content/File.spritefont</File>
     <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/Cours POO/Template/Content/meteor.png</File>
+    <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/Cours POO/Template/Content/Obus.png</File>
     <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/Cours POO/Template/Content/ship.png</File>
     <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/Cours POO/Template/Content/techno.mp3</File>
   </SourceFiles>
@@ -17,6 +18,7 @@
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File>MainFont.spritefont</File>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

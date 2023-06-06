@@ -19,6 +19,7 @@ namespace Template.Template
             listActors = new List<IActor>();
         }
 
+        // Fonction pour supprimer les IActor de la liste 
         public void Clean()
         {
             listActors.RemoveAll(item => item.ToRemove == true); // On supprime de la liste uniquement les items qui ont la propriété ToRemove= true

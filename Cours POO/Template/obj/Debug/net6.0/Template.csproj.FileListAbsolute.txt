@@ -32,3 +32,4 @@ C:\Users\Gilles\Documents\GameCodeur\CDC2\Cours POO\Template\obj\Debug\net6.0\re
 C:\Users\Gilles\Documents\GameCodeur\CDC2\Cours POO\Template\obj\Debug\net6.0\Template.pdb
 C:\Users\Gilles\Documents\GameCodeur\CDC2\Cours POO\Template\obj\Debug\net6.0\Template.genruntimeconfig.cache
 C:\Users\Gilles\Documents\GameCodeur\CDC2\Cours POO\Template\obj\Debug\net6.0\ref\Template.dll
+C:\Users\Gilles\Documents\GameCodeur\CDC2\Cours POO\Template\bin\Debug\net6.0\Content\Obus.xnb

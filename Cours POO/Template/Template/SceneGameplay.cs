@@ -7,7 +7,9 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Net.Mime;
+using System.Runtime.Intrinsics.X86;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -48,9 +50,27 @@ namespace Template.Template
             do 
             { 
                 vy = (float)Template.Utilitaires.GetInt(-3, 3) / 5;
-            } while(vx == 0);
+            } while(vy == 0);
         }
-    
+
+
+    }
+
+    class Bullet : Sprites
+    {
+       
+        public Bullet(Texture2D pTexture) : base(pTexture)
+        {
+        }
+
+        public override void Shoot(Vector2 pPosition, Vector2 pdirection, float pSpeed)
+        {
+            Position = pPosition;
+            Direction = pdirection;
+            Speed = pSpeed;
+
+        }
+
     }
 
 
@@ -60,8 +80,13 @@ namespace Template.Template
         GamePadState oldGamePadState;
         private Hero Ship;
         private Song musicGp;
-        private SoundEffect sndExplode; 
+        private SoundEffect sndExplode;
+        private Texture2D bullets;
+        private MouseState newMState;
+        private MouseState oldMState;
+
         public SceneGameplay(MainGame pGame) : base(pGame)
+          
 
         {
             // On passe l'asset pour la musique directement dans le constructeur.
@@ -78,6 +103,7 @@ namespace Template.Template
             oldKbState = Keyboard.GetState();
             Rectangle Screen = mainGame.Window.ClientBounds; // récupérer les dimensions de l'écran
 
+            //METEOR
             // liste des météors
             for (int i=0; i<=20; i++)
             {
@@ -89,13 +115,16 @@ namespace Template.Template
                     
                 listActors.Add(m);
             }
-
+            
+            // HERO
             Ship = new Hero(mainGame.Content.Load<Texture2D>("ship"));
             // on donne la position de départ du vaissau
-            Ship.Position = new Vector2((Screen.Width/2) - Ship.Texture.Width/2 , (Screen.Height / 2) - Ship.Texture.Height / 2);
+            Ship.Position = new Vector2((Screen.Width/2) , (Screen.Height / 2));
             // on rajoute notre image à la liste d'acteur 
             listActors.Add(Ship);
 
+
+            //MUSIC & SFX
             // On peut mettre la musique a la main dans chaque scene ou alors créer un asset dans Asset manager et le passer dans le constructeur.
             musicGp = mainGame.Content.Load<Song>("techno");
             MediaPlayer.Play(musicGp);
@@ -103,10 +132,12 @@ namespace Template.Template
 
             sndExplode = mainGame.Content.Load<SoundEffect>("explode");
 
+            // Balles
 
-
+            oldMState = Mouse.GetState();
+            bullets = mainGame.Content.Load<Texture2D>("Obus");
+            
             base.Load();
-
 
         }
 
@@ -116,8 +147,22 @@ namespace Template.Template
             base.Unload();
         }
 
+       
         public override void Update(GameTime gameTime)
         {
+            if (newMState.LeftButton == ButtonState.Pressed && oldMState.LeftButton == ButtonState.Released)
+            {
+                Trace.WriteLine("Je clique");
+                Bullet nB = new Bullet(bullets);
+                nB.Position = new Vector2(Ship.Position.X, Ship.Position.Y);
+                Vector2 direction = Vector2.Normalize(new Vector2(newMState.X, newMState.Y) - Ship.Position);
+                Trace.WriteLine(direction);
+                nB.Shoot(nB.Position, direction, 10f);
+
+                listActors.Add(nB);
+
+            }
+            oldMState = newMState;
             // Déplacement et collisions
             Rectangle Screen = mainGame.Window.ClientBounds;
             foreach (IActor Actor in listActors)
@@ -155,9 +200,27 @@ namespace Template.Template
                         m.ToRemove = true;
                         sndExplode.Play();
                     }
+                    
+                }
+                else if (Actor is Bullet b)
+                {
+                    foreach ( IActor OtherActor in listActors)
+                        if (OtherActor is Meteor m2 && (Utilitaires.CollideByBox(b, m2)))
+                            {
+                                m2.TouchBy(b);
+                                b.TouchBy(m2);
+                                m2.ToRemove = true;
+                                b.ToRemove = true;
+                                sndExplode.Play();
+                            }
                 }
 
             }
+
+            newMState = Mouse.GetState();
+
+
+
             Clean(); // fonction dans la gestion de la scène globale
            
             // ==============================================================================
@@ -189,13 +252,13 @@ namespace Template.Template
             }
             //=============================================================================================
             // Déplacements au clavier
-            if (NewKbState.IsKeyDown(Keys.Up)) 
+            if (NewKbState.IsKeyDown(Keys.Z)) 
                 {Ship.Move(0, -1);}
-            if (NewKbState.IsKeyDown(Keys.Down))
+            if (NewKbState.IsKeyDown(Keys.S))
                 { Ship.Move(0, 1);}
-            if (NewKbState.IsKeyDown(Keys.Right))
+            if (NewKbState.IsKeyDown(Keys.D))
             { Ship.Move(1, 0); }
-            if (NewKbState.IsKeyDown(Keys.Left))
+            if (NewKbState.IsKeyDown(Keys.Q))
                 { Ship.Move(-1, 0); }
             oldKbState = NewKbState;
 
@@ -208,6 +271,8 @@ namespace Template.Template
                                              "This is the GAMEPLAY",
                                              new Vector2(2, 1),
                                              Color.White);
+
+     
             base.Draw(gameTime); 
         }
     }

@@ -10,6 +10,7 @@ namespace Template
         private GraphicsDeviceManager _graphics;
         public SpriteBatch _spriteBatch; // changer en public !
         public GameState gameState;
+        internal object Camera;
 
         public MainGame()
         {
