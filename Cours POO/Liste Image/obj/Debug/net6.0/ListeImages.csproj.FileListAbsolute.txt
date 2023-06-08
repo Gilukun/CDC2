@@ -24,3 +24,6 @@ C:\Users\Gilles\Documents\GameCodeur\CDC2\Cours POO\Liste Image\obj\Debug\net6.0
 C:\Users\Gilles\Documents\GameCodeur\CDC2\Cours POO\Liste Image\obj\Debug\net6.0\ListeImages.pdb
 C:\Users\Gilles\Documents\GameCodeur\CDC2\Cours POO\Liste Image\obj\Debug\net6.0\ListeImages.genruntimeconfig.cache
 C:\Users\Gilles\Documents\GameCodeur\CDC2\Cours POO\Liste Image\obj\Debug\net6.0\ref\ListeImages.dll
+C:\Users\Gilles\Documents\GameCodeur\CDC2\Cours POO\Liste Image\bin\Debug\net6.0\Content\background.xnb
+C:\Users\Gilles\Documents\GameCodeur\CDC2\Cours POO\Liste Image\bin\Debug\net6.0\Content\RoundArkanoid.xnb
+C:\Users\Gilles\Documents\GameCodeur\CDC2\Cours POO\Liste Image\bin\Debug\net6.0\Content\Balle.xnb

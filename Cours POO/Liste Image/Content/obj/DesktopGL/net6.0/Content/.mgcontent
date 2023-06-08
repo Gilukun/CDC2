@@ -4,9 +4,15 @@
   <Platform>DesktopGL</Platform>
   <Config />
   <SourceFiles>
+    <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/Cours POO/Liste Image/Content/background.png</File>
+    <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/Cours POO/Liste Image/Content/Balle.png</File>
     <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/Cours POO/Liste Image/Content/Bulle.png</File>
+    <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/Cours POO/Liste Image/Content/RoundArkanoid.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
   </DestFiles>
 </SourceFileCollection>

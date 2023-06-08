@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Net.Http.Headers;
+using System.Runtime.CompilerServices;
 
 namespace Liste_Image
 {
@@ -13,6 +14,7 @@ namespace Liste_Image
         private SpriteBatch _spriteBatch;
 
         private Texture2D img;
+        private Texture2D background;
 
         //private Bubble image; 
         private BubbleList mesBulles; 
@@ -20,7 +22,8 @@ namespace Liste_Image
         private int lScreen;
         public int hScreen;
         private Bubble Bouge;
-        private ScreenManager _ScreenManager; // on le déclare pour stocker 
+        private ScreenManager _ScreenManager; // on le déclare pour stocker
+        private ScreenManager _Resolution;
 
         public Game1()
         {
@@ -28,7 +31,8 @@ namespace Liste_Image
 
             _ScreenManager = new ScreenManager(_graphics);
             ServiceLocator.RegisterService<ScreenManager>(_ScreenManager);
-           
+            _Resolution = ServiceLocator.GetService<ScreenManager>();
+            _Resolution.ChangeResolution(1024, 1024);
 
 
             Content.RootDirectory = "Content";
@@ -54,7 +58,8 @@ namespace Liste_Image
             ServiceLocator.RegisterService<ContentManager>(Content);
             ServiceLocator.RegisterService<GraphicsDeviceManager>(_graphics);
 
-            img = Content.Load<Texture2D>("Bulle");
+            //img = Content.Load<Texture2D>("Balle");
+            background = Content.Load<Texture2D>("RoundArkanoid");
             //lScreen = GraphicsDevice.Viewport.Width; 
             //hScreen = GraphicsDevice.Viewport.Height;
             //image = new Bubble(Content, 100f,200f); 
@@ -62,6 +67,7 @@ namespace Liste_Image
             mesBulles = new BubbleList() ;
             //position = new Vector2(0, 0);
             // TODO: use this.Content to load your game content here
+           
         }
 
         protected override void Update(GameTime gameTime)
@@ -84,6 +90,7 @@ namespace Liste_Image
             // TODO: Add your drawing code here
 
             _spriteBatch.Begin();
+            _spriteBatch.Draw(background, new Vector2(0, 0), Color.White);
             mesBulles.Affiche();
             _spriteBatch.End();
 

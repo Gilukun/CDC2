@@ -38,7 +38,7 @@ namespace Liste_Image
         public Bubble() // pour ne pas avoir à indiquer les images a chaque fois on utilise le constructeur
         {
             ContentManager Content = ServiceLocator.GetService<ContentManager>();   
-            image = Content.Load<Texture2D>("Bulle");
+            image = Content.Load<Texture2D>("Balle");
             n++; // il va compter le nombre total de bulles créées quelque soit sa classe/instance
     
         }

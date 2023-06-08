@@ -27,7 +27,7 @@ namespace ListeImages
         {
             SpriteBatch _spriteBatch = ServiceLocator.GetService<SpriteBatch>();
 
-            _spriteBatch.Draw(image, position, Color.PaleGoldenrod);
+            _spriteBatch.Draw(image, position, Color.MediumPurple);
         }
 
         public override void Move()

@@ -37,19 +37,19 @@ namespace ListeImages
             Bubble uneBulle = new Bubble();
             listeBulles.Add(uneBulle);
 
-            for (int i=1; i<=12; i++)
+            for (int i=1; i<=5; i++)
             {
                 Bubble uneBulleX = new bBouge();
                 listeBulles.Add(uneBulleX);
             }
 
-            for (int i=1; i<=6; i++)
+            for (int i=1; i<=5; i++)
             {
                 Bubble uneBulleDown = new bBougeY();
                 listeBulles.Add(uneBulleDown);
             }
 
-            for (int i = 1; i <=20; i++)
+            for (int i = 1; i <=5; i++)
             {
                 Bubble uneBulleRebond = new bRebond();
                 listeBulles.Add(uneBulleRebond);
@@ -57,20 +57,21 @@ namespace ListeImages
 
             foreach (Bubble item in listeBulles)
             {
-                if (item is bBouge &&  nBulleX <= 12)
+                if (item is bBouge &&  nBulleX <= 5)
                 {
-                    item.SetPosition(rnd.Next(screenSize.X - item.width), rnd.Next(screenSize.Y - item.height), rnd.Next(-1, 1 + 1), 0);
+                    item.SetPosition(rnd.Next(screenSize.X - item.width), rnd.Next(screenSize.Y - item.height), -1, 0);
                     nBulleX++;
+                    Trace.WriteLine(screenSize.X);
                 }
 
-                if (item is bBougeY && nBulleY <= 6)
+                if (item is bBougeY && nBulleY <= 5)
                 {
-                    item.SetPosition(rnd.Next(screenSize.X - item.width), rnd.Next(screenSize.Y - item.height), 0, rnd.Next(-1, 1 + 1));
+                    item.SetPosition(rnd.Next(screenSize.X - item.width), rnd.Next(screenSize.Y - item.height), 0, 1);
                     nBulleY++;
                 }
-                if (item is bRebond && nBulleRebond <= 20)
+                if (item is bRebond && nBulleRebond <= 5)
                 {
-                    item.SetPosition(rnd.Next(screenSize.X - item.width), rnd.Next(screenSize.Y - item.height), rnd.Next(-1, 1 + 1), rnd.Next(-1, 1 + 1));
+                    item.SetPosition(rnd.Next(screenSize.X - item.width), rnd.Next(screenSize.Y - item.height), rnd.Next(-1, 1), rnd.Next(-1, 1));
                     nBulleRebond++;
                 }
 
@@ -86,14 +87,13 @@ namespace ListeImages
 
         public void Move()
         {
-            //GraphicsDeviceManager _graphics = ServiceLocator.GetService<GraphicsDeviceManager>();
+
             foreach (Bubble item in listeBulles)
                 item.Move(); 
         }
 
         public void Collisions()
         {
-            GraphicsDeviceManager _graphics = ServiceLocator.GetService<GraphicsDeviceManager>();
             foreach (Bubble item in listeBulles)
                 item.Collisions();
         }
