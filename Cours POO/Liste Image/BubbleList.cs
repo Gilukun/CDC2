@@ -22,7 +22,7 @@ namespace ListeImages
         {
             ContentManager Content = ServiceLocator.GetService<ContentManager>();
             ScreenManager screenManager = ServiceLocator.GetService<ScreenManager>();
-            Point screenSize = screenManager.GetScreenSize();
+            //Point screenSize = screenManager.GetScreenSize();
 
             Random rnd = new Random();
             int nBulleX = 0;
@@ -32,6 +32,7 @@ namespace ListeImages
             //int hauteur = pGraphics.GraphicsDevice.Viewport.Height;
             ///int largeur = _graphics.PreferredBackBufferWidth; // on peut aussi utiliser le PrefferedBuffer car on l'utilise pour modifier la taille de l'écran
             //int hauteur = _graphics.PreferredBackBufferHeight;
+           
 
 
             Bubble uneBulle = new Bubble();
@@ -59,24 +60,24 @@ namespace ListeImages
             {
                 if (item is bBouge &&  nBulleX <= 5)
                 {
-                    item.SetPosition(rnd.Next(screenSize.X - item.width), rnd.Next(screenSize.Y - item.height), -1, 0);
+                    item.SetPosition(rnd.Next(ScreenWidth - item.width), rnd.Next(ScreenHeitgh - item.height), -1, 0);
                     nBulleX++;
-                    Trace.WriteLine(screenSize.X);
+                    
                 }
 
                 if (item is bBougeY && nBulleY <= 5)
                 {
-                    item.SetPosition(rnd.Next(screenSize.X - item.width), rnd.Next(screenSize.Y - item.height), 0, 1);
+                    item.SetPosition(rnd.Next(ScreenWidth - item.width), rnd.Next(ScreenHeitgh - item.height), 0, 1);
                     nBulleY++;
                 }
                 if (item is bRebond && nBulleRebond <= 5)
                 {
-                    item.SetPosition(rnd.Next(screenSize.X - item.width), rnd.Next(screenSize.Y - item.height), rnd.Next(-1, 1), rnd.Next(-1, 1));
+                    item.SetPosition(rnd.Next(ScreenWidth - item.width), rnd.Next(ScreenHeitgh - item.height), rnd.Next(-1, 1), rnd.Next(-1, 1));
                     nBulleRebond++;
                 }
 
                 else
-                { item.SetPosition(rnd.Next(screenSize.X - item.width), rnd.Next(screenSize.Y - item.height)); }
+                { item.SetPosition(rnd.Next(ScreenWidth - item.width), rnd.Next(ScreenHeitgh - item.height)); }
             }
         }
         public void Affiche()

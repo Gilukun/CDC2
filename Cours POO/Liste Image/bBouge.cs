@@ -46,13 +46,13 @@ namespace ListeImages
         public override void Collisions()
         {
             ScreenManager screenManager = ServiceLocator.GetService<ScreenManager>();
-            Point screenSize = screenManager.GetScreenSize();
+            // Point screenSize = screenManager.GetScreenSize();  Comme on a mis width/height en int {get;} on peut le récupérer et ça devient plus lisible
 
             //int largeur = pGraphics.GraphicsDevice.Viewport.Width;
-            if (position.X > screenSize.X)
+            if (position.X > width)
                 position = new Vector2(0, position.Y);
             if (position.X < 0)
-                position = new Vector2(screenSize.X, position.Y);
+                position = new Vector2(width, position.Y);
         }
     }
 }

@@ -45,9 +45,9 @@ namespace ListeImages
         public override void Collisions()
         {
             ScreenManager screenManager = ServiceLocator.GetService<ScreenManager>();
-            Point screenSize = screenManager.GetScreenSize();
+            //Point screenSize = screenManager.GetScreenSize();
             //int hauteur = pGraphics.GraphicsDevice.Viewport.Width;
-            if (position.Y > screenSize.Y)
+            if (position.Y > width)
                 position = new Vector2(position.X, 0);
         }
     }

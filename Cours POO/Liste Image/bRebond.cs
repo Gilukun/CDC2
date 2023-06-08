@@ -49,12 +49,12 @@ namespace ListeImages
             //int largeur = pGraphics.GraphicsDevice.Viewport.Width;
 
             ScreenManager screenManager = ServiceLocator.GetService<ScreenManager>();
-            Point screenSize = screenManager.GetScreenSize();
+            //Point width = screenManager.GetScreenSize();
             
 
-            if (position.X > screenSize.X - width)
+            if (position.X > width - base.width)
             {
-                position = new Vector2(screenSize.X - width, position.Y);
+                position = new Vector2(width - base.width, position.Y);
                 direction.X = -direction.X; 
             }
 
@@ -64,9 +64,9 @@ namespace ListeImages
                 direction = new Vector2(-direction.X, direction.Y);
             }
 
-            if (position.Y > screenSize.Y - height)
+            if (position.Y > width - height)
             {
-                position = new Vector2(position.X, screenSize.Y - height);
+                position = new Vector2(position.X, width - height);
                 direction.Y = -direction.Y;
             }
 

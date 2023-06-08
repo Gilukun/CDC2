@@ -10,12 +10,20 @@ namespace ListeImages
 {
     public interface ScreenSize // on rajoute une couche d'abstraction à notre ScreenManager.                           
                                 // Les intances auront accès qu'a cette info.Elle "expose" que la partie de cette classe 
+                                // Interface ne contient que des méthode et pas de propriété (fonction)
     {
        Point GetScreenSize();  // point c'est comme Vector mais avec des int à la place des float
+        int ScreenWidth { get; }
+        int ScreenHeitgh { get; }
+
        }
     internal class ScreenManager
     {
         private GraphicsDeviceManager _graphics;
+        public int ScreenWidth // propriété qui permet de récuperer des infos du manager sans qu l'utilisateur puisse savoir d'ou ça vient. Et permet de traiter la propriété comme une variable.
+        { get { return _graphics.PreferredBackBufferWidth; } }
+        public int ScreenHeight{ get { return _graphics.PreferredBackBufferHeight; } }
+
         public ScreenManager(GraphicsDeviceManager pGraphics) 
         
         { 
@@ -34,5 +42,7 @@ namespace ListeImages
             _graphics.ApplyChanges();
         
         }
+
+
     }
 }

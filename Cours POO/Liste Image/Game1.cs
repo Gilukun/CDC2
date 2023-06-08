@@ -3,8 +3,12 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Specialized;
+using System.IO;
 using System.Net.Http.Headers;
 using System.Runtime.CompilerServices;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace Liste_Image
 {
@@ -24,6 +28,7 @@ namespace Liste_Image
         private Bubble Bouge;
         private ScreenManager _ScreenManager; // on le déclare pour stocker
         private ScreenManager _Resolution;
+        private Level level;
 
         public Game1()
         {
@@ -43,8 +48,18 @@ namespace Liste_Image
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            Level level = new Level(1);
+            level.RandomLevel();
+            level.Save();
+            
+            string levelJson = File.ReadAllText("level1.json");
+            Level levelFromFile = JsonSerializer.Deserialize<Level>(levelJson);
+         
 
             base.Initialize();
+           
+
+
         }
 
         protected override void LoadContent()
