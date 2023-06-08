@@ -1,5 +1,6 @@
 ﻿using ListeImages;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Net.Http.Headers;
@@ -18,10 +19,18 @@ namespace Liste_Image
         private Vector2 position;
         private int lScreen;
         public int hScreen;
-        private Bubble Bouge; 
+        private Bubble Bouge;
+        private ScreenManager _ScreenManager; // on le déclare pour stocker 
+
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
+
+            _ScreenManager = new ScreenManager(_graphics);
+            ServiceLocator.RegisterService<ScreenManager>(_ScreenManager);
+           
+
+
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
            
@@ -37,13 +46,20 @@ namespace Liste_Image
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-           
+
+            ServiceLocator.RegisterService<SpriteBatch>(_spriteBatch); // ici on demande à notre service locator de récupérer le spriteBatch.
+                                                                       // En faisant ça on peut suprimer la necessité de demander le spritebatch du game.
+                                                                       // On doit quand même demander à nos instances de GetService pour savoir quel service ils doivent dmander
+
+            ServiceLocator.RegisterService<ContentManager>(Content);
+            ServiceLocator.RegisterService<GraphicsDeviceManager>(_graphics);
+
             img = Content.Load<Texture2D>("Bulle");
             //lScreen = GraphicsDevice.Viewport.Width; 
             //hScreen = GraphicsDevice.Viewport.Height;
             //image = new Bubble(Content, 100f,200f); 
 
-            mesBulles = new BubbleList(Content, _graphics) ;
+            mesBulles = new BubbleList() ;
             //position = new Vector2(0, 0);
             // TODO: use this.Content to load your game content here
         }
@@ -55,8 +71,8 @@ namespace Liste_Image
 
             // TODO: Add your update logic here
 
-            mesBulles.Move(_graphics);
-            mesBulles.Collisions(_graphics);
+            mesBulles.Move();
+            mesBulles.Collisions();
 
             base.Update(gameTime);
         }
@@ -68,7 +84,7 @@ namespace Liste_Image
             // TODO: Add your drawing code here
 
             _spriteBatch.Begin();
-            mesBulles.Affiche(_spriteBatch);
+            mesBulles.Affiche();
             _spriteBatch.End();
 
             base.Draw(gameTime);

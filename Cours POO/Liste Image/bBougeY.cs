@@ -14,7 +14,7 @@ namespace ListeImages
 {
     internal class bBougeY : Bubble
     {
-        public bBougeY(ContentManager pContent) : base(pContent)
+        public bBougeY() : base()
         {
         }
 
@@ -24,29 +24,30 @@ namespace ListeImages
             direction = new Vector2(pDirectionX, pDirectionY);
 
         }
-        public override void Affiche(SpriteBatch pSpriteBatch)
+        public override void Affiche()
         {
-            pSpriteBatch.Draw(image, position, Color.BlueViolet);
+            SpriteBatch _spriteBatch = ServiceLocator.GetService<SpriteBatch>();
+
+            _spriteBatch.Draw(image, position, Color.Green);
         }
 
-        public override void Move(GraphicsDeviceManager pGraphics)
+        public override void Move()
         {
-
-            speedMax = 1.9f;
-            speed = 0.03f; ;
-            position += new Vector2(0, speed);
-            if (Math.Abs(direction.Y) > speedMax)
-            {
-                direction = new Vector2(direction.X, (direction.Y < 0 ? 0 - speedMax : speedMax));  // création d'un if in line (a deux sorties) Estce que Velocity < 0 alors 0 - speedmax. Sinon : speedMax
-            }
-            position += direction;
-
+            //speedMax = 20f;
+            speed = 5f; 
+            position += direction * speed;
+            //if (Math.Abs(direction.Y) > speedMax)
+            //{
+               // direction = new Vector2(direction.X, (direction.Y < 0 ? 0 - speedMax : speedMax));  // création d'un if in line (a deux sorties) Estce que Velocity < 0 alors 0 - speedmax. Sinon : speedMax
+            //}
         }
 
-        public override void Collisions(GraphicsDeviceManager pGraphics)
+        public override void Collisions()
         {
-            int hauteur = pGraphics.GraphicsDevice.Viewport.Width;
-            if (position.Y > hauteur)
+            ScreenManager screenManager = ServiceLocator.GetService<ScreenManager>();
+            Point screenSize = screenManager.GetScreenSize();
+            //int hauteur = pGraphics.GraphicsDevice.Viewport.Width;
+            if (position.Y > screenSize.Y)
                 position = new Vector2(position.X, 0);
         }
     }

@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using ListeImages;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -17,9 +18,9 @@ namespace Liste_Image
         protected float speedMax;
         protected Vector2 position; 
         protected Vector2 direction;
-
-       
         protected Texture2D image;
+
+        private static int n; // membre static, il est partagé avec toutes les instances/classes de bulles
         public int width
         { get
             { 
@@ -34,33 +35,33 @@ namespace Liste_Image
             }
         }
 
-
-        public Bubble(ContentManager pContent) // pour ne pas avoir à indiquer les images a chaque fois on utilise le constructeur
+        public Bubble() // pour ne pas avoir à indiquer les images a chaque fois on utilise le constructeur
         {
-            image = pContent.Load<Texture2D>("Bulle");
- 
+            ContentManager Content = ServiceLocator.GetService<ContentManager>();   
+            image = Content.Load<Texture2D>("Bulle");
+            n++; // il va compter le nombre total de bulles créées quelque soit sa classe/instance
+    
         }
-
         public virtual void SetPosition(float pX, float pY)
         {
             position = new Vector2(pX, pY);
-
         }
         public virtual void SetPosition(float pX, float pY, float pDirectionX, float pDirectionY) // polymorphisme
         {
             position = new Vector2(pX, pY);
-
         }
-        public virtual void Affiche(SpriteBatch pSpriteBatch) // injection de dépendance. On ne doit pas utiliser de spriteBacth dans les class. On utilise le spritebatch du Game !
+        public virtual void Affiche() // injection de dépendance. On ne doit pas utiliser de _spriteBacth.Draw dans les class. On utilise le spritebatch du Game !
         {
-            pSpriteBatch.Draw(image, position, Color.White);
+            SpriteBatch _spriteBatch = ServiceLocator.GetService<SpriteBatch>();
+
+            _spriteBatch.Draw(image, position, Color.White);
         }
 
-        public virtual void Move(GraphicsDeviceManager pGraphics)
+        public virtual void Move()
         {
         }
 
-        public virtual void Collisions(GraphicsDeviceManager pGraphics)
+        public virtual void Collisions()
         {
         }
     }

@@ -15,7 +15,7 @@ namespace ListeImages
 {
     internal class bBouge : Bubble
     {
-                public bBouge(ContentManager pContent) : base(pContent)
+        public bBouge() : base()
         {
         }
 
@@ -25,32 +25,34 @@ namespace ListeImages
             direction = new Vector2(pDirectionX, pDirectionY);
 
         }
-        public override void Affiche(SpriteBatch pSpriteBatch)
+        public override void Affiche()
         {
-            pSpriteBatch.Draw(image, position, Color.Red);
+            SpriteBatch _spriteBatch = ServiceLocator.GetService<SpriteBatch>();
+
+            _spriteBatch.Draw(image, position, Color.Red);
         }
 
-        public override void Move(GraphicsDeviceManager pGraphics)
+        public override void Move()
         {
-
-            speedMax = 10f;
+            //speedMax = 1f;
             speed = 0.9f;
             position += direction * speed; 
-            if (Math.Abs(direction.X) > speedMax)
-            {
-                direction = new Vector2((direction.X < 0 ? 0 - speedMax : speedMax), direction.Y);  // création d'un if in line (a deux sorties) Estce que Velocity < 0 alors 0 - speedmax. Sinon : speedMax
-            }
-            position += direction;
-
+            //if (Math.Abs(direction.X) > speedMax)
+            //{
+            //   direction = new Vector2((direction.X < 0 ? 0 - speedMax : speedMax), direction.Y);  // création d'un if in line (a deux sorties) Estce que direction < 0 alors 0 - speedmax. Sinon : speedMax
+            //}
         }
 
-        public override void Collisions(GraphicsDeviceManager pGraphics)
+        public override void Collisions()
         {
-            int largeur = pGraphics.GraphicsDevice.Viewport.Width;
-            if (position.X > largeur)
+            ScreenManager screenManager = ServiceLocator.GetService<ScreenManager>();
+            Point screenSize = screenManager.GetScreenSize();
+
+            //int largeur = pGraphics.GraphicsDevice.Viewport.Width;
+            if (position.X > screenSize.X)
                 position = new Vector2(0, position.Y);
             if (position.X < 0)
-                position = new Vector2(largeur, position.Y);
+                position = new Vector2(screenSize.X, position.Y);
         }
     }
 }

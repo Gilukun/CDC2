@@ -14,7 +14,7 @@ namespace ListeImages
 {
     internal class bRebond : Bubble
     {
-        public bRebond(ContentManager pContent) : base(pContent)
+        public bRebond() : base()
         {
         }
 
@@ -22,51 +22,54 @@ namespace ListeImages
         {
             position = new Vector2(pX, pY);
             direction = new Vector2(pDirectionX, pDirectionY);
-
         }
-        public override void Affiche(SpriteBatch pSpriteBatch)
+        public override void Affiche()
         {
-            pSpriteBatch.Draw(image, position, Color.GreenYellow);
+            SpriteBatch _spriteBatch = ServiceLocator.GetService<SpriteBatch>();
+
+            _spriteBatch.Draw(image, position, Color.PaleGoldenrod);
         }
 
-        public override void Move(GraphicsDeviceManager pGraphics)
+        public override void Move()
         {
-            speedMax = 1f;
-            speed = 0.005f;
+            //speedMax = 10f;
+            speed = 5f;
             position += direction * speed;
-            if (Math.Abs(direction.X) > speedMax)
+            //if (Math.Abs(direction.X) > speedMax)
+            //{
+            //    direction = new Vector2((direction.X < 0 ? 0 - speedMax : speedMax), direction.Y);  // création d'un if in line (a deux sorties) Estce que Velocity < 0 alors 0 - speedmax. Sinon : speedMax
+            //}
+
+            //if (Math.Abs(direction.Y) > speedMax)
+            //{
+            //    direction = new Vector2(direction.X, (direction.Y < 0 ? 0 - speedMax : speedMax));  // création d'un if in line (a deux sorties) Estce que Velocity < 0 alors 0 - speedmax. Sinon : speedMax
+            //}
+
+            //int hauteur = pGraphics.GraphicsDevice.Viewport.Height;
+            //int largeur = pGraphics.GraphicsDevice.Viewport.Width;
+
+            ScreenManager screenManager = ServiceLocator.GetService<ScreenManager>();
+            Point screenSize = screenManager.GetScreenSize();
+            
+
+            if (position.X > screenSize.X - width)
             {
-                direction = new Vector2((direction.X < 0 ? 0 - speedMax : speedMax), direction.Y);  // création d'un if in line (a deux sorties) Estce que Velocity < 0 alors 0 - speedmax. Sinon : speedMax
+                position = new Vector2(screenSize.X - width, position.Y);
+                direction.X = -direction.X; 
             }
 
-            if (Math.Abs(direction.Y) > speedMax)
-            {
-                direction = new Vector2(direction.X, (direction.Y < 0 ? 0 - speedMax : speedMax));  // création d'un if in line (a deux sorties) Estce que Velocity < 0 alors 0 - speedmax. Sinon : speedMax
-            }
-
-            position += direction;
-
-            int hauteur = pGraphics.GraphicsDevice.Viewport.Height;
-            int largeur = pGraphics.GraphicsDevice.Viewport.Width;
-
-            if (position.X > largeur - width)
-            {
-                position = new Vector2(largeur - width, position.Y);
-                direction.X = -direction.X;
-                Trace.WriteLine(position);
-            }
             if (position.X < 0)
             {
                 position = new Vector2(0, position.Y);
                 direction = new Vector2(-direction.X, direction.Y);
             }
 
-            if (position.Y > hauteur - height)
+            if (position.Y > screenSize.Y - height)
             {
-                position = new Vector2(position.X, hauteur - height);
+                position = new Vector2(position.X, screenSize.Y - height);
                 direction.Y = -direction.Y;
-                Trace.WriteLine(position);
             }
+
             if (position.Y < 0)
             {
                 position = new Vector2(position.X, 0);

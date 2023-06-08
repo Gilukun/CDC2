@@ -15,83 +15,87 @@ namespace ListeImages
 {
     internal class BubbleList
     {
+
         List<Bubble> listeBulles = new List<Bubble>();
         //public BubbleList(ContentManager pContent, int pWidth, int pHeight)
-        public BubbleList(ContentManager pContent, GraphicsDeviceManager pGraphics)
+        public BubbleList()
         {
-            Random rnd = new Random();
+            ContentManager Content = ServiceLocator.GetService<ContentManager>();
+            ScreenManager screenManager = ServiceLocator.GetService<ScreenManager>();
+            Point screenSize = screenManager.GetScreenSize();
 
-            Bubble uneBulle = new Bubble(pContent);
+            Random rnd = new Random();
+            int nBulleX = 0;
+            int nBulleY = 0;
+            int nBulleRebond = 0;
+            //int largeur = pGraphics.GraphicsDevice.Viewport.Width;
+            //int hauteur = pGraphics.GraphicsDevice.Viewport.Height;
+            ///int largeur = _graphics.PreferredBackBufferWidth; // on peut aussi utiliser le PrefferedBuffer car on l'utilise pour modifier la taille de l'écran
+            //int hauteur = _graphics.PreferredBackBufferHeight;
+
+
+            Bubble uneBulle = new Bubble();
             listeBulles.Add(uneBulle);
 
-            for (int i=1; i<=5; i++)
+            for (int i=1; i<=12; i++)
             {
-                Bubble uneBulleX = new bBouge(pContent);
+                Bubble uneBulleX = new bBouge();
                 listeBulles.Add(uneBulleX);
             }
 
             for (int i=1; i<=6; i++)
             {
-                Bubble uneBulleDown = new bBougeY(pContent);
+                Bubble uneBulleDown = new bBougeY();
                 listeBulles.Add(uneBulleDown);
             }
 
-            for (int i = 1; i <=8; i++)
+            for (int i = 1; i <=20; i++)
             {
-                Bubble uneBulleRebond = new bRebond(pContent);
+                Bubble uneBulleRebond = new bRebond();
                 listeBulles.Add(uneBulleRebond);
             }
 
-            int nBulleX = 0;
-            int nBulleY = 0;
-            int nBulleRebond = 0;
-
             foreach (Bubble item in listeBulles)
             {
-                    int largeur = pGraphics.GraphicsDevice.Viewport.Width;
-                    int hauteur = pGraphics.GraphicsDevice.Viewport.Height;
-               
-                if (item is bBouge &&  nBulleX <= 5)
+                if (item is bBouge &&  nBulleX <= 12)
                 {
-                    
-                    item.SetPosition(rnd.Next(largeur - item.width), rnd.Next(hauteur - item.height), rnd.Next(-1, 1 + 1), 0);
+                    item.SetPosition(rnd.Next(screenSize.X - item.width), rnd.Next(screenSize.Y - item.height), rnd.Next(-1, 1 + 1), 0);
                     nBulleX++;
                 }
 
                 if (item is bBougeY && nBulleY <= 6)
                 {
-
-                    item.SetPosition(rnd.Next(largeur - item.width), rnd.Next(hauteur - item.height), 0, rnd.Next(-1, 1 + 1));
+                    item.SetPosition(rnd.Next(screenSize.X - item.width), rnd.Next(screenSize.Y - item.height), 0, rnd.Next(-1, 1 + 1));
                     nBulleY++;
                 }
-                if (item is bRebond && nBulleY <= 8)
+                if (item is bRebond && nBulleRebond <= 20)
                 {
-
-                    item.SetPosition(rnd.Next(largeur - item.width), rnd.Next(hauteur - item.height), rnd.Next(-1, 1 + 1), rnd.Next(-1, 1 + 1));
+                    item.SetPosition(rnd.Next(screenSize.X - item.width), rnd.Next(screenSize.Y - item.height), rnd.Next(-1, 1 + 1), rnd.Next(-1, 1 + 1));
                     nBulleRebond++;
                 }
 
                 else
-                { item.SetPosition(rnd.Next(largeur - item.width), rnd.Next(hauteur - item.height)); }
+                { item.SetPosition(rnd.Next(screenSize.X - item.width), rnd.Next(screenSize.Y - item.height)); }
             }
         }
-        public void Affiche(SpriteBatch spriteBatch) 
+        public void Affiche()
         {
         foreach (Bubble item in listeBulles)
-                item.Affiche(spriteBatch);
+                item.Affiche();
         }
 
-        public void Move(GraphicsDeviceManager pGraphics )
+        public void Move()
         {
+            //GraphicsDeviceManager _graphics = ServiceLocator.GetService<GraphicsDeviceManager>();
             foreach (Bubble item in listeBulles)
-                item.Move(pGraphics); 
+                item.Move(); 
         }
-       
 
-        public void Collisions(GraphicsDeviceManager pGraphics)
+        public void Collisions()
         {
+            GraphicsDeviceManager _graphics = ServiceLocator.GetService<GraphicsDeviceManager>();
             foreach (Bubble item in listeBulles)
-                item.Collisions(pGraphics);
+                item.Collisions();
         }
     }
 
