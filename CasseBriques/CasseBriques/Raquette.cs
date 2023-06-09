@@ -21,6 +21,13 @@ namespace CasseBriques
             SetPosition( Mouse.GetState().X - Width/2, Position.Y );
                 
             base.Update();
+
+            /* 
+             1. taille de l'écran :
+             2.
+             */
+
+
         }
     }
 }
