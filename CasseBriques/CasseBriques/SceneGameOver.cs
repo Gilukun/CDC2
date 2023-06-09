@@ -8,30 +8,22 @@ using System.Threading.Tasks;
 
 namespace CasseBriques
 {
-
-    class SceneMenu : Scenes
+    class SceneGameOver : Scenes
     {
-        SpriteFont FontMenu;
-
-        public SceneMenu(Game pGame) : base(pGame)
+        public SceneGameOver(Game pGame) : base(pGame)
         {
-            FontMenu = pGame.Content.Load<SpriteFont>("PixelMaster");
         }
 
         public override void Update()
-        {
-
+        { 
         }
+
 
         public override void Draw(SpriteBatch pBatch)
         {
-            pBatch.DrawString(FontMenu, 
-                    "Ceci est le menu", 
-                    new Vector2(1, 1),
-                    Color.White);
-
             base.Draw(pBatch);
         }
-
+        
     }
+
 }

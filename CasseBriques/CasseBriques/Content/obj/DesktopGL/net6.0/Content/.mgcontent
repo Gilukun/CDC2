@@ -35,6 +35,7 @@
     <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/CasseBriques/CasseBriques/Content/brique_8_1.png</File>
     <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/CasseBriques/CasseBriques/Content/brique_8_2.png</File>
     <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/CasseBriques/CasseBriques/Content/brique_8_3.png</File>
+    <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/CasseBriques/CasseBriques/Content/File.spritefont</File>
     <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/CasseBriques/CasseBriques/Content/raquette.png</File>
   </SourceFiles>
   <DestFiles>
@@ -69,6 +70,7 @@
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
+    <File>PixelMaster.spritefont</File>
     <File xsi:nil="true" />
   </DestFiles>
 </SourceFileCollection>

@@ -9,11 +9,6 @@ namespace CasseBriques
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-
-        private Texture2D pad; 
-        private int pad_x; 
-        private int pad_y;
-
         Scenes MaSceneCourante;
         Scenes SceneMenu;
         Scenes SceneGameplay;
@@ -29,17 +24,16 @@ namespace CasseBriques
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            pad_x = 10;
-            pad_y = 20;
+       
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            pad = Content.Load<Texture2D>("raquette");
-            SceneMenu = new SceneMenu();
-            SceneGameplay = new SceneGameplay();
+
+            SceneMenu = new SceneMenu(this);
+            SceneGameplay = new SceneGameplay(this);
             MaSceneCourante = SceneMenu;
             // TODO: use this.Content to load your game content here
         }
@@ -48,17 +42,15 @@ namespace CasseBriques
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+            if (Keyboard.GetState().IsKeyDown(Keys.Space))
+            {
+                MaSceneCourante = SceneGameplay;
+            }
+
+            MaSceneCourante.Update();
 
             // TODO: Add your update logic here
-
-            if (Keyboard.GetState().IsKeyDown(Keys.Right))
-            {
-                pad_x++;
-            }
-            if (Keyboard.GetState().IsKeyDown(Keys.Left))
-            {
-                pad_x--;
-            }
+            SceneGameplay.Update();
 
             base.Update(gameTime);
         }
@@ -67,7 +59,7 @@ namespace CasseBriques
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             _spriteBatch.Begin();
-            MaSceneCourante.Draw();
+            MaSceneCourante.Draw(_spriteBatch);
             _spriteBatch.End();
 
             // TODO: Add your drawing code here
