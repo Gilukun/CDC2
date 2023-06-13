@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "jAf4gUnSqxydsBybXskJmqVhrl3pDuofrZL9yfzj7IyoKsy0mi62S35s12uXH/d/MEJMqduIqPv4QNszMAqR8A==",
+  "dgSpecHash": "bwn9vYNegFGkbDT/voP0S+DpR2A5UGl5CLAWeyTooWvzPf5ijxBywFrvH6lyI13er2OePrrNGe11X23dic4zyQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Gilles\\Documents\\GameCodeur\\CDC2\\Cours POO\\Liste Image\\ListeImages.csproj",
+  "projectFilePath": "C:\\Users\\Gilles\\Documents\\GameCodeur\\CDC2\\Exercice1\\Cours POO\\Liste Image\\ListeImages.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Gilles\\.nuget\\packages\\monogame.content.builder.task\\3.8.1.303\\monogame.content.builder.task.3.8.1.303.nupkg.sha512",
     "C:\\Users\\Gilles\\.nuget\\packages\\monogame.framework.desktopgl\\3.8.1.303\\monogame.framework.desktopgl.3.8.1.303.nupkg.sha512"

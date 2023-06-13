@@ -24,7 +24,12 @@ namespace CasseBriques
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-       
+            _graphics.PreferredBackBufferWidth = 1024;
+            _graphics.PreferredBackBufferHeight = 700;
+            _graphics.ApplyChanges(); 
+
+
+
             base.Initialize();
         }
 
@@ -50,7 +55,6 @@ namespace CasseBriques
             MaSceneCourante.Update();
 
             // TODO: Add your update logic here
-            SceneGameplay.Update();
 
             base.Update(gameTime);
         }
@@ -58,10 +62,9 @@ namespace CasseBriques
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            _spriteBatch.Begin();
+          
             MaSceneCourante.Draw(_spriteBatch);
-            _spriteBatch.End();
-
+       
             // TODO: Add your drawing code here
 
             base.Draw(gameTime);

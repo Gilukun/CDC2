@@ -18,12 +18,12 @@ namespace CasseBriques
         { 
         }
 
-
-        public override void Draw(SpriteBatch pBatch)
+        public override void DrawScene(SpriteBatch pBatch)
         {
             base.Draw(pBatch);
         }
-        
+
+   
     }
 
 }

@@ -1,2 +1,3 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
-"C:/Users/Gilles/Documents/GameCodeur/CDC2/CasseBriques/CasseBriques/Content/File.spritefont","C:/Users/Gilles/Documents/GameCodeur/CDC2/CasseBriques/CasseBriques/Content/bin/DesktopGL/PixelMaster.xnb","FontDescriptionProcessor","SpriteFontContent",2075,70938,0,3546732
+"C:/Users/Gilles/Documents/GameCodeur/CDC2/CasseBriques/CasseBriques/Content/Perso1.png","C:/Users/Gilles/Documents/GameCodeur/CDC2/CasseBriques/CasseBriques/Content/bin/DesktopGL/Perso1.xnb","TextureProcessor","Texture2DContent",2789,4181,0,1862431
+"C:/Users/Gilles/Documents/GameCodeur/CDC2/CasseBriques/CasseBriques/Content/Perso2.png","C:/Users/Gilles/Documents/GameCodeur/CDC2/CasseBriques/CasseBriques/Content/bin/DesktopGL/Perso2.xnb","TextureProcessor","Texture2DContent",2933,4437,0,0029039

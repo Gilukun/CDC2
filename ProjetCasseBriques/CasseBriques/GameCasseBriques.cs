@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -9,6 +10,14 @@ namespace CasseBriques
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
+        ScreenManager _screenManager;
+        private ScreenManager _Resolution;
+
+        ScenesManager CurrentLevel;
+        ScenesManager Menu;
+        ScenesManager Gameplay;
+        
+
         public CasseBriques()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -18,16 +27,23 @@ namespace CasseBriques
 
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-
+            _screenManager = new ScreenManager(_graphics);
+            ServiceLocator.RegisterService<ScreenManager>(_screenManager);
+            _Resolution = ServiceLocator.GetService <ScreenManager>();
+            _Resolution.ChangeResolution(1024, 700);
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+            ServiceLocator.RegisterService<SpriteBatch>(_spriteBatch);
+            ServiceLocator.RegisterService<ContentManager>(Content);
+            ServiceLocator.RegisterService<GraphicsDeviceManager>(_graphics);
 
-            // TODO: use this.Content to load your game content here
+            Menu = new Menu(this);
+            Gameplay = new Gameplay(this);
+            CurrentLevel = Menu;
         }
 
         protected override void Update(GameTime gameTime)
@@ -35,7 +51,12 @@ namespace CasseBriques
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            // TODO: Add your update logic here
+            if (Keyboard.GetState().IsKeyDown(Keys.Enter))
+            {
+                CurrentLevel = Gameplay;
+           }
+
+            CurrentLevel.Update();
 
             base.Update(gameTime);
         }
@@ -43,9 +64,7 @@ namespace CasseBriques
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
-            // TODO: Add your drawing code here
-
+            CurrentLevel.Draw();
             base.Draw(gameTime);
         }
     }

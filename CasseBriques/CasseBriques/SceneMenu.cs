@@ -15,7 +15,7 @@ namespace CasseBriques
 
         public SceneMenu(Game pGame) : base(pGame)
         {
-            FontMenu = pGame.Content.Load<SpriteFont>("PixelMaster");
+            FontMenu = game.Content.Load<SpriteFont>("PixelMaster");
         }
 
         public override void Update()
@@ -23,14 +23,12 @@ namespace CasseBriques
 
         }
 
-        public override void Draw(SpriteBatch pBatch)
+        public override void DrawScene(SpriteBatch pBatch)
         {
-            pBatch.DrawString(FontMenu, 
-                    "Ceci est le menu", 
+            pBatch.DrawString(FontMenu,
+                    "Ceci est le menu",
                     new Vector2(1, 1),
                     Color.White);
-
-            base.Draw(pBatch);
         }
 
     }
