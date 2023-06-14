@@ -4,14 +4,14 @@
   <Platform>DesktopGL</Platform>
   <Config />
   <SourceFiles>
-    <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/Cours POO/Template/Content/button.png</File>
-    <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/Cours POO/Template/Content/cool.mp3</File>
-    <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/Cours POO/Template/Content/explode.wav</File>
-    <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/Cours POO/Template/Content/File.spritefont</File>
-    <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/Cours POO/Template/Content/meteor.png</File>
-    <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/Cours POO/Template/Content/Obus.png</File>
-    <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/Cours POO/Template/Content/ship.png</File>
-    <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/Cours POO/Template/Content/techno.mp3</File>
+    <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/Exercice1/Cours POO/Template/Content/button.png</File>
+    <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/Exercice1/Cours POO/Template/Content/cool.mp3</File>
+    <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/Exercice1/Cours POO/Template/Content/explode.wav</File>
+    <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/Exercice1/Cours POO/Template/Content/File.spritefont</File>
+    <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/Exercice1/Cours POO/Template/Content/meteor.png</File>
+    <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/Exercice1/Cours POO/Template/Content/Obus.png</File>
+    <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/Exercice1/Cours POO/Template/Content/ship.png</File>
+    <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/Exercice1/Cours POO/Template/Content/techno.mp3</File>
   </SourceFiles>
   <DestFiles>
     <File xsi:nil="true" />

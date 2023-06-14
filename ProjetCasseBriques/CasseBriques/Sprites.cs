@@ -30,7 +30,7 @@ namespace CasseBriques
 
         // Constructeur
         protected Sprites(Texture2D pTexture)
-        { 
+         { 
             ScreenManager ResolutionEcran = ServiceLocator.GetService<ScreenManager>();
             largeurEcran = ResolutionEcran.Width;
             hauteurEcran = ResolutionEcran.Height; 
@@ -43,6 +43,21 @@ namespace CasseBriques
         {
             Position = new Vector2(pX, pY);
         }
+
+
+        public virtual Rectangle NextPositionX()
+        {
+            Rectangle NextPosition = BoundingBox;
+            NextPosition.Offset(new Point((int)Vitesse.X, 0));
+            return NextPosition;
+        }
+        public virtual Rectangle NextPositionY()
+        {
+            Rectangle NextPosition = BoundingBox;
+            NextPosition.Offset(new Point(0, (int)Vitesse.Y));
+            return NextPosition;
+        }
+
         public void Load()
         { 
         }
@@ -50,12 +65,20 @@ namespace CasseBriques
         public virtual void Update()
         {
             Position += Vitesse; // Pour les sprites avec de la vitesse on aura automatiquement la mise à jour de la vitesse
-            BoundingBox = new Rectangle((int)Position.X, (int)Position.Y, LargeurSprite, HauteurSprite);
+            BoundingBox = new Rectangle((int)Position.X,(int)Position.Y, LargeurSprite,  HauteurSprite);
         }
-        public void Draw()
+        public virtual void Draw()
         {
             SpriteBatch pBatch = ServiceLocator.GetService<SpriteBatch>();
-            pBatch.Draw(texture, Position, Color.White);
+
+            /* affiche uniquement les boundingBox
+            RasterizerState state = new RasterizerState();
+            state.FillMode = FillMode.WireFrame;
+            pBatch.GraphicsDevice.RasterizerState = state;
+            */
+
+            pBatch.Draw(texture, Position,Color.White); 
+
         }
 
     }

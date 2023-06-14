@@ -11,18 +11,20 @@ namespace CasseBriques
         private SpriteBatch _spriteBatch;
 
         ScreenManager _screenManager;
-        private ScreenManager _Resolution;
+        ScreenManager _Resolution;
 
-        ScenesManager CurrentLevel;
+        public GameState gameState;
         ScenesManager Menu;
         ScenesManager Gameplay;
-        
+      
 
         public CasseBriques()
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
+            gameState = new GameState(this);
+
         }
 
         protected override void Initialize()
@@ -30,7 +32,7 @@ namespace CasseBriques
             _screenManager = new ScreenManager(_graphics);
             ServiceLocator.RegisterService<ScreenManager>(_screenManager);
             _Resolution = ServiceLocator.GetService <ScreenManager>();
-            _Resolution.ChangeResolution(1024, 700);
+            _Resolution.ChangeResolution(1024, 600);
             base.Initialize();
         }
 
@@ -43,7 +45,8 @@ namespace CasseBriques
 
             Menu = new Menu(this);
             Gameplay = new Gameplay(this);
-            CurrentLevel = Menu;
+           
+            gameState.ChangeScene(GameState.Scenes.Menu);
         }
 
         protected override void Update(GameTime gameTime)
@@ -51,12 +54,11 @@ namespace CasseBriques
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            if (Keyboard.GetState().IsKeyDown(Keys.Enter))
+            if (gameState.CurrentScene != null)
             {
-                CurrentLevel = Gameplay;
-           }
-
-            CurrentLevel.Update();
+                gameState.CurrentScene.Update();
+            }
+           
 
             base.Update(gameTime);
         }
@@ -64,7 +66,11 @@ namespace CasseBriques
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            CurrentLevel.Draw();
+            if (gameState.CurrentScene != null)
+            {
+                gameState.CurrentScene.Draw();
+            }
+           
             base.Draw(gameTime);
         }
     }

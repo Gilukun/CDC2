@@ -11,19 +11,21 @@ namespace CasseBriques
 {
     public class Raquette : Sprites
     {
+        private int speed;
         public Raquette(Texture2D pTexture) : base(pTexture)
         {
+            speed = 20;
         }
 
         public override void Update()
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Q)) 
             {
-                Position = new Vector2 (Position.X-10, Position.Y);
+                Position = new Vector2 (Position.X - speed, Position.Y);
             }
             if (Keyboard.GetState().IsKeyDown(Keys.D))
             {
-                Position = new Vector2(Position.X + 10, Position.Y);
+                Position = new Vector2(Position.X + speed, Position.Y);
             }
             if (Position.X + LargeurSprite  > largeurEcran)
             {

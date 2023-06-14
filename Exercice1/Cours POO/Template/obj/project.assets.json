@@ -108,11 +108,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Gilles\\Documents\\GameCodeur\\CDC2\\Cours POO\\Template\\Template.csproj",
+      "projectUniqueName": "C:\\Users\\Gilles\\Documents\\GameCodeur\\CDC2\\Exercice1\\Cours POO\\Template\\Template.csproj",
       "projectName": "Template",
-      "projectPath": "C:\\Users\\Gilles\\Documents\\GameCodeur\\CDC2\\Cours POO\\Template\\Template.csproj",
+      "projectPath": "C:\\Users\\Gilles\\Documents\\GameCodeur\\CDC2\\Exercice1\\Cours POO\\Template\\Template.csproj",
       "packagesPath": "C:\\Users\\Gilles\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Gilles\\Documents\\GameCodeur\\CDC2\\Cours POO\\Template\\obj\\",
+      "outputPath": "C:\\Users\\Gilles\\Documents\\GameCodeur\\CDC2\\Exercice1\\Cours POO\\Template\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

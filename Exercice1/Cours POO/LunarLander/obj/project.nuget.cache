@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "oj0pFE1Sy3km8I0nFyxraru3mevoLNW6x2VsFCvd59i8wsFy3SO/ekFxpoHPucVMwT7n6FUPYwe3/MKR/eBuCA==",
+  "dgSpecHash": "wU55kldbaC59BNCJKVxCuv5fP7lst5Z3HDBN73T6pU1RFlsY5txdvxFOSYioSD0tyXdAQpKwBztgUNK1dliH4A==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Gilles\\Documents\\GameCodeur\\CDC2\\Cours POO\\LunarLander\\LunarLander.csproj",
+  "projectFilePath": "C:\\Users\\Gilles\\Documents\\GameCodeur\\CDC2\\Exercice1\\Cours POO\\LunarLander\\LunarLander.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Gilles\\.nuget\\packages\\libuv\\1.9.1\\libuv.1.9.1.nupkg.sha512",
     "C:\\Users\\Gilles\\.nuget\\packages\\microsoft.codeanalysis.analyzers\\1.1.0\\microsoft.codeanalysis.analyzers.1.1.0.nupkg.sha512",
