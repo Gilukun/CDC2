@@ -141,6 +141,10 @@ namespace CasseBriques
                 bool collision = false;
                 Briques mesBriques = ListeBriques[b];
                 mesBriques.Update();
+                mesBriques.BoundingBox = new Rectangle((int)(mesBriques.Position.X-mesBriques.LargeurSprite/2) , 
+                                                       (int)(mesBriques.Position.Y-mesBriques.HauteurSprite/2),
+                                                       mesBriques.LargeurSprite,  
+                                                       mesBriques.HauteurSprite);
 
                 if (mesBriques.IsScalling == false)
                 {
@@ -205,6 +209,7 @@ namespace CasseBriques
                             Briques.scale,
                             SpriteEffects.None,
                             0);
+                //pBatch.DrawRectangle(Briques.BoundingBox, Color.Red);
             }
 
         }

@@ -7,6 +7,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+public static class SpriteBatchExtensions // Classe Static qui permet de créer une méthode pour afficher les hitbox
+{
+    public static void DrawRectangle(this SpriteBatch spriteBatch, Rectangle rectangle, Color color)
+    {
+        Texture2D pixel = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
+        pixel.SetData(new[] { color });
+
+        spriteBatch.Draw(pixel, new Rectangle(rectangle.Left, rectangle.Top, rectangle.Width, 1), color);
+        spriteBatch.Draw(pixel, new Rectangle(rectangle.Left, rectangle.Bottom, rectangle.Width, 1), color);
+        spriteBatch.Draw(pixel, new Rectangle(rectangle.Left, rectangle.Top, 1, rectangle.Height), color);
+        spriteBatch.Draw(pixel, new Rectangle(rectangle.Right, rectangle.Top, 1, rectangle.Height + 1), color);
+    }
+}
+
 namespace CasseBriques
 {
     public abstract class Sprites
@@ -28,6 +42,7 @@ namespace CasseBriques
         }
 
         public Rectangle BoundingBox;
+        
 
         // Constructeur
         public Sprites(Texture2D pTexture)
@@ -62,7 +77,7 @@ namespace CasseBriques
         public void Load()
         { 
         }
-
+      
         public virtual void Update()
         {
             Position += Vitesse; // Pour les sprites avec de la vitesse on aura automatiquement la mise à jour de la vitesse
@@ -71,6 +86,8 @@ namespace CasseBriques
         public virtual void Draw()
         {
             SpriteBatch pBatch = ServiceLocator.GetService<SpriteBatch>();
+           // pBatch.DrawRectangle(BoundingBox, Color.Red); // affichage des boundingBox
+
             pBatch.Draw(texture,
                         Position,
                         null,
@@ -80,6 +97,7 @@ namespace CasseBriques
                         1f,
                         SpriteEffects.None,
                         0);
+            
 
             //RasterizerState state = new RasterizerState();
             //state.FillMode = FillMode.Solid;
