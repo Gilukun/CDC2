@@ -60,10 +60,9 @@ namespace CasseBriques
             pBatch.End();
 
 
-            pBatch.Begin();//SpriteSortMode.Immediate, BlendState.Opaque);
+            pBatch.Begin();/*(SpriteSortMode.Immediate, BlendState.Opaque);*/
             DrawScene();
             pBatch.End();
-
             
         }
 

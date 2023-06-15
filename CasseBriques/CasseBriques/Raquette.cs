@@ -13,7 +13,7 @@ namespace CasseBriques
     {
         public float Centre
         {
-            get {return Position.X + Width / 2; }
+            get { return Position.X + Width / 2; }
 
         } 
       
@@ -35,11 +35,9 @@ namespace CasseBriques
                 SetPosition(Screen.Width - Width, Position.Y);
             }
 
+            
             base.Update();
 
-        }
-        public override void DrawSprite(SpriteBatch spriteBatch)
-        {
         }
 
     }

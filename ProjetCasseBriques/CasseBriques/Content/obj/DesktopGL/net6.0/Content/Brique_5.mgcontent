@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <SourceFile>C:/Users/Gilles/Documents/GameCodeur/CDC2/ProjetCasseBriques/CasseBriques/Content/Brique_5.png</SourceFile>
-  <SourceTime>2023-06-13T11:07:48+04:00</SourceTime>
+  <SourceTime>2023-06-15T20:04:58.9040421+04:00</SourceTime>
   <DestFile>C:/Users/Gilles/Documents/GameCodeur/CDC2/ProjetCasseBriques/CasseBriques/Content/bin/DesktopGL/Content/Brique_5.xnb</DestFile>
-  <DestTime>2023-06-14T17:14:47.5105358+04:00</DestTime>
+  <DestTime>2023-06-15T20:05:12.4289867+04:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2022-07-26T15:44:56+04:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

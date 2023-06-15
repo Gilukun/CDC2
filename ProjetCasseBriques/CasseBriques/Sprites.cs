@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+//using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,7 +30,7 @@ namespace CasseBriques
         public Rectangle BoundingBox;
 
         // Constructeur
-        protected Sprites(Texture2D pTexture)
+        public Sprites(Texture2D pTexture)
          { 
             ScreenManager ResolutionEcran = ServiceLocator.GetService<ScreenManager>();
             largeurEcran = ResolutionEcran.Width;
@@ -70,14 +71,29 @@ namespace CasseBriques
         public virtual void Draw()
         {
             SpriteBatch pBatch = ServiceLocator.GetService<SpriteBatch>();
+            pBatch.Draw(texture,
+                        Position,
+                        null,
+                        Color.White,
+                        0,
+                        new Vector2(0, 0),
+                        1f,
+                        SpriteEffects.None,
+                        0);
 
-            /* affiche uniquement les boundingBox
-            RasterizerState state = new RasterizerState();
-            state.FillMode = FillMode.WireFrame;
-            pBatch.GraphicsDevice.RasterizerState = state;
-            */
+            //RasterizerState state = new RasterizerState();
+            //state.FillMode = FillMode.Solid;
+            //pBatch.GraphicsDevice.RasterizerState = state;
 
-            pBatch.Draw(texture, Position,Color.White); 
+            //Texture2D texture,
+            //Vector2 position,
+            //Nullable<Rectangle> sourceRectangle,
+            //Color color,
+            //float rotation,
+            //Vector2 origin,
+            //float scale,
+            //SpriteEffects effects,
+            //float layerDepth
 
         }
 
