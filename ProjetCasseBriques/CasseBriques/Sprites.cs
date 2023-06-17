@@ -86,7 +86,7 @@ namespace CasseBriques
         public virtual void Draw()
         {
             SpriteBatch pBatch = ServiceLocator.GetService<SpriteBatch>();
-           // pBatch.DrawRectangle(BoundingBox, Color.Red); // affichage des boundingBox
+            pBatch.DrawRectangle(BoundingBox, Color.Red); // affichage des boundingBox
 
             pBatch.Draw(texture,
                         Position,

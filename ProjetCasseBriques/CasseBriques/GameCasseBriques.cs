@@ -32,7 +32,7 @@ namespace CasseBriques
             _screenManager = new ScreenManager(_graphics);
             ServiceLocator.RegisterService<ScreenManager>(_screenManager);
             _Resolution = ServiceLocator.GetService <ScreenManager>();
-            _Resolution.ChangeResolution(1024, 1024);
+            _Resolution.ChangeResolution(1024, 800);
             base.Initialize();
         }
 
