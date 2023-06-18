@@ -40,3 +40,4 @@ C:\Users\Gilles\Documents\GameCodeur\CDC2\ProjetCasseBriques\CasseBriques\obj\De
 C:\Users\Gilles\Documents\GameCodeur\CDC2\ProjetCasseBriques\CasseBriques\obj\Debug\net6.0\CasseBriques.pdb
 C:\Users\Gilles\Documents\GameCodeur\CDC2\ProjetCasseBriques\CasseBriques\obj\Debug\net6.0\CasseBriques.genruntimeconfig.cache
 C:\Users\Gilles\Documents\GameCodeur\CDC2\ProjetCasseBriques\CasseBriques\obj\Debug\net6.0\ref\CasseBriques.dll
+C:\Users\Gilles\Documents\GameCodeur\CDC2\ProjetCasseBriques\CasseBriques\bin\Debug\net6.0\Content\TitleFont.xnb

@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -17,6 +18,10 @@ namespace CasseBriques
         private MouseState oldMState;
         private MouseState newMState;
         private List<GUI> listeBouttons;
+        private string NomJeu;
+        private Vector2 tailleNJeu;
+        private float tailleNJeuWidth;
+        private float tailleNJeuHeight;
        
         public Menu(CasseBriques pGame) : base (pGame) 
         {
@@ -48,8 +53,13 @@ namespace CasseBriques
             BoutonSettings.SetPosition(ResolutionEcran.Width / 2 - BoutonSettings.LargeurSprite / 2, 500);
             BoutonSettings.onClick = OnClick;
             listeBouttons.Add(BoutonSettings);
-
             oldMState = Mouse.GetState();
+
+            NomJeu = "FANTASOID";
+            tailleNJeu = AssetsManager.TitleFont.MeasureString(NomJeu);
+            tailleNJeuWidth = tailleNJeu.X;
+            tailleNJeuHeight = tailleNJeu.Y;    
+          
         }
 
         
@@ -66,7 +76,10 @@ namespace CasseBriques
             SpriteBatch pBatch = ServiceLocator.GetService<SpriteBatch>();
             BoutonEnter.Draw();
             BoutonSettings.Draw();
-           
+            pBatch.DrawString(AssetsManager.TitleFont, 
+                              "FANTASOID", 
+                              new Vector2 (ResolutionEcran.Width/2 - tailleNJeuWidth/2, ResolutionEcran.Height/2 - tailleNJeuHeight/2), 
+                              Color.WhiteSmoke); 
         }
     }
 }

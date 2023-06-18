@@ -1,2 +1,2 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
-"C:/Users/Gilles/Documents/GameCodeur/CDC2/ProjetCasseBriques/CasseBriques/Content/Bk_1.png","C:/Users/Gilles/Documents/GameCodeur/CDC2/ProjetCasseBriques/CasseBriques/Content/bin/DesktopGL/Bk_1.xnb","TextureProcessor","Texture2DContent",1770676,4194389,0,3423357
+"C:/Users/Gilles/Documents/GameCodeur/CDC2/ProjetCasseBriques/CasseBriques/Content/TitleFont.spritefont","C:/Users/Gilles/Documents/GameCodeur/CDC2/ProjetCasseBriques/CasseBriques/Content/bin/DesktopGL/TitleFont.xnb","FontDescriptionProcessor","SpriteFontContent",2074,110890,0,2708993

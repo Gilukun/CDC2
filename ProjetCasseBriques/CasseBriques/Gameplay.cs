@@ -66,7 +66,7 @@ namespace CasseBriques
                 {1,2,5,2,4,3,6,3,1,},
                 {1,2,2,2,4,3,3,3,1,},
                 {0,0,1,1,1,1,1,0,0,},
-                {0,0,1,3,3,3,1,0,0,},
+                {0,5,6,5,6,5,6,6,5,},
 
             };
             
@@ -176,7 +176,6 @@ namespace CasseBriques
                                 ListeBriques.Remove(mesBriques);
                                 
                             }
-                            Trace.WriteLine("Nb Briques" + ListeBriques.Count);
                         }
                     }
                     
@@ -187,23 +186,42 @@ namespace CasseBriques
             {
                 bool collision = false;
                 Personnages mesPerso = lstPerso[p];
+                mesPerso.Update();
+
                 mesPerso.BoundingBox = new Rectangle((int)(mesPerso.Position.X - mesPerso.LargeurSprite / 2),
                                                       (int)(mesPerso.Position.Y - mesPerso.HauteurSprite / 2),
                                                       mesPerso.LargeurSprite,
                                                       mesPerso.HauteurSprite);
+
                 if (mesPerso.BoundingBox.Intersects(SprBalle.NextPositionX()))
                 {
                     collision = true;
                     SprBalle.Vitesse = new Vector2(-SprBalle.Vitesse.X, SprBalle.Vitesse.Y);
                     //SprBalle.SetPosition(mesBriques.Positi on.X + mesBriques.LargeurSprite/2 + SprBalle.LargeurSprite, SprBalle.Position.Y);
                 }
+
+                if (mesPerso.BoundingBox.Intersects(SprBalle.NextPositionY()))
+                {
+                    collision = true;
+                    SprBalle.Vitesse = new Vector2(SprBalle.Vitesse.X, -SprBalle.Vitesse.Y);
+                    //SprBalle.SetPosition(SprBalle.Position.X, mesBriques.Position.Y - mesBriques.HauteurSprite/2 - SprBalle.HauteurSprite);
+                }
+                if (SprPad.BoundingBox.Intersects(mesPerso.NextPositionY()))
+                {
+                    collision = true;
+                    mesPerso.currentState = Personnages.State.Catch;
+                    lstPerso.Remove(mesPerso);
+                    Trace.WriteLine(mesPerso.currentState);
+                    Trace.WriteLine(lstPerso.Count);
+                }
                 if (collision == true)
                 {
+                    mesPerso.currentState = Personnages.State.Moving;
                     mesPerso.Tombe();
+                    Trace.WriteLine(mesPerso.currentState);
                 }
             }
-
-                SprBalle.Update();
+            SprBalle.Update();
 
             if (Stick)
             {
@@ -221,8 +239,6 @@ namespace CasseBriques
             {
                 Stick = true;
             }
-
-
 
             base.Update();
         }

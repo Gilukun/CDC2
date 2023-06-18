@@ -33,6 +33,7 @@ namespace CasseBriques
             ServiceLocator.RegisterService<ScreenManager>(_screenManager);
             _Resolution = ServiceLocator.GetService <ScreenManager>();
             _Resolution.ChangeResolution(1024, 800);
+           
             base.Initialize();
         }
 
@@ -42,7 +43,7 @@ namespace CasseBriques
             ServiceLocator.RegisterService<SpriteBatch>(_spriteBatch);
             ServiceLocator.RegisterService<ContentManager>(Content);
             ServiceLocator.RegisterService<GraphicsDeviceManager>(_graphics);
-
+            AssetsManager.Load();
             Menu = new Menu(this);
             Gameplay = new Gameplay(this);
            

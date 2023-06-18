@@ -14,8 +14,9 @@ namespace CasseBriques
         public enum State
             { Idle,
             Moving,
-            Collision
-        }
+            Collision,
+            Catch
+            }
         public State currentState;
         public Personnages(Texture2D pTexture) : base(pTexture)
         {
@@ -24,17 +25,21 @@ namespace CasseBriques
         }
         public void Tombe()
         {
+            if (currentState != State.Moving)
+            { 
             currentState = State.Moving;
-            Vitesse = new Vector2 (0, 1);
+            Vitesse = new Vector2(Vitesse.X, 1);
+             }
+    
         }
 
         public override void Update()
         { 
             if (currentState == State.Moving)
             {
-                Vitesse += Position;
+                Vitesse = new Vector2(Vitesse.X, Vitesse.Y + 0.5f);
             }
-            
+            base.Update();
         }
     }
 }
