@@ -36,7 +36,8 @@ namespace CasseBriques
         private Point Viser;
         private Vector2 Velocity;
         List<Briques> ListeBriques = new List<Briques>();
-        List<Briques> ListSpriteBriques = new List<Briques>();
+        List<Personnages> lstPerso =  new List<Personnages> (); 
+        //List<Briques> ListSpriteBriques = new List<Briques>();
 
         public Gameplay(CasseBriques pGame) : base(pGame)
         {
@@ -58,13 +59,14 @@ namespace CasseBriques
 
             Level = new int[,]
             {
-                {1,1,1,1,1,1,1,1,1,},
+                {0,0,1,1,1,1,1,0,0,},
                 {1,1,1,1,1,1,1,1,1,},
                 {1,1,1,1,1,1,1,1,1,},
                 {1,2,2,2,4,3,3,3,1,},
-                {1,2,0,2,4,3,1,3,1,},
+                {1,2,5,2,4,3,6,3,1,},
                 {1,2,2,2,4,3,3,3,1,},
-                {1,1,1,1,1,1,1,1,1,},
+                {0,0,1,1,1,1,1,0,0,},
+                {0,0,1,3,3,3,1,0,0,},
 
             };
             
@@ -99,6 +101,16 @@ namespace CasseBriques
                             bMetal.SetPosition(c * SprBriques.LargeurSprite + SprBriques.LargeurSprite / 2 + spacing, l * SprBriques.HauteurSprite + SprBriques.HauteurSprite / 2);
                             ListeBriques.Add(bMetal);
                             break;
+                        case 5:
+                            Personnages Glace = new Personnages(pGame.Content.Load<Texture2D>("pIce"));
+                            Glace.SetPosition(c * SprBriques.LargeurSprite + SprBriques.LargeurSprite / 2 + spacing, l * SprBriques.HauteurSprite + SprBriques.HauteurSprite / 2);
+                            lstPerso.Add(Glace);
+                            break;
+                        case 6:
+                            Personnages Feu = new Personnages(pGame.Content.Load<Texture2D>("pFire"));
+                            Feu.SetPosition(c * SprBriques.LargeurSprite + SprBriques.LargeurSprite / 2 + spacing, l * SprBriques.HauteurSprite + SprBriques.HauteurSprite / 2);
+                            lstPerso.Add(Feu); 
+                            break;   
                         default:
                             break;
                             
@@ -171,7 +183,27 @@ namespace CasseBriques
                 }
             }
 
-            SprBalle.Update();
+            for (int p = lstPerso.Count - 1; p >= 0; p--)
+            {
+                bool collision = false;
+                Personnages mesPerso = lstPerso[p];
+                mesPerso.BoundingBox = new Rectangle((int)(mesPerso.Position.X - mesPerso.LargeurSprite / 2),
+                                                      (int)(mesPerso.Position.Y - mesPerso.HauteurSprite / 2),
+                                                      mesPerso.LargeurSprite,
+                                                      mesPerso.HauteurSprite);
+                if (mesPerso.BoundingBox.Intersects(SprBalle.NextPositionX()))
+                {
+                    collision = true;
+                    SprBalle.Vitesse = new Vector2(-SprBalle.Vitesse.X, SprBalle.Vitesse.Y);
+                    //SprBalle.SetPosition(mesBriques.Positi on.X + mesBriques.LargeurSprite/2 + SprBalle.LargeurSprite, SprBalle.Position.Y);
+                }
+                if (collision == true)
+                {
+                    mesPerso.Tombe();
+                }
+            }
+
+                SprBalle.Update();
 
             if (Stick)
             {
@@ -202,8 +234,6 @@ namespace CasseBriques
             SprBalle.Draw();
 
             float rotation;
-            float scale;
-
             foreach (var Briques in ListeBriques)
             {
 
@@ -216,28 +246,33 @@ namespace CasseBriques
                     rotation = 0;
 
                 }
-                if (Briques is bGlace Ice)
-                {
-                    scale = Ice.scale;
-                }
-                else
-                {
-                    scale = Briques.scale;
-
-                }
                 pBatch.Draw(Briques.texture,
                                Briques.Position,
                                null,
                                Color.White,
                                rotation,
                                new Vector2(Briques.LargeurSprite / 2, Briques.HauteurSprite / 2),
-                               scale,
+                               Briques.scale,
                                SpriteEffects.None,
                                0);
 
-                //pBatch.DrawRectangle(Briques.BoundingBox, Color.Red)
+                //pBatch.DrawRectangle(Briques.BoundingBox, Color.Red);
             }
 
+            foreach (var Perso in lstPerso)
+            {
+                pBatch.Draw(Perso.texture,
+                               Perso.Position,
+                               null,
+                               Color.White,
+                               0,
+                               new Vector2(Perso.LargeurSprite / 2, Perso.HauteurSprite / 2),
+                               1.0f,
+                               SpriteEffects.None,
+                               0);
+                pBatch.DrawRectangle(Perso.BoundingBox, Color.Yellow);
+
+            }
         }
     }
 }
