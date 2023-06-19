@@ -25,6 +25,20 @@ namespace CasseBriques
             }
         }
 
+        public int CenterWidth
+        {
+            get
+            {
+                return _graphics.PreferredBackBufferWidth/2;
+            }
+        }
+        public int CenterHeight
+        {
+            get
+            {
+                return _graphics.PreferredBackBufferHeight / 2;
+            }
+        }
         public ScreenManager(GraphicsDeviceManager pGraphics)
         {
             _graphics = pGraphics;

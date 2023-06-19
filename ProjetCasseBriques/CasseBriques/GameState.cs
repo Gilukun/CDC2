@@ -24,7 +24,6 @@ namespace CasseBriques
             Gameplay,
             Win,
             GameOver,
-            
         }
 
         public void ChangeScene(Scenes pScene)
@@ -44,6 +43,9 @@ namespace CasseBriques
                     break;
                 case Scenes.Setting:
                     CurrentScene = new Settings(casseBriques);
+                    break;
+                case Scenes.Win:
+                    CurrentScene = new Win(casseBriques);
                     break;
 
                 default:

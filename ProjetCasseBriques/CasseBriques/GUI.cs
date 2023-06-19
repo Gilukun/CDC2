@@ -14,13 +14,20 @@ namespace CasseBriques
     public class GUI : Sprites
     {
         public delegate void OnClick(GUI pSender);
-        protected bool isHover { get; private set; }
+        public bool IsHover { get; private set; }
         protected MouseState oldMState;
         protected MouseState newMState;
         protected Point mousePosition;
         public OnClick onClick { get; set; }
         public GUI(Texture2D pTexture) : base(pTexture)
         {
+        }
+        public bool IsHovering
+        {
+            get
+            {
+                return IsHover;
+            }
         }
 
         public override void Update()
@@ -30,21 +37,21 @@ namespace CasseBriques
             
             if (BoundingBox.Contains(mousePosition))
             {
-                if (!isHover)
+                if (!IsHover)
                 {
-                    isHover = true;
+                    IsHover = true;
                     Trace.WriteLine("Je survole mon bouton");
                 }
             }
             else
             {
-                if (isHover)
+                if (IsHover)
                 { 
-                    isHover= false;
+                    IsHover= false;
                 }
             }
 
-            if (isHover)
+            if (IsHover)
             {
                 if (newMState.LeftButton == ButtonState.Pressed && oldMState.LeftButton == ButtonState.Released)
                 {

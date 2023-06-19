@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <SourceFile>C:/Users/Gilles/Documents/GameCodeur/CDC2/ProjetCasseBriques/CasseBriques/Content/TitleFont.spritefont</SourceFile>
-  <SourceTime>2023-06-18T16:39:46.1280665+04:00</SourceTime>
-  <DestFile>C:/Users/Gilles/Documents/GameCodeur/CDC2/ProjetCasseBriques/CasseBriques/Content/bin/DesktopGL/TitleFont.xnb</DestFile>
-  <DestTime>2023-06-19T08:36:16.4433041+04:00</DestTime>
+  <SourceFile>C:/Users/Gilles/Documents/GameCodeur/CDC2/ProjetCasseBriques/CasseBriques/Content/MenuFont.spritefont</SourceFile>
+  <SourceTime>2023-06-19T08:40:26.9649808+04:00</SourceTime>
+  <DestFile>C:/Users/Gilles/Documents/GameCodeur/CDC2/ProjetCasseBriques/CasseBriques/Content/bin/DesktopGL/Content/MenuFont.xnb</DestFile>
+  <DestTime>2023-06-19T08:40:57.7991439+04:00</DestTime>
   <Importer>FontDescriptionImporter</Importer>
   <ImporterTime>2022-07-26T15:44:56+04:00</ImporterTime>
   <Processor>FontDescriptionProcessor</Processor>

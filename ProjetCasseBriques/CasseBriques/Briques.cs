@@ -12,7 +12,6 @@ namespace CasseBriques
     public class Briques : Sprites
     {
         public Texture2D texture;
-        //public int NbCoups { get; set; }
         public float scale { get; set; }
    
         public int nbHits { get; set; }
@@ -43,9 +42,10 @@ namespace CasseBriques
                 if (scale <= 0)
                 {
                     scale = 0f;
+                    Scalling = false;
                 }
             }
-            base.Update();
+          base.Update();
         }
 
         

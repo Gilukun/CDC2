@@ -14,9 +14,7 @@ namespace CasseBriques
     public class ScenesManager
     {
         private Texture2D background;
-       // public Game casseBrique;
         public Rectangle DimensionEcran { get; set; }
-        public ScenesManager CurrentScene { get; set; }
         protected CasseBriques casseBriques;
         private KeyboardState NewKbState;
         private KeyboardState OldKbState;
@@ -55,12 +53,10 @@ namespace CasseBriques
             SpriteBatch pBatch = ServiceLocator.GetService<SpriteBatch>();
 
             pBatch.Begin();
-           // pBatch.Begin();
             pBatch.Draw(background, new Vector2(0,0), Color.White);
             pBatch.End();
 
-
-            pBatch.Begin();/*(SpriteSortMode.Immediate, BlendState.Opaque);*/
+            pBatch.Begin();
             DrawScene();
             pBatch.End();
             

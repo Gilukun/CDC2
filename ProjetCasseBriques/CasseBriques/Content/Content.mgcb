@@ -181,6 +181,13 @@
 /processorParam:TextureFormat=Color
 /build:Button1.png
 
+#begin MenuFont.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:MenuFont.spritefont
+
 #begin pFire.png
 /importer:TextureImporter
 /processor:TextureProcessor

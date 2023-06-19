@@ -40,6 +40,16 @@ namespace CasseBriques
             get
             { return texture.Height; }
         }
+        public int CentreSpriteL
+        {
+            get
+            { return texture.Width/2; }
+        }
+        public int CentreSpriteH
+        {
+            get
+            { return texture.Height/2; }
+        }
 
         public Rectangle BoundingBox;
         
@@ -81,7 +91,7 @@ namespace CasseBriques
         public virtual void Update()
         {
             Position += Vitesse; // Pour les sprites avec de la vitesse on aura automatiquement la mise à jour de la vitesse
-            BoundingBox = new Rectangle((int)Position.X,(int)Position.Y, LargeurSprite,  HauteurSprite);
+            BoundingBox = new Rectangle((int)Position.X-LargeurSprite/2,(int)Position.Y-HauteurSprite/2, LargeurSprite,  HauteurSprite);
         }
         public virtual void Draw()
         {
@@ -93,7 +103,7 @@ namespace CasseBriques
                         null,
                         Color.White,
                         0,
-                        new Vector2(0, 0),
+                        new Vector2(LargeurSprite/2, HauteurSprite/2),
                         1f,
                         SpriteEffects.None,
                         0);

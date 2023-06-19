@@ -27,13 +27,13 @@ namespace CasseBriques
             {
                 Position = new Vector2(Position.X + speed, Position.Y);
             }
-            if (Position.X + LargeurSprite  > largeurEcran)
+            if (Position.X + LargeurSprite/2  > largeurEcran)
             {
-                SetPosition(largeurEcran - LargeurSprite, (int)Position.Y);
+                SetPosition(largeurEcran - LargeurSprite/2, (int)Position.Y);
             }
-            if (Position.X <0)
+            if (Position.X - LargeurSprite /2 < 0)
             {
-                SetPosition(0, (int)Position.Y);
+                SetPosition(LargeurSprite / 2, (int)Position.Y);
             }
             base.Update();
         }

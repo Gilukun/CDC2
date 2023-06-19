@@ -8,18 +8,18 @@ using System.Threading.Tasks;
 
 namespace CasseBriques
 {
-    public class Settings : ScenesManager
+    internal class Win : ScenesManager
     {
         Texture2D background;
-        public Settings(CasseBriques pGame) : base(pGame)
+        public Win(CasseBriques pGame) : base(pGame)
         {
-            background = pGame.Content.Load<Texture2D>("pIce");
+            background = pGame.Content.Load<Texture2D>("pFire");
 
         }
 
         public override void Load()
         {
-            
+
 
         }
         public override void Update()

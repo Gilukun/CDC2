@@ -1,2 +1,3 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
-"C:/Users/Gilles/Documents/GameCodeur/CDC2/ProjetCasseBriques/CasseBriques/Content/TitleFont.spritefont","C:/Users/Gilles/Documents/GameCodeur/CDC2/ProjetCasseBriques/CasseBriques/Content/bin/DesktopGL/TitleFont.xnb","FontDescriptionProcessor","SpriteFontContent",2074,110890,0,2708993
+"C:/Users/Gilles/Documents/GameCodeur/CDC2/ProjetCasseBriques/CasseBriques/Content/MenuFont.spritefont","C:/Users/Gilles/Documents/GameCodeur/CDC2/ProjetCasseBriques/CasseBriques/Content/bin/DesktopGL/MenuFont.xnb","FontDescriptionProcessor","SpriteFontContent",2074,110890,0,299833
+"C:/Users/Gilles/Documents/GameCodeur/CDC2/ProjetCasseBriques/CasseBriques/Content/TitleFont.spritefont","C:/Users/Gilles/Documents/GameCodeur/CDC2/ProjetCasseBriques/CasseBriques/Content/bin/DesktopGL/TitleFont.xnb","FontDescriptionProcessor","SpriteFontContent",2075,569642,0,06556
