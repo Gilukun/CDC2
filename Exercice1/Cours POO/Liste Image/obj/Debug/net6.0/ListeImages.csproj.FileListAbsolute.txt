@@ -27,3 +27,11 @@ C:\Users\Gilles\Documents\GameCodeur\CDC2\Cours POO\Liste Image\obj\Debug\net6.0
 C:\Users\Gilles\Documents\GameCodeur\CDC2\Cours POO\Liste Image\bin\Debug\net6.0\Content\background.xnb
 C:\Users\Gilles\Documents\GameCodeur\CDC2\Cours POO\Liste Image\bin\Debug\net6.0\Content\RoundArkanoid.xnb
 C:\Users\Gilles\Documents\GameCodeur\CDC2\Cours POO\Liste Image\bin\Debug\net6.0\Content\Balle.xnb
+C:\Users\Gilles\Documents\GameCodeur\CDC2\Exercice1\Cours POO\Liste Image\obj\Debug\net6.0\ListeImages.csproj.AssemblyReference.cache
+C:\Users\Gilles\Documents\GameCodeur\CDC2\Exercice1\Cours POO\Liste Image\obj\Debug\net6.0\ListeImages.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Gilles\Documents\GameCodeur\CDC2\Exercice1\Cours POO\Liste Image\obj\Debug\net6.0\ListeImages.AssemblyInfoInputs.cache
+C:\Users\Gilles\Documents\GameCodeur\CDC2\Exercice1\Cours POO\Liste Image\obj\Debug\net6.0\ListeImages.AssemblyInfo.cs
+C:\Users\Gilles\Documents\GameCodeur\CDC2\Exercice1\Cours POO\Liste Image\obj\Debug\net6.0\ListeImages.csproj.CoreCompileInputs.cache
+C:\Users\Gilles\Documents\GameCodeur\CDC2\Exercice1\Cours POO\Liste Image\obj\Debug\net6.0\ListeImages.dll
+C:\Users\Gilles\Documents\GameCodeur\CDC2\Exercice1\Cours POO\Liste Image\obj\Debug\net6.0\refint\ListeImages.dll
+C:\Users\Gilles\Documents\GameCodeur\CDC2\Exercice1\Cours POO\Liste Image\obj\Debug\net6.0\ListeImages.pdb

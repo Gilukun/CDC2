@@ -2,6 +2,9 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Diagnostics;
+using System.IO;
+using System.Text.Json;
 
 namespace CasseBriques
 {
@@ -21,7 +24,8 @@ namespace CasseBriques
         public GameState gameState;
         ScenesManager Menu;
         ScenesManager Gameplay;
-       
+
+        private Level currentLevel;
 
         public CasseBriques()
         {
@@ -37,10 +41,19 @@ namespace CasseBriques
             _screenManager = new ScreenManager(_graphics);
             ServiceLocator.RegisterService<ScreenManager>(_screenManager);
             _Resolution = ServiceLocator.GetService<ScreenManager>();
-            _Resolution.ChangeResolution(1024, 800);
+            _Resolution.ChangeResolution(1024, 900);
 
 
             ServiceLocator.RegisterService<GraphicsDeviceManager>(_graphics);
+
+            for (int i=1; i<5; i++)
+            { 
+                Level level = new Level(i);
+                level.RandomLevel();
+                level.Save();
+
+            }
+
             base.Initialize();
         }
 
@@ -53,7 +66,6 @@ namespace CasseBriques
 
             AssetsManager.Load();
             ServiceLocator.RegisterService<AssetsManager>(AssetsManager);
-            //AssetsManager.Load();
 
             Menu = new Menu(this);
             Gameplay = new Gameplay(this);

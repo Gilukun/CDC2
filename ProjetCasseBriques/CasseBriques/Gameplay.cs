@@ -6,10 +6,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Reflection.Emit;
 using System.Reflection.Metadata.Ecma335;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace CasseBriques
@@ -36,6 +38,11 @@ namespace CasseBriques
         List<Briques> ListeBriques = new List<Briques>();
         List<Personnages> lstPerso =  new List<Personnages> ();
         GameState gameState;
+        Level currentLevel;
+        private int currentLevelNB;
+
+
+
 
         public Gameplay(CasseBriques pGame) : base(pGame)
         {
@@ -47,41 +54,52 @@ namespace CasseBriques
             // Texture de ma balle
 
             SprBalle = new Balle(pGame.Content.Load<Texture2D>("bFire"));
+            SprBalle.SetPosition(SprPad.Position.X, SprPad.Position.Y - SprPad.CentreSpriteH - SprBalle.CentreSpriteH);
 
             SprBalle.Vitesse = new Vector2(6, -4);
             Stick = true;
-            
+
             SprBriques = new Briques(pGame.Content.Load<Texture2D>("Brique_1"));
 
             OldKbState = Keyboard.GetState();
 
-            Level = new int[,]
+
+            //Level = new int[,]
+            //{
+            //    {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1 },
+            //    {1,1,1,1,1,1,4,4,4,4,1,1,1,1,1 },
+            //    {1,1,2,2,2,2,1,1,3,3,3,3,3,1,1 },
+            //    {1,1,2,6,0,2,1,1,3,1,5,1,3,1,1 },
+            //    {1,1,2,0,0,2,1,1,3,1,1,1,3,1,1 },
+            //    {1,1,2,2,2,2,1,1,3,3,3,3,3,1,1 },
+            //    {1,1,1,1,1,1,4,4,4,1,1,1,1,1,1 },
+            //    {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1 },
+            //};
+
+            currentLevelNB = 2;
+            string levelData = File.ReadAllText("Level" + currentLevelNB + ".json");
+            currentLevel = JsonSerializer.Deserialize<Level>(levelData);
+            int NiveauLargeur = currentLevel.Map.GetLength(0);
+            int NiveauHauteur = currentLevel.Map[1].Length;
+            Trace.WriteLine(NiveauHauteur);
+
+
+
+            int largeurGrille = NiveauHauteur * SprBriques.LargeurSprite;
+            int spacing = (ResolutionEcran.Width - largeurGrille) / 2;
+
+            for (int l = 0; l < NiveauLargeur; l++)
             {
-                {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1 },
-                {1,1,1,1,1,1,4,4,4,4,1,1,1,1,1 },
-                {1,1,2,2,2,2,1,1,3,3,3,3,3,1,1 },
-                {1,1,2,6,0,2,1,1,3,1,5,1,3,1,1 },
-                {1,1,2,0,0,2,1,1,3,1,1,1,3,1,1 },
-                {1,1,2,2,2,2,1,1,3,3,3,3,3,1,1 },
-                {1,1,1,1,1,1,4,4,4,1,1,1,1,1,1 },
-                {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1 },
-            };
-            
-            int largeurGrille = Level.GetLength(1) * SprBriques.LargeurSprite;
-            int spacing = (ResolutionEcran.Width - largeurGrille)/2;
-           
-            for (int l = 0; l < Level.GetLength(0); l++)
-            {
-                for (int c = 0; c < Level.GetLength(1); c++)
+                for (int c = 0; c < NiveauHauteur; c++)
                 {
-                    int typeBriques = Level[l, c]; ;
-                  
-                    switch(typeBriques)
+                    int typeBriques = currentLevel.Map[l][c];
+
+                    switch (typeBriques)
                     {
                         case 1:
                             Briques bNormal = new Briques(pGame.Content.Load<Texture2D>("Brique_" + typeBriques));
                             bNormal.SetPosition(c * SprBriques.LargeurSprite + SprBriques.CentreSpriteL + spacing, l * SprBriques.HauteurSprite + SprBriques.CentreSpriteH);
-                            ListeBriques.Add(bNormal); 
+                            ListeBriques.Add(bNormal);
                             break;
                         case 2:
                             Briques bGlace = new bGlace(pGame.Content.Load<Texture2D>("Brique_" + typeBriques));
@@ -106,11 +124,11 @@ namespace CasseBriques
                         case 6:
                             Personnages Feu = new Personnages(pGame.Content.Load<Texture2D>("pFire"));
                             Feu.SetPosition(c * SprBriques.LargeurSprite + SprBriques.CentreSpriteL + spacing, l * SprBriques.HauteurSprite + SprBriques.CentreSpriteH);
-                            lstPerso.Add(Feu); 
-                            break;   
+                            lstPerso.Add(Feu);
+                            break;
                         default:
                             break;
-                            
+
                     }
                 }
             }
@@ -147,10 +165,8 @@ namespace CasseBriques
             for (int b= ListeBriques.Count-1; b >= 0; b--) 
             {
                 bool collision = false;
-                
                 Briques mesBriques = ListeBriques[b];
                 mesBriques.Update();
-               
 
                 if (mesBriques.isScalling == false)
                 {
@@ -168,7 +184,7 @@ namespace CasseBriques
                         //SprBalle.SetPosition(SprBalle.Position.X, mesBriques.Position.Y - mesBriques.HauteurSprite/2 - SprBalle.HauteurSprite);
                     }
 
-                    if (collision && mesBriques.isBreakable == true )
+                    if (collision && mesBriques.isBreakable == true)
                     {
                         mesBriques.nbHits--;
                         if (mesBriques.nbHits == 0)
@@ -182,20 +198,23 @@ namespace CasseBriques
                             {
                                 mesBriques.Scalling = true;
                                 Trace.WriteLine(mesBriques.scale);
-                            } 
+                            }
                         }
-                    }  
-                }
-                if (mesBriques.scale <= 0)
-                {
-                    ListeBriques.RemoveAt(b);
-                    Trace.WriteLine(ListeBriques.Count);
-                    if (ListeBriques.Count (brique => brique.isBreakable) == 0)
-                    {
-                        casseBriques.gameState.ChangeScene(GameState.Scenes.Win);
                     }
-                    break;
+                    if (mesBriques.scale <= 0)
+                    {
+                        ListeBriques.Remove(mesBriques);
+                        Trace.WriteLine(ListeBriques.Count);
+                        if (ListeBriques.Count(brique => brique.isBreakable) == 0)
+                        {
+                            //casseBriques.gameState.ChangeScene(GameState.Scenes.Win);
+                            currentLevelNB++;
+                        }
+                    }
+
                 }
+
+
             }
             
 

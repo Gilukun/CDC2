@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <SourceFile>C:/Users/Gilles/Documents/GameCodeur/CDC2/Cours POO/Liste Image/Content/background.png</SourceFile>
+  <SourceFile>C:/Users/Gilles/Documents/GameCodeur/CDC2/Exercice1/Cours POO/Liste Image/Content/background.png</SourceFile>
   <SourceTime>2023-06-08T20:26:19.9872647+04:00</SourceTime>
-  <DestFile>C:/Users/Gilles/Documents/GameCodeur/CDC2/Cours POO/Liste Image/Content/bin/DesktopGL/Content/background.xnb</DestFile>
-  <DestTime>2023-06-08T20:27:18.8452552+04:00</DestTime>
+  <DestFile>C:/Users/Gilles/Documents/GameCodeur/CDC2/Exercice1/Cours POO/Liste Image/Content/bin/DesktopGL/Content/background.xnb</DestFile>
+  <DestTime>2023-06-19T18:31:03.8633487+04:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2022-07-26T15:44:56+04:00</ImporterTime>
   <Processor>TextureProcessor</Processor>
