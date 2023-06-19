@@ -13,6 +13,11 @@ namespace CasseBriques
         ScreenManager _screenManager;
         ScreenManager _Resolution;
 
+        private AssetsManager TitleFont;
+        private AssetsManager MenuFont;
+        AssetsManager AssetsManager = new AssetsManager();
+
+
         public GameState gameState;
         ScenesManager Menu;
         ScenesManager Gameplay;
@@ -34,6 +39,8 @@ namespace CasseBriques
             _Resolution = ServiceLocator.GetService<ScreenManager>();
             _Resolution.ChangeResolution(1024, 800);
 
+
+            ServiceLocator.RegisterService<GraphicsDeviceManager>(_graphics);
             base.Initialize();
         }
 
@@ -43,7 +50,10 @@ namespace CasseBriques
             ServiceLocator.RegisterService<SpriteBatch>(_spriteBatch);
             ServiceLocator.RegisterService<ContentManager>(Content);
             ServiceLocator.RegisterService<GraphicsDeviceManager>(_graphics);
+
             AssetsManager.Load();
+            ServiceLocator.RegisterService<AssetsManager>(AssetsManager);
+            //AssetsManager.Load();
 
             Menu = new Menu(this);
             Gameplay = new Gameplay(this);

@@ -13,22 +13,21 @@ namespace CasseBriques
 {
     public class AssetsManager
     {
-        
-        public static SpriteFont TitleFont {get; private set;}
-        public static SpriteFont MenuFont { get; private set; }
+        public  SpriteFont TitleFont {get; set;}
+        public  SpriteFont MenuFont { get; set; }
 
-        public static void Load()
+        public void Load()
         {
             ContentManager pContent = ServiceLocator.GetService<ContentManager>();
             TitleFont = pContent.Load<SpriteFont>("TitleFont");
             MenuFont = pContent.Load<SpriteFont>("MenuFont");
         }
 
-        public static Vector2 GetSize(string pText, SpriteFont pFont) 
+        public static Vector2 GetSize(string pText, SpriteFont pFont)
         {
             Vector2 textsize = pFont.MeasureString(pText);
             return textsize;
         }
-    
+
     }
 }

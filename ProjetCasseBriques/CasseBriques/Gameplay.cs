@@ -57,15 +57,14 @@ namespace CasseBriques
 
             Level = new int[,]
             {
-                {0,0,1,1,4,1,1,0,0,},
-                {0,0,1,1,4,1,1,0,0,},
-                {0,0,1,1,4,1,1,0,0,},
-                {0,0,1,1,4,1,1,0,0,},
-                {0,0,1,1,4,1,1,0,0,},
-                {0,0,1,1,4,1,1,0,0,},
-                {0,0,1,1,4,1,1,0,0,},
-                {0,0,1,1,4,1,1,0,0,},
-                {0,0,1,1,4,1,1,0,0,},
+                {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1 },
+                {1,1,1,1,1,1,4,4,4,4,1,1,1,1,1 },
+                {1,1,2,2,2,2,1,1,3,3,3,3,3,1,1 },
+                {1,1,2,6,0,2,1,1,3,1,5,1,3,1,1 },
+                {1,1,2,0,0,2,1,1,3,1,1,1,3,1,1 },
+                {1,1,2,2,2,2,1,1,3,3,3,3,3,1,1 },
+                {1,1,1,1,1,1,4,4,4,1,1,1,1,1,1 },
+                {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1 },
             };
             
             int largeurGrille = Level.GetLength(1) * SprBriques.LargeurSprite;
@@ -127,7 +126,25 @@ namespace CasseBriques
             }
             OldKbState = NewKbState;
 
-            for (int b= ListeBriques.Count - 1; b >= 0; b--) 
+            SprBalle.Update();
+
+            if (Stick)
+            {
+                SprBalle.SetPosition(SprPad.Position.X, SprPad.Position.Y - SprPad.CentreSpriteH - SprBalle.CentreSpriteH);
+            }
+
+            if (SprPad.BoundingBox.Intersects(SprBalle.BoundingBox))
+            {
+                SprBalle.Vitesse = new Vector2(SprBalle.Vitesse.X, -SprBalle.Vitesse.Y);
+                SprBalle.SetPosition(SprBalle.Position.X, SprPad.Position.Y - SprBalle.HauteurSprite);
+            }
+
+            if (SprBalle.Position.Y > ResolutionEcran.Height)
+            {
+                Stick = true;
+            }
+
+            for (int b= ListeBriques.Count-1; b >= 0; b--) 
             {
                 bool collision = false;
                 
@@ -171,12 +188,13 @@ namespace CasseBriques
                 }
                 if (mesBriques.scale <= 0)
                 {
-                    ListeBriques.Remove(mesBriques);
+                    ListeBriques.RemoveAt(b);
                     Trace.WriteLine(ListeBriques.Count);
                     if (ListeBriques.Count (brique => brique.isBreakable) == 0)
                     {
                         casseBriques.gameState.ChangeScene(GameState.Scenes.Win);
                     }
+                    break;
                 }
             }
             
@@ -217,23 +235,7 @@ namespace CasseBriques
                     Trace.WriteLine(mesPerso.currentState);
                 }
             }
-            SprBalle.Update();
-
-            if (Stick)
-            {
-                SprBalle.SetPosition(SprPad.Position.X, SprPad.Position.Y - SprPad.CentreSpriteH - SprBalle.CentreSpriteH);
-            }
-
-            if (SprPad.BoundingBox.Intersects(SprBalle.BoundingBox))
-            {
-                SprBalle.Vitesse = new Vector2(SprBalle.Vitesse.X, -SprBalle.Vitesse.Y);
-                SprBalle.SetPosition(SprBalle.Position.X, SprPad.Position.Y - SprBalle.HauteurSprite);
-            }
-
-            if (SprBalle.Position.Y > ResolutionEcran.Height)
-            {
-                Stick = true;
-            }
+            
 
             base.Update();
         }

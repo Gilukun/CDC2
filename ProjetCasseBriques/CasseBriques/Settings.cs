@@ -19,8 +19,6 @@ namespace CasseBriques
 
         public override void Load()
         {
-            
-
         }
         public override void Update()
         {

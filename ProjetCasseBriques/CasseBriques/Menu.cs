@@ -12,28 +12,27 @@ namespace CasseBriques
 {
     public class Menu : ScenesManager
     {
+        Texture2D background;
+      
+        ScreenManager ResolutionEcran = ServiceLocator.GetService<ScreenManager>();
+
         private GUI BoutonEnter;
         private GUI BoutonSettings;
-        ScreenManager ResolutionEcran = ServiceLocator.GetService<ScreenManager>();
-        private MouseState oldMState;
-        private MouseState newMState;
         private List<GUI> listeBouttons;
-       
+
+        private MouseState oldMState;
         private string Titre;
         private Vector2 DimensionTitre;
         private string Start;
         private string Settings;
-        private List<string> MenuList;
-       
-
         private Vector2 DimensionStart;
         private Vector2 DimensionSettings;
-        GameState gameState;
 
+        AssetsManager AssetsManager =   ServiceLocator.GetService<AssetsManager>();
 
         public Menu(CasseBriques pGame) : base (pGame) 
         {
-            
+            background = pGame.Content.Load<Texture2D>("BckMenu");
         }
 
         public void OnClick(GUI pSender)
@@ -50,7 +49,6 @@ namespace CasseBriques
 
         }
 
-        
         public override void Load()
         {
             listeBouttons = new List<GUI>();
@@ -58,7 +56,6 @@ namespace CasseBriques
             BoutonEnter.SetPosition(ResolutionEcran.CenterWidth, 200);
             BoutonEnter.onClick = OnClick;
             listeBouttons.Add(BoutonEnter);
-
 
             BoutonSettings = new GUI(casseBriques.Content.Load<Texture2D>("Button1"));
             BoutonSettings.SetPosition(ResolutionEcran.CenterWidth, 500);
@@ -71,12 +68,11 @@ namespace CasseBriques
             
             Start = "START";
             DimensionStart = AssetsManager.GetSize(Start, AssetsManager.MenuFont);
+
             Settings = "SETTINGS";
             DimensionSettings = AssetsManager.GetSize(Settings, AssetsManager.MenuFont);
-
         }
 
-        
         public override void Update()
         {
             BoutonEnter.Update();
@@ -84,10 +80,10 @@ namespace CasseBriques
             base.Update();
         }
       
-
         public override void DrawScene()
         {
             SpriteBatch pBatch = ServiceLocator.GetService<SpriteBatch>();
+            pBatch.Draw(background, new Vector2(0, 0), Color.White);
             BoutonEnter.Draw();
             BoutonSettings.Draw();
             pBatch.DrawString(AssetsManager.TitleFont, 
@@ -95,7 +91,6 @@ namespace CasseBriques
                               new Vector2 (ResolutionEcran.CenterWidth- DimensionTitre.X /2, 100 - DimensionTitre.Y/2), 
                               Color.WhiteSmoke);
 
-            
             Color color;
             foreach (GUI item in listeBouttons)
             { 
