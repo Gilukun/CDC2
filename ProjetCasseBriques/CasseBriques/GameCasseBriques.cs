@@ -26,6 +26,7 @@ namespace CasseBriques
         ScenesManager Gameplay;
 
         private Level currentLevel;
+        public int MaxLevel;
 
         public CasseBriques()
         {
@@ -46,7 +47,8 @@ namespace CasseBriques
 
             ServiceLocator.RegisterService<GraphicsDeviceManager>(_graphics);
 
-            for (int i=1; i<5; i++)
+            MaxLevel = 4;
+            for (int i=1; i<=MaxLevel; i++) // le nombre de niveau correspond au nombre max de Background (4) que j'ai. Si je met 4, la boucle 
             { 
                 Level level = new Level(i);
                 level.RandomLevel();

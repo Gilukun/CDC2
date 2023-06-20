@@ -28,7 +28,7 @@ namespace CasseBriques
         Briques SprBFeu;
        
         private Vector2 positionGrille;
-        private int[,] Level;
+        private int[,] Levels;
 
         public bool Stick;
         public bool isKeyboardPressed;
@@ -42,9 +42,9 @@ namespace CasseBriques
         Level currentLevel;
         private int currentLevelNB;
         private int currentBackground;
-        private int currentLevelNBMAX = 4;
-        private int currentBackgroundMAX = 4;
-
+        private int MaxLevel; 
+        private int currentBackgroundMAX;
+       
         public Gameplay(CasseBriques pGame) : base(pGame)
         {
             currentBackground = 1;
@@ -65,6 +65,7 @@ namespace CasseBriques
 
             OldKbState = Keyboard.GetState();
 
+            MaxLevel = casseBriques.MaxLevel;
             currentLevelNB = 1;
             LoadLevel(casseBriques, currentLevelNB);
            
@@ -81,10 +82,12 @@ namespace CasseBriques
             ContentManager _content = ServiceLocator.GetService<ContentManager>();
             string levelData = File.ReadAllText("Level" + currentLevelNB + ".json");
             currentLevel = JsonSerializer.Deserialize<Level>(levelData);
+
             int NiveauLargeur = currentLevel.Map.GetLength(0);
             int NiveauHauteur = currentLevel.Map[1].Length;
             int largeurGrille = NiveauHauteur * SprBriques.LargeurSprite;
             int spacing = (ResolutionEcran.Width - largeurGrille) / 2;
+
             for (int l = 0; l < NiveauLargeur; l++)
             {
                 for (int c = 0; c < NiveauHauteur; c++)
@@ -209,7 +212,7 @@ namespace CasseBriques
                             // casseBriques.gameState.ChangeScene(GameState.Scenes.Win);
                             currentLevelNB++;
                             currentBackground++;
-                            if (currentBackground > currentBackgroundMAX)
+                            if (currentBackground > MaxLevel)
                             {
                                 casseBriques.gameState.ChangeScene(GameState.Scenes.Menu);
                                 currentLevelNB = 1;

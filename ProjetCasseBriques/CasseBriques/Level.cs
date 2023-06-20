@@ -8,15 +8,23 @@ using System.Threading.Tasks;
 
 namespace CasseBriques
 {
-    internal class Level
+    public class Level
     {
         public int numero { get; set; } // pour que Json fonction il faut sérialiser, donc il faut absolumnt mettre get;set.
         public int[][] Map { get; set; } // on créer une liste avec 2 champs
+        public int LevelMax;
+        public int MaxLevel
+        {
+            get
+            { return LevelMax; }
+        }
         public Level() { } // constructeur par défaut pour pourvoir désérialiser le fichier. Il faut donc qu'il soit vide car il doit faire en background un new sans paramètre
         public Level(int pNumero)
         {
             numero = pNumero;
+            LevelMax = 4;
         }
+        
         public void RandomLevel() 
         {
             Random rnd = new Random();
