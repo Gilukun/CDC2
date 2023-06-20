@@ -5,11 +5,13 @@
   <Config />
   <SourceFiles>
     <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/ProjetCasseBriques/CasseBriques/Content/background.png</File>
-    <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/ProjetCasseBriques/CasseBriques/Content/BckGameplay.png</File>
     <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/ProjetCasseBriques/CasseBriques/Content/BckMenu.png</File>
     <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/ProjetCasseBriques/CasseBriques/Content/bFire.png</File>
     <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/ProjetCasseBriques/CasseBriques/Content/bice.png</File>
     <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/ProjetCasseBriques/CasseBriques/Content/Bk_1.png</File>
+    <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/ProjetCasseBriques/CasseBriques/Content/BK_2.png</File>
+    <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/ProjetCasseBriques/CasseBriques/Content/Bk_3.png</File>
+    <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/ProjetCasseBriques/CasseBriques/Content/BK_4.png</File>
     <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/ProjetCasseBriques/CasseBriques/Content/bMenu.png</File>
     <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/ProjetCasseBriques/CasseBriques/Content/bNormal.png</File>
     <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/ProjetCasseBriques/CasseBriques/Content/Brique_1.png</File>
@@ -29,6 +31,8 @@
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File>BK_1.png</File>
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

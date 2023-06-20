@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
@@ -40,13 +41,15 @@ namespace CasseBriques
         GameState gameState;
         Level currentLevel;
         private int currentLevelNB;
+        private int currentBackground;
 
 
 
 
         public Gameplay(CasseBriques pGame) : base(pGame)
         {
-            background = pGame.Content.Load<Texture2D>("Bk_1");
+            currentBackground = 1;
+            LoadBackground(casseBriques);
 
             // texture de ma raquette
             SprPad = new Raquette(pGame.Content.Load<Texture2D>("pNormal"));
@@ -63,31 +66,26 @@ namespace CasseBriques
 
             OldKbState = Keyboard.GetState();
 
+            currentLevelNB = 1;
+            LoadLevel(casseBriques, currentLevelNB);
+           
+        }
 
-            //Level = new int[,]
-            //{
-            //    {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1 },
-            //    {1,1,1,1,1,1,4,4,4,4,1,1,1,1,1 },
-            //    {1,1,2,2,2,2,1,1,3,3,3,3,3,1,1 },
-            //    {1,1,2,6,0,2,1,1,3,1,5,1,3,1,1 },
-            //    {1,1,2,0,0,2,1,1,3,1,1,1,3,1,1 },
-            //    {1,1,2,2,2,2,1,1,3,3,3,3,3,1,1 },
-            //    {1,1,1,1,1,1,4,4,4,1,1,1,1,1,1 },
-            //    {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1 },
-            //};
+        public void LoadBackground(CasseBriques pGame)
+        {
+            background = pGame.Content.Load<Texture2D>("BK_" + currentBackground);
 
-            currentLevelNB = 2;
+        }
+
+        public void LoadLevel(CasseBriques pGame, int pLevel)
+        {
+            ContentManager _content = ServiceLocator.GetService<ContentManager>();
             string levelData = File.ReadAllText("Level" + currentLevelNB + ".json");
             currentLevel = JsonSerializer.Deserialize<Level>(levelData);
             int NiveauLargeur = currentLevel.Map.GetLength(0);
             int NiveauHauteur = currentLevel.Map[1].Length;
-            Trace.WriteLine(NiveauHauteur);
-
-
-
             int largeurGrille = NiveauHauteur * SprBriques.LargeurSprite;
             int spacing = (ResolutionEcran.Width - largeurGrille) / 2;
-
             for (int l = 0; l < NiveauLargeur; l++)
             {
                 for (int c = 0; c < NiveauHauteur; c++)
@@ -133,6 +131,8 @@ namespace CasseBriques
                 }
             }
         }
+
+
         public override void Update()
         {
             NewKbState = Keyboard.GetState();
@@ -205,20 +205,18 @@ namespace CasseBriques
                     {
                         ListeBriques.Remove(mesBriques);
                         Trace.WriteLine(ListeBriques.Count);
-                        if (ListeBriques.Count(brique => brique.isBreakable) == 0)
+                        if (!ListeBriques.Any(brique => brique.isBreakable)) // comme count mais avec de meilleur performance/ Proposé par VisualStudio
                         {
-                            //casseBriques.gameState.ChangeScene(GameState.Scenes.Win);
+                           // casseBriques.gameState.ChangeScene(GameState.Scenes.Win);
+                            Stick = true;
                             currentLevelNB++;
+                            currentBackground++;
+                            LoadBackground(casseBriques);
+                            LoadLevel(casseBriques, currentLevelNB);    
                         }
                     }
-
                 }
-
-
             }
-            
-
-
 
             for (int p = lstPerso.Count - 1; p >= 0; p--)
             {
@@ -254,7 +252,6 @@ namespace CasseBriques
                     Trace.WriteLine(mesPerso.currentState);
                 }
             }
-            
 
             base.Update();
         }

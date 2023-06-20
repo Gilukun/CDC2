@@ -4,6 +4,7 @@ C:\Users\Gilles\Documents\GameCodeur\CDC2\ProjetCasseBriques\CasseBriques\bin\De
 C:\Users\Gilles\Documents\GameCodeur\CDC2\ProjetCasseBriques\CasseBriques\bin\Debug\net6.0\Content\bFire.xnb
 C:\Users\Gilles\Documents\GameCodeur\CDC2\ProjetCasseBriques\CasseBriques\bin\Debug\net6.0\Content\bice.xnb
 C:\Users\Gilles\Documents\GameCodeur\CDC2\ProjetCasseBriques\CasseBriques\bin\Debug\net6.0\Content\Bk_1.xnb
+C:\Users\Gilles\Documents\GameCodeur\CDC2\ProjetCasseBriques\CasseBriques\bin\Debug\net6.0\Content\Bk_2.xnb
 C:\Users\Gilles\Documents\GameCodeur\CDC2\ProjetCasseBriques\CasseBriques\bin\Debug\net6.0\Content\bMenu.xnb
 C:\Users\Gilles\Documents\GameCodeur\CDC2\ProjetCasseBriques\CasseBriques\bin\Debug\net6.0\Content\bNormal.xnb
 C:\Users\Gilles\Documents\GameCodeur\CDC2\ProjetCasseBriques\CasseBriques\bin\Debug\net6.0\Content\Brique_1.xnb
@@ -43,3 +44,5 @@ C:\Users\Gilles\Documents\GameCodeur\CDC2\ProjetCasseBriques\CasseBriques\obj\De
 C:\Users\Gilles\Documents\GameCodeur\CDC2\ProjetCasseBriques\CasseBriques\obj\Debug\net6.0\CasseBriques.pdb
 C:\Users\Gilles\Documents\GameCodeur\CDC2\ProjetCasseBriques\CasseBriques\obj\Debug\net6.0\CasseBriques.genruntimeconfig.cache
 C:\Users\Gilles\Documents\GameCodeur\CDC2\ProjetCasseBriques\CasseBriques\obj\Debug\net6.0\ref\CasseBriques.dll
+C:\Users\Gilles\Documents\GameCodeur\CDC2\ProjetCasseBriques\CasseBriques\bin\Debug\net6.0\Content\Bk_3.xnb
+C:\Users\Gilles\Documents\GameCodeur\CDC2\ProjetCasseBriques\CasseBriques\bin\Debug\net6.0\Content\BK_4.xnb

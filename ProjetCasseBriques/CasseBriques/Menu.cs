@@ -27,6 +27,7 @@ namespace CasseBriques
         private string Settings;
         private Vector2 DimensionStart;
         private Vector2 DimensionSettings;
+        private int spacing;
 
         AssetsManager Font =   ServiceLocator.GetService<AssetsManager>();
 
@@ -54,12 +55,18 @@ namespace CasseBriques
             listeBouttons = new List<GUI>();
             BoutonEnter = new GUI(casseBriques.Content.Load<Texture2D>("Button1"));
             BoutonEnter.SetPosition(ResolutionEcran.CenterWidth, ResolutionEcran.CenterHeight);
+
+            int LargeurBouton = BoutonEnter.LargeurSprite;
+            int HauteurBouton = BoutonEnter.HauteurSprite;
+            spacing = HauteurBouton / 2;
+
             BoutonEnter.onClick = OnClick;
             listeBouttons.Add(BoutonEnter);
 
             BoutonSettings = new GUI(casseBriques.Content.Load<Texture2D>("Button1"));
-            BoutonSettings.SetPosition(ResolutionEcran.CenterWidth, 500);
+            BoutonSettings.SetPosition(ResolutionEcran.CenterWidth, BoutonEnter.Position.Y + HauteurBouton+ spacing) ;
             BoutonSettings.onClick = OnClick;
+           
             listeBouttons.Add(BoutonSettings);
             oldMState = Mouse.GetState();
 
@@ -84,7 +91,9 @@ namespace CasseBriques
         {
             SpriteBatch pBatch = ServiceLocator.GetService<SpriteBatch>();
             pBatch.Draw(background, new Vector2(0, 0), Color.White);
+
             BoutonEnter.Draw();
+
             BoutonSettings.Draw();
             pBatch.DrawString(Font.TitleFont, 
                               "FANTASOID", 
