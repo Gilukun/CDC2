@@ -10,10 +10,15 @@ namespace CasseBriques
 {
     public class Balle : Sprites
     {
+        ScreenManager HUD = ServiceLocator.GetService<ScreenManager>();
         public Balle(Texture2D pTexture) : base(pTexture)
         {
         }
 
+        public  override void Load()
+        {   
+         
+        }
         public override void Update()
         {
             Position += Vitesse;

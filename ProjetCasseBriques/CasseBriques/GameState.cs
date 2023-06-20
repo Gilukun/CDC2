@@ -36,16 +36,16 @@ namespace CasseBriques
             switch (pScene)
             {
                 case Scenes.Menu:
-                    CurrentScene = new Menu(casseBriques);
+                    CurrentScene = new Menu();
                     break;
                 case Scenes.Gameplay:
-                    CurrentScene = new Gameplay(casseBriques);
+                    CurrentScene = new Gameplay();
                     break;
                 case Scenes.Setting:
-                    CurrentScene = new Settings(casseBriques);
+                    CurrentScene = new Settings();
                     break;
                 case Scenes.Win:
-                    CurrentScene = new Win(casseBriques);
+                    CurrentScene = new Win();
                     break;
 
                 default:
@@ -53,6 +53,11 @@ namespace CasseBriques
             }
 
             CurrentScene.Load();
+        }
+
+        public void Update()
+        { 
+        
         }
 
 

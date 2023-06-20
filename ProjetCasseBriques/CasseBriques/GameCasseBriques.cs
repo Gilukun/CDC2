@@ -21,7 +21,9 @@ namespace CasseBriques
         AssetsManager AssetsManager = new AssetsManager();
 
 
-        public GameState gameState;
+      
+        public GameState State;
+
         ScenesManager Menu;
         ScenesManager Gameplay;
 
@@ -33,7 +35,7 @@ namespace CasseBriques
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
-            gameState = new GameState(this);
+            State = new GameState(this);
 
         }
 
@@ -43,13 +45,13 @@ namespace CasseBriques
             ServiceLocator.RegisterService<ScreenManager>(_screenManager);
             _Resolution = ServiceLocator.GetService<ScreenManager>();
             _Resolution.ChangeResolution(1024, 900);
-
-
             ServiceLocator.RegisterService<GraphicsDeviceManager>(_graphics);
 
+            
+
             MaxLevel = 4;
-            for (int i=1; i<=MaxLevel; i++) // le nombre de niveau correspond au nombre max de Background (4) que j'ai. Si je met 4, la boucle 
-            { 
+            for (int i = 1; i <= MaxLevel; i++) // le nombre de niveau correspond au nombre max de Background (4) que j'ai. Si je met 4, la boucle 
+            {
                 Level level = new Level(i);
                 level.RandomLevel();
                 level.Save();
@@ -65,14 +67,15 @@ namespace CasseBriques
             ServiceLocator.RegisterService<SpriteBatch>(_spriteBatch);
             ServiceLocator.RegisterService<ContentManager>(Content);
             ServiceLocator.RegisterService<GraphicsDeviceManager>(_graphics);
-
+            ServiceLocator.RegisterService<GameState>(State);
             AssetsManager.Load();
             ServiceLocator.RegisterService<AssetsManager>(AssetsManager);
 
-            Menu = new Menu(this);
-            Gameplay = new Gameplay(this);
+            Menu = new Menu();
+            Gameplay = new Gameplay();
+            
+            State.ChangeScene(GameState.Scenes.Menu);
            
-            gameState.ChangeScene(GameState.Scenes.Menu);
         }
 
         protected override void Update(GameTime gameTime)
@@ -80,11 +83,11 @@ namespace CasseBriques
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            if (gameState.CurrentScene != null)
+            if (State.CurrentScene != null)
             {
-                gameState.CurrentScene.Update();
+                State.CurrentScene.Update();
             }
-           
+
 
             base.Update(gameTime);
         }
@@ -92,11 +95,11 @@ namespace CasseBriques
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            if (gameState.CurrentScene != null)
+            if (State.CurrentScene != null)
             {
-                gameState.CurrentScene.Draw();
+                State.CurrentScene.Draw();
             }
-           
+
             base.Draw(gameTime);
         }
     }

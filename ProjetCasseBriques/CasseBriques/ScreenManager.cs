@@ -45,9 +45,6 @@ namespace CasseBriques
         }
 
 
-
-
-
         public Point GetScreenSize()
         {
             return new Point(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);

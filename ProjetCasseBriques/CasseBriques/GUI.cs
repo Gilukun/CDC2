@@ -34,7 +34,7 @@ namespace CasseBriques
         {
             newMState = Mouse.GetState();
             mousePosition = Mouse.GetState().Position;
-            
+
             if (BoundingBox.Contains(mousePosition))
             {
                 if (!IsHover)
@@ -46,8 +46,8 @@ namespace CasseBriques
             else
             {
                 if (IsHover)
-                { 
-                    IsHover= false;
+                {
+                    IsHover = false;
                 }
             }
 
@@ -56,7 +56,7 @@ namespace CasseBriques
                 if (newMState.LeftButton == ButtonState.Pressed && oldMState.LeftButton == ButtonState.Released)
                 {
                     Trace.WriteLine("Je clique");
-                    if (onClick != null) 
+                    if (onClick != null)
                     {
                         onClick(this);
                     }

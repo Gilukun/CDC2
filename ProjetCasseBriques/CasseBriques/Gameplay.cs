@@ -20,13 +20,14 @@ namespace CasseBriques
     public class Gameplay : ScenesManager
     {
         ScreenManager ResolutionEcran = ServiceLocator.GetService<ScreenManager>();
+        GameState Status = ServiceLocator.GetService<GameState>();
         private Texture2D background;
-        
+
         Raquette SprPad;
         Balle SprBalle;
         Briques SprBriques;
         Briques SprBFeu;
-       
+
         private Vector2 positionGrille;
         private int[,] Levels;
 
@@ -37,48 +38,60 @@ namespace CasseBriques
         private Point Viser;
         private Vector2 Velocity;
         List<Briques> ListeBriques = new List<Briques>();
-        List<Personnages> lstPerso =  new List<Personnages> ();
+        List<Personnages> lstPerso = new List<Personnages>();
         GameState gameState;
         Level currentLevel;
         private int currentLevelNB;
         private int currentBackground;
-        private int MaxLevel; 
+        private int MaxLevel;
         private int currentBackgroundMAX;
-       
-        public Gameplay(CasseBriques pGame) : base(pGame)
+        ContentManager _content = ServiceLocator.GetService<ContentManager>();
+
+        public void LoadBackground()
+        {
+            ContentManager _content = ServiceLocator.GetService<ContentManager>();
+            background = _content.Load<Texture2D>("BK_" + currentBackground);
+
+        }
+
+        public void InitializeLevel()
+        {
+            MaxLevel = 4;
+            for (int i = 1; i <= MaxLevel; i++) // le nombre de niveau correspond au nombre max de Background (4) que j'ai. Si je met 4, la boucle 
+            {
+                Level level = new Level(i);
+                level.RandomLevel();
+                level.Save();
+            }
+        }
+        public Gameplay()
         {
             currentBackground = 1;
-            LoadBackground(casseBriques);
+            LoadBackground();
 
             // texture de ma raquette
-            SprPad = new Raquette(pGame.Content.Load<Texture2D>("pNormal"));
+            SprPad = new Raquette(_content.Load<Texture2D>("pNormal"));
             SprPad.SetPosition(ResolutionEcran.CenterWidth, ResolutionEcran.Height - SprPad.CentreSpriteH);
             // Texture de ma balle
 
-            SprBalle = new Balle(pGame.Content.Load<Texture2D>("bFire"));
+            SprBalle = new Balle(_content.Load<Texture2D>("bFire"));
             SprBalle.SetPosition(SprPad.Position.X, SprPad.Position.Y - SprPad.CentreSpriteH - SprBalle.CentreSpriteH);
 
             SprBalle.Vitesse = new Vector2(6, -4);
             Stick = true;
 
-            SprBriques = new Briques(pGame.Content.Load<Texture2D>("Brique_1"));
+            SprBriques = new Briques(_content.Load<Texture2D>("Brique_1"));
 
             OldKbState = Keyboard.GetState();
-
-            MaxLevel = casseBriques.MaxLevel;
             currentLevelNB = 1;
-            LoadLevel(casseBriques, currentLevelNB);
-           
-        }
-
-        public void LoadBackground(CasseBriques pGame)
-        {
-            background = pGame.Content.Load<Texture2D>("BK_" + currentBackground);
+            
+            LoadLevel(currentLevelNB);
 
         }
 
-        public void LoadLevel(CasseBriques pGame, int pLevel)
+    public void LoadLevel(int pLevel)
         {
+            InitializeLevel();
             ContentManager _content = ServiceLocator.GetService<ContentManager>();
             string levelData = File.ReadAllText("Level" + currentLevelNB + ".json");
             currentLevel = JsonSerializer.Deserialize<Level>(levelData);
@@ -97,32 +110,32 @@ namespace CasseBriques
                     switch (typeBriques)
                     {
                         case 1:
-                            Briques bNormal = new Briques(pGame.Content.Load<Texture2D>("Brique_" + typeBriques));
+                            Briques bNormal = new Briques(_content.Load<Texture2D>("Brique_" + typeBriques));
                             bNormal.SetPosition(c * SprBriques.LargeurSprite + SprBriques.CentreSpriteL + spacing, l * SprBriques.HauteurSprite + SprBriques.CentreSpriteH);
                             ListeBriques.Add(bNormal);
                             break;
                         case 2:
-                            Briques bGlace = new bGlace(pGame.Content.Load<Texture2D>("Brique_" + typeBriques));
+                            Briques bGlace = new bGlace(_content.Load<Texture2D>("Brique_" + typeBriques));
                             bGlace.SetPosition(c * SprBriques.LargeurSprite + SprBriques.CentreSpriteL + spacing, l * SprBriques.HauteurSprite + SprBriques.CentreSpriteH);
                             ListeBriques.Add(bGlace);
                             break;
                         case 3:
-                            Briques bFeu = new bFeu(pGame.Content.Load<Texture2D>("Brique_" + typeBriques));
+                            Briques bFeu = new bFeu(_content.Load<Texture2D>("Brique_" + typeBriques));
                             bFeu.SetPosition(c * SprBriques.LargeurSprite + SprBriques.CentreSpriteL + spacing, l * SprBriques.HauteurSprite + SprBriques.CentreSpriteH);
                             ListeBriques.Add(bFeu);
                             break;
                         case 4:
-                            Briques bMetal = new bMetal(pGame.Content.Load<Texture2D>("Brique_" + typeBriques));
+                            Briques bMetal = new bMetal(_content.Load<Texture2D>("Brique_" + typeBriques));
                             bMetal.SetPosition(c * SprBriques.LargeurSprite + SprBriques.CentreSpriteL + spacing, l * SprBriques.HauteurSprite + SprBriques.CentreSpriteH);
                             ListeBriques.Add(bMetal);
                             break;
                         case 5:
-                            Personnages Glace = new Personnages(pGame.Content.Load<Texture2D>("pIce"));
+                            Personnages Glace = new Personnages(_content.Load<Texture2D>("pIce"));
                             Glace.SetPosition(c * SprBriques.LargeurSprite + SprBriques.CentreSpriteL + spacing, l * SprBriques.HauteurSprite + SprBriques.CentreSpriteH);
                             lstPerso.Add(Glace);
                             break;
                         case 6:
-                            Personnages Feu = new Personnages(pGame.Content.Load<Texture2D>("pFire"));
+                            Personnages Feu = new Personnages(_content.Load<Texture2D>("pFire"));
                             Feu.SetPosition(c * SprBriques.LargeurSprite + SprBriques.CentreSpriteL + spacing, l * SprBriques.HauteurSprite + SprBriques.CentreSpriteH);
                             lstPerso.Add(Feu);
                             break;
@@ -142,7 +155,7 @@ namespace CasseBriques
 
             if (NewKbState.IsKeyDown(Keys.Space) && !OldKbState.IsKeyDown(Keys.Space))
             {
-                Stick = false;       
+                Stick = false;
             }
             OldKbState = NewKbState;
 
@@ -164,7 +177,7 @@ namespace CasseBriques
                 Stick = true;
             }
 
-            for (int b= ListeBriques.Count-1; b >= 0; b--) 
+            for (int b = ListeBriques.Count - 1; b >= 0; b--)
             {
                 bool collision = false;
                 Briques mesBriques = ListeBriques[b];
@@ -182,7 +195,7 @@ namespace CasseBriques
                     if (mesBriques.BoundingBox.Intersects(SprBalle.NextPositionY()))
                     {
                         collision = true;
-                        SprBalle.Vitesse = new Vector2(SprBalle.Vitesse.X,-SprBalle.Vitesse.Y);
+                        SprBalle.Vitesse = new Vector2(SprBalle.Vitesse.X, -SprBalle.Vitesse.Y);
                         //SprBalle.SetPosition(SprBalle.Position.X, mesBriques.Position.Y - mesBriques.HauteurSprite/2 - SprBalle.HauteurSprite);
                     }
 
@@ -214,17 +227,17 @@ namespace CasseBriques
                             currentBackground++;
                             if (currentBackground > MaxLevel)
                             {
-                                casseBriques.gameState.ChangeScene(GameState.Scenes.Menu);
+                                Status.ChangeScene(GameState.Scenes.Menu);
                                 currentLevelNB = 1;
                                 currentBackground = 1;
                             }
-                           else
+                            else
                             {
                                 Stick = true;
-                                LoadBackground(casseBriques);
-                                LoadLevel(casseBriques, currentLevelNB);
+                                LoadBackground();
+                                LoadLevel(currentLevelNB);
                             }
-                            
+
                         }
                     }
                 }
@@ -255,7 +268,7 @@ namespace CasseBriques
                     mesPerso.currentState = Personnages.State.Catch;
                     lstPerso.Remove(mesPerso);
                     Trace.WriteLine(mesPerso.currentState);
-                   
+
                 }
                 if (collision == true)
                 {
@@ -277,10 +290,10 @@ namespace CasseBriques
             float rotation;
             foreach (var Briques in ListeBriques)
             {
-               
+
                 if (Briques is bFeu Fire)
                 {
-                   rotation = Fire.Rotation;
+                    rotation = Fire.Rotation;
                 }
                 else
                 {

@@ -84,7 +84,7 @@ namespace CasseBriques
             return NextPosition;
         }
 
-        public void Load()
+        public virtual void Load()
         { 
         }
       

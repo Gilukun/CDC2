@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
@@ -18,17 +19,21 @@ namespace CasseBriques
         protected CasseBriques casseBriques;
         private KeyboardState NewKbState;
         private KeyboardState OldKbState;
-
+        GameState Status = ServiceLocator.GetService<GameState>();
         // Constructeur 
-        public ScenesManager(CasseBriques pGame)
+        public ScenesManager()
         {
-            casseBriques = pGame;
-            DimensionEcran = casseBriques.Window.ClientBounds;
-            background = casseBriques.Content.Load<Texture2D>("background");
+            ContentManager _content = ServiceLocator.GetService<ContentManager>();
+            GraphicsDeviceManager ResolutionEcran = ServiceLocator.GetService<GraphicsDeviceManager>();
+            int LargeurEcran = ResolutionEcran.PreferredBackBufferWidth;
+            int HauteurEcran = ResolutionEcran.PreferredBackBufferHeight;
+            DimensionEcran = new Rectangle(0, 0, LargeurEcran, HauteurEcran);
+            background = _content.Load<Texture2D>("background");
         }
 
         public virtual void Load()
-        { }
+        {
+        }
 
         public virtual void Unload()
         { }
@@ -39,7 +44,7 @@ namespace CasseBriques
 
             if (NewKbState.IsKeyDown(Keys.M) && !OldKbState.IsKeyDown(Keys.M))
             {
-                casseBriques.gameState.ChangeScene(GameState.Scenes.Menu);
+                Status.ChangeScene(GameState.Scenes.Menu);
             }
             OldKbState = NewKbState;
         }

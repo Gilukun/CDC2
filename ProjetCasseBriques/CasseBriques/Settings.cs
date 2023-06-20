@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -11,9 +12,10 @@ namespace CasseBriques
     public class Settings : ScenesManager
     {
         Texture2D background;
-        public Settings(CasseBriques pGame) : base(pGame)
+        ContentManager _content = ServiceLocator.GetService<ContentManager>();
+        public Settings()
         {
-            background = pGame.Content.Load<Texture2D>("pIce");
+            background = _content.Load<Texture2D>("pIce");
 
         }
 
