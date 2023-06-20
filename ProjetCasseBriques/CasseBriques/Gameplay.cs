@@ -42,9 +42,8 @@ namespace CasseBriques
         Level currentLevel;
         private int currentLevelNB;
         private int currentBackground;
-
-
-
+        private int currentLevelNBMAX = 4;
+        private int currentBackgroundMAX = 4;
 
         public Gameplay(CasseBriques pGame) : base(pGame)
         {
@@ -207,12 +206,22 @@ namespace CasseBriques
                         Trace.WriteLine(ListeBriques.Count);
                         if (!ListeBriques.Any(brique => brique.isBreakable)) // comme count mais avec de meilleur performance/ Proposé par VisualStudio
                         {
-                           // casseBriques.gameState.ChangeScene(GameState.Scenes.Win);
-                            Stick = true;
+                            // casseBriques.gameState.ChangeScene(GameState.Scenes.Win);
                             currentLevelNB++;
                             currentBackground++;
-                            LoadBackground(casseBriques);
-                            LoadLevel(casseBriques, currentLevelNB);    
+                            if (currentBackground > currentBackgroundMAX)
+                            {
+                                casseBriques.gameState.ChangeScene(GameState.Scenes.Menu);
+                                currentLevelNB = 1;
+                                currentBackground = 1;
+                            }
+                           else
+                            {
+                                Stick = true;
+                                LoadBackground(casseBriques);
+                                LoadLevel(casseBriques, currentLevelNB);
+                            }
+                            
                         }
                     }
                 }
