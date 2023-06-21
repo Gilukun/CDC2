@@ -20,6 +20,7 @@ namespace CasseBriques
         private AssetsManager MenuFont;
         AssetsManager AssetsManager = new AssetsManager();
 
+        HUD HUD;
 
       
         public GameState State;
@@ -70,7 +71,7 @@ namespace CasseBriques
             ServiceLocator.RegisterService<GameState>(State);
             AssetsManager.Load();
             ServiceLocator.RegisterService<AssetsManager>(AssetsManager);
-
+           
             Menu = new Menu();
             Gameplay = new Gameplay();
             

@@ -18,6 +18,7 @@ namespace CasseBriques
             scale = 1.0f;
             isBreakable = true;
             nbHits = 3;
+            Points = 300;
         }
 
         public override void Update()

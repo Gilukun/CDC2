@@ -217,6 +217,18 @@
 /processorParam:TextureFormat=Color
 /build:Button1.png
 
+#begin GameOver.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:GameOver.png
+
 #begin HUD.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -229,6 +241,13 @@
 /processorParam:TextureFormat=Color
 /build:HUD.png
 
+#begin HUD1Font.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:HUD1Font.spritefont
+
 #begin HUD2.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -240,6 +259,13 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:HUD2.png
+
+#begin HUDFont.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:HUDFont.spritefont
 
 #begin MenuFont.spritefont
 /importer:FontDescriptionImporter

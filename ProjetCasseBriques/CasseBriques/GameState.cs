@@ -47,7 +47,9 @@ namespace CasseBriques
                 case Scenes.Win:
                     CurrentScene = new Win();
                     break;
-
+                case Scenes.GameOver:
+                    CurrentScene = new GameOver();
+                    break;
                 default:
                     break;
             }

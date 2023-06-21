@@ -1,4 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +12,7 @@ namespace CasseBriques
     internal class ScreenManager
     {
         private GraphicsDeviceManager _graphics;
+
         public int Width
         {
             get
@@ -29,7 +32,7 @@ namespace CasseBriques
         {
             get
             {
-                return _graphics.PreferredBackBufferWidth/2;
+                return _graphics.PreferredBackBufferWidth / 2;
             }
         }
         public int CenterHeight
@@ -39,11 +42,11 @@ namespace CasseBriques
                 return _graphics.PreferredBackBufferHeight / 2;
             }
         }
+
         public ScreenManager(GraphicsDeviceManager pGraphics)
         {
             _graphics = pGraphics;
         }
-
 
         public Point GetScreenSize()
         {
@@ -55,6 +58,9 @@ namespace CasseBriques
             _graphics.PreferredBackBufferHeight = Height;
             _graphics.ApplyChanges();
 
+        }
+        public void Draw()
+        { 
         }
     }
 }

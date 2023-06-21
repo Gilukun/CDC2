@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.ComponentModel.Design;
 using System.Diagnostics;
 using System.IO;
@@ -20,18 +21,20 @@ namespace CasseBriques
     public class Gameplay : ScenesManager
     {
         ScreenManager ResolutionEcran = ServiceLocator.GetService<ScreenManager>();
+
         GameState Status = ServiceLocator.GetService<GameState>();
         private Texture2D background;
 
         Raquette SprPad;
         Balle SprBalle;
         Briques SprBriques;
-        Briques SprBFeu;
+        HUD HUD; 
 
         private Vector2 positionGrille;
         private int[,] Levels;
 
         public bool Stick;
+
         public bool isKeyboardPressed;
         KeyboardState OldKbState;
         KeyboardState NewKbState;
@@ -81,29 +84,29 @@ namespace CasseBriques
             Stick = true;
 
             SprBriques = new Briques(_content.Load<Texture2D>("Brique_1"));
+            HUD = new HUD(_content.Load<Texture2D>("HUD2"));
 
             OldKbState = Keyboard.GetState();
             currentLevelNB = 1;
             
             LoadLevel(currentLevelNB);
-
         }
 
-    public void LoadLevel(int pLevel)
+        public void LoadLevel(int pLevel)
         {
             InitializeLevel();
             ContentManager _content = ServiceLocator.GetService<ContentManager>();
             string levelData = File.ReadAllText("Level" + currentLevelNB + ".json");
             currentLevel = JsonSerializer.Deserialize<Level>(levelData);
 
-            int NiveauLargeur = currentLevel.Map.GetLength(0);
-            int NiveauHauteur = currentLevel.Map[1].Length;
-            int largeurGrille = NiveauHauteur * SprBriques.LargeurSprite;
+            int NiveauHauteur = currentLevel.Map.GetLength(0);
+            int NiveauLargeur = currentLevel.Map[1].Length;
+            int largeurGrille = NiveauLargeur * SprBriques.LargeurSprite;
             int spacing = (ResolutionEcran.Width - largeurGrille) / 2;
 
-            for (int l = 0; l < NiveauLargeur; l++)
+            for (int l = 0; l < NiveauHauteur; l++)
             {
-                for (int c = 0; c < NiveauHauteur; c++)
+                for (int c = 0; c < NiveauLargeur;  c++)
                 {
                     int typeBriques = currentLevel.Map[l][c];
 
@@ -111,22 +114,22 @@ namespace CasseBriques
                     {
                         case 1:
                             Briques bNormal = new Briques(_content.Load<Texture2D>("Brique_" + typeBriques));
-                            bNormal.SetPosition(c * SprBriques.LargeurSprite + SprBriques.CentreSpriteL + spacing, l * SprBriques.HauteurSprite + SprBriques.CentreSpriteH);
+                            bNormal.SetPosition(c * bNormal.LargeurSprite + spacing, l * bNormal.HauteurSprite + bNormal.CentreSpriteH + HUD.HauteurSprite);
                             ListeBriques.Add(bNormal);
                             break;
                         case 2:
                             Briques bGlace = new bGlace(_content.Load<Texture2D>("Brique_" + typeBriques));
-                            bGlace.SetPosition(c * SprBriques.LargeurSprite + SprBriques.CentreSpriteL + spacing, l * SprBriques.HauteurSprite + SprBriques.CentreSpriteH);
+                            bGlace.SetPosition(c * bGlace.LargeurSprite  + spacing, l * bGlace.HauteurSprite + bGlace.CentreSpriteH + HUD.HauteurSprite);
                             ListeBriques.Add(bGlace);
                             break;
                         case 3:
                             Briques bFeu = new bFeu(_content.Load<Texture2D>("Brique_" + typeBriques));
-                            bFeu.SetPosition(c * SprBriques.LargeurSprite + SprBriques.CentreSpriteL + spacing, l * SprBriques.HauteurSprite + SprBriques.CentreSpriteH);
+                            bFeu.SetPosition(c * bFeu.LargeurSprite  + spacing, l * bFeu.HauteurSprite + bFeu.CentreSpriteH + HUD.HauteurSprite);
                             ListeBriques.Add(bFeu);
                             break;
                         case 4:
                             Briques bMetal = new bMetal(_content.Load<Texture2D>("Brique_" + typeBriques));
-                            bMetal.SetPosition(c * SprBriques.LargeurSprite + SprBriques.CentreSpriteL + spacing, l * SprBriques.HauteurSprite + SprBriques.CentreSpriteH);
+                            bMetal.SetPosition(c * SprBriques.LargeurSprite + spacing, l * SprBriques.HauteurSprite);
                             ListeBriques.Add(bMetal);
                             break;
                         case 5:
@@ -141,12 +144,10 @@ namespace CasseBriques
                             break;
                         default:
                             break;
-
                     }
                 }
             }
         }
-
 
         public override void Update()
         {
@@ -174,11 +175,19 @@ namespace CasseBriques
 
             if (SprBalle.Position.Y > ResolutionEcran.Height)
             {
+
+                HUD.Vie--;
                 Stick = true;
+                if (HUD.Vie<= 0) 
+                {
+                    SprBalle.CurrrentBallState = Balle.BallState.Dead;
+                    Status.ChangeScene(GameState.Scenes.GameOver);
+                }
+               
             }
 
             for (int b = ListeBriques.Count - 1; b >= 0; b--)
-            {
+             {
                 bool collision = false;
                 Briques mesBriques = ListeBriques[b];
                 mesBriques.Update();
@@ -208,10 +217,12 @@ namespace CasseBriques
                             {
                                 Fire.rotate = true;
                                 Fire.Scalling = true;
+                                HUD.GlobalScore += Fire.Points;
                             }
                             else
                             {
                                 mesBriques.Scalling = true;
+                                HUD.GlobalScore += mesBriques.Points;
                                 Trace.WriteLine(mesBriques.scale);
                             }
                         }
@@ -277,13 +288,14 @@ namespace CasseBriques
                     Trace.WriteLine(mesPerso.currentState);
                 }
             }
-
             base.Update();
         }
         public override void DrawScene()
         {
             SpriteBatch pBatch = ServiceLocator.GetService<SpriteBatch>();
             pBatch.Draw(background, new Vector2(0, 0), Color.White);
+            pBatch.Draw(HUD.texture, new Vector2(0,0), Color.White);
+            HUD.DrawScore();
             SprPad.Draw();
             SprBalle.Draw();
 
@@ -310,7 +322,7 @@ namespace CasseBriques
                                SpriteEffects.None,
                                0);
 
-                //pBatch.DrawRectangle(Briques.BoundingBox, Color.Red);
+               pBatch.DrawRectangle(Briques.BoundingBox, Color.Red);
             }
 
             foreach (var Perso in lstPerso)

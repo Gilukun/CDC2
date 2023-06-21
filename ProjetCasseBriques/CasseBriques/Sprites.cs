@@ -93,6 +93,11 @@ namespace CasseBriques
             Position += Vitesse; // Pour les sprites avec de la vitesse on aura automatiquement la mise à jour de la vitesse
             BoundingBox = new Rectangle((int)Position.X-LargeurSprite/2,(int)Position.Y-HauteurSprite/2, LargeurSprite,  HauteurSprite);
         }
+
+        public virtual void DrawScore()
+        { 
+        }
+
         public virtual void Draw()
         {
             SpriteBatch pBatch = ServiceLocator.GetService<SpriteBatch>();
@@ -107,6 +112,7 @@ namespace CasseBriques
                         1f,
                         SpriteEffects.None,
                         0);
+
             
 
             //RasterizerState state = new RasterizerState();

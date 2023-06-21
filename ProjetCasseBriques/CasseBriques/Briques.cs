@@ -15,6 +15,7 @@ namespace CasseBriques
         public float scale { get; set; }
    
         public int nbHits { get; set; }
+        public int Points { get; set; }
         public bool Scalling;
         public bool isScalling
         {
@@ -31,6 +32,7 @@ namespace CasseBriques
             Scalling = false;
             isBreakable = true;
             nbHits = 1;
+            Points = 100;
         }
 
 
