@@ -6,27 +6,54 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Net.Mime;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using static CasseBriques.Personnages;
 
 namespace CasseBriques
 {
     public class Balle : Sprites
     {
         HUD HUD;
+        private int initSpeed;
+        private float BonusSpeed;
+        private float bonusSlowdown;
+
+        protected float SpeedBonusDelay;
+        protected float SpeedBonusTimer;
+        protected bool TimerIsOver;
 
         public enum BallState
-        { Alive, 
-          Dead,
-          SpeedUp,
-          SlowDown,    
+        {
+            Alive,
+            Dead,
+            SpeedUp,
+            SlowDown,
         }
-        public BallState CurrentBallState;
+         public BallState CurrentBallState { get; set; }
+        
         public Balle(Texture2D pTexture) : base(pTexture)
         {
             ContentManager _content = ServiceLocator.GetService<ContentManager>();
             HUD = new HUD(_content.Load<Texture2D>("HUD2"));
             CurrentBallState = BallState.Alive;
+            initSpeed = 1;
+            SpeedBonusDelay  = 0;
+            SpeedBonusTimer = 5;
+            BonusSpeed = 2;
+            bonusSlowdown = 0.5f;
+
+        }
+
+        public  void TimerON()
+        {
+            SpeedBonusDelay += 0.05f;
+            Trace.WriteLine(SpeedBonusDelay);
+            if (SpeedBonusDelay > SpeedBonusTimer)
+            {
+                TimerIsOver = true;
+            }
         }
 
         public override void Load()
@@ -36,8 +63,12 @@ namespace CasseBriques
 
         public void SpeedUp()
         {
-            Vitesse = new Vector2(2, -2);
-            Position += Vitesse;
+            Position += Vitesse * BonusSpeed ; 
+        }
+
+        public void SlowDown()
+        {
+            Position -= Vitesse * bonusSlowdown ;
         }
 
         public void Rebounds()
@@ -61,22 +92,30 @@ namespace CasseBriques
         }
         public override void Update()
         {
-           
-
-            if( CurrentBallState ==  BallState.Alive ) 
-            {
-                Position += Vitesse;
-                Rebounds();
-                Trace.WriteLine(Vitesse);
-                
-            }
-            else if (CurrentBallState == BallState.SpeedUp)
+            if (CurrentBallState == BallState.SpeedUp)
             {
                 SpeedUp();
-                Rebounds();
-                
+                TimerON();
+                if (SpeedBonusDelay > SpeedBonusTimer) 
+                {
+                    CurrentBallState = BallState.Alive;
+                    SpeedBonusDelay = 0; 
+                }
             }
-
+            else if  (CurrentBallState == BallState.SlowDown)
+            {
+                SlowDown();
+                TimerON();
+                Trace.WriteLine(Vitesse);
+                if (SpeedBonusDelay > SpeedBonusTimer)
+                {
+                    CurrentBallState = BallState.Alive;
+                    SpeedBonusDelay = 0;  
+                }
+            }
+            Position += Vitesse * initSpeed;
+           Rebounds();
+          
             base.Update();
 
         }

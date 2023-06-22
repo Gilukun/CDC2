@@ -46,7 +46,7 @@ namespace CasseBriques
             MaxLevel = 4;
             for (int i = 1; i <= MaxLevel; i++) // le nombre de niveau correspond au nombre max de Background (4) que j'ai. Si je met 4, la boucle 
             {
-                Level level = new Level(i);
+                LevelManager level = new LevelManager(i);
                 level.RandomLevel();
                 level.Save();
 

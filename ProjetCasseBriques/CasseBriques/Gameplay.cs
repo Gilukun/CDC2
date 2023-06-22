@@ -9,6 +9,7 @@ using System.Collections.Specialized;
 using System.ComponentModel.Design;
 using System.Diagnostics;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Reflection.Emit;
 using System.Reflection.Metadata.Ecma335;
@@ -27,31 +28,31 @@ namespace CasseBriques
 
         Raquette SprPad;
         Balle SprBalle;
-        Briques SprBriques;
-        HUD HUD;
-        pIce BriqueMan;
-        pFire BriqueMan2;
 
-        private Vector2 positionGrille;
-        private int[,] Levels;
+        HUD HUD;
+        LevelManager niveau = new LevelManager();
 
         public bool Stick;
 
         public bool isKeyboardPressed;
         KeyboardState OldKbState;
         KeyboardState NewKbState;
-        private Point Viser;
-        private Vector2 Velocity;
-        List<Briques> ListeBriques = new List<Briques>();
-        List<Personnages> lstPerso = new List<Personnages>();
-
-        GameState CurrentScene;
-        Level currentLevel;
+        private int currentBackground;
 
         private int currentLevelNB;
-        private int currentBackground;
-        private int MaxLevel;
-       
+
+        private float winDelay;
+        private float winTimer;
+        private bool TimerIsOver; 
+        public void TimerON()
+        {
+            winDelay += 0.02f;
+            if (winDelay > winTimer)
+            {
+                TimerIsOver = true;
+            }
+        }
+
 
         public void LoadBackground()
         {
@@ -60,16 +61,7 @@ namespace CasseBriques
 
         }
 
-        public void InitializeLevel()
-        {
-            MaxLevel = 4;
-            for (int i = 1; i <= MaxLevel; i++) // le nombre de niveau correspond au nombre max de Background (4) que j'ai. Si je met 4, la boucle 
-            {
-                Level level = new Level(i);
-                level.RandomLevel();
-                level.Save();
-            }
-        }
+
         public Gameplay()
         {
             currentBackground = 1;
@@ -86,70 +78,18 @@ namespace CasseBriques
             SprBalle.Vitesse = new Vector2(6, -4);
             Stick = true;
 
-            SprBriques = new Briques(_content.Load<Texture2D>("Brique_1"));
             HUD = new HUD(_content.Load<Texture2D>("HUD2"));
 
-            BriqueMan = new pIce(_content.Load<Texture2D>("pIce"));
-            lstPerso.Add(BriqueMan);
-            BriqueMan2 = new pFire(_content.Load<Texture2D>("pFire"));
-            lstPerso.Add(BriqueMan2);
-
             OldKbState = Keyboard.GetState();
-            currentLevelNB = 1;
-            
-            LoadLevel(currentLevelNB);
-          
-        }
 
-        public void LoadLevel(int pLevel)
-        {
-            InitializeLevel();
-            ContentManager _content = ServiceLocator.GetService<ContentManager>();
-            string levelData = File.ReadAllText("Level" + currentLevelNB + ".json");
-            currentLevel = JsonSerializer.Deserialize<Level>(levelData);
-
-            int NiveauHauteur = currentLevel.Map.GetLength(0);
-            int NiveauLargeur = currentLevel.Map[1].Length;
-            int largeurGrille = NiveauLargeur * SprBriques.LargeurSprite;
-            int spacing = (ResolutionEcran.Width - largeurGrille) / 2;
-
-            for (int l = 0; l < NiveauHauteur; l++)
-            {
-                for (int c = 0; c < NiveauLargeur;  c++)
-                {
-                    int typeBriques = currentLevel.Map[l][c];
-
-                    switch (typeBriques)
-                    {
-                        case 1:
-                            Briques bNormal = new Briques(_content.Load<Texture2D>("Brique_" + typeBriques));
-                            bNormal.SetPosition(c * bNormal.LargeurSprite + spacing, l * bNormal.HauteurSprite + bNormal.CentreSpriteH + HUD.HauteurSprite);
-                            ListeBriques.Add(bNormal);
-                            break;
-                        case 2:
-                            Briques bGlace = new bGlace(_content.Load<Texture2D>("Brique_" + typeBriques));
-                            bGlace.SetPosition(c * bGlace.LargeurSprite  + spacing, l * bGlace.HauteurSprite + bGlace.CentreSpriteH + HUD.HauteurSprite);
-                            ListeBriques.Add(bGlace);
-                            break;
-                        case 3:
-                            Briques bFeu = new bFeu(_content.Load<Texture2D>("Brique_" + typeBriques));
-                            bFeu.SetPosition(c * bFeu.LargeurSprite  + spacing, l * bFeu.HauteurSprite + bFeu.CentreSpriteH + HUD.HauteurSprite);
-                            ListeBriques.Add(bFeu);
-                            break;
-                        case 4:
-                            Briques bMetal = new bMetal(_content.Load<Texture2D>("Brique_" + typeBriques));
-                            bMetal.SetPosition(c * SprBriques.LargeurSprite + spacing, l * SprBriques.HauteurSprite);
-                            ListeBriques.Add(bMetal);
-                            break;
-                        default:
-                            break;
-                    }
-                }
-            }
+            currentLevelNB = 2;
+            niveau.LoadLevel(currentLevelNB);
+            winDelay = 0;
+            winTimer = 5;
         }
 
 
-        public override void Update( )
+        public override void Update()
         {
             NewKbState = Keyboard.GetState();
             SprPad.Update();
@@ -186,10 +126,10 @@ namespace CasseBriques
 
             }
 
-            for (int b = ListeBriques.Count - 1; b >= 0; b--)
+            for (int b = niveau.ListeBriques.Count - 1; b >= 0; b--)
             {
                 bool collision = false;
-                Briques mesBriques = ListeBriques[b];
+                Briques mesBriques = niveau.ListeBriques[b];
                 mesBriques.Update();
 
                 if (mesBriques.isScalling == false)
@@ -228,32 +168,43 @@ namespace CasseBriques
                     }
                     if (mesBriques.scale <= 0)
                     {
-                        ListeBriques.Remove(mesBriques);
-                        if (!ListeBriques.Any(brique => brique.isBreakable)) // comme count mais avec de meilleur performance/ Proposé par VisualStudio
+                        niveau.ListeBriques.Remove(mesBriques);
+                        if (!niveau.ListeBriques.Any(brique => brique.isBreakable)) // comme count mais avec de meilleur performance/ Proposé par VisualStudio
                         {
                             currentLevelNB++;
                             currentBackground++;
-                            if (currentBackground > MaxLevel)
+                            if (currentBackground > niveau.LevelMax)
                             {
                                 Status.ChangeScene(GameState.Scenes.Menu);
                                 currentLevelNB = 1;
                                 currentBackground = 1;
                             }
                             else
-                            {
-                                Stick = true;
-                                LoadBackground();
-                                LoadLevel(currentLevelNB);
+                            {  
+                                if (!TimerIsOver)
+                                {
+                                    Status.ChangeScene(GameState.Scenes.Win);
+                                    TimerON();
+
+                                }
+
+                                if (winDelay > winTimer)
+                                {
+                                    Status.ChangeScene(GameState.Scenes.Gameplay);
+                                    Stick = true;
+                                    LoadBackground();
+                                    niveau.LoadLevel(currentLevelNB);
+                                }
                             }
                         }
                     }
                 }
             }
 
-            for (int p = lstPerso.Count - 1; p >= 0; p--)
+            for (int p = niveau.lstPerso.Count - 1; p >= 0; p--)
             {
                 bool collision = false;
-                Personnages mesPerso = lstPerso[p];
+                Personnages mesPerso = niveau.lstPerso[p];
                 mesPerso.Update();
 
                 if (mesPerso.BoundingBox.Intersects(SprBalle.NextPositionX()))
@@ -272,72 +223,43 @@ namespace CasseBriques
 
                 if (SprPad.BoundingBox.Intersects(mesPerso.NextPositionY()))
                 {
-                    mesPerso.currentState = Personnages.State.Catch;
-                    SprBalle.CurrentBallState = Balle.BallState.SpeedUp;
-                    lstPerso.Remove(mesPerso);
+                    if (mesPerso is pFire pFire)
+                    {
+                        pFire.currentState = Personnages.State.Catch;
+                        SprBalle.CurrentBallState = Balle.BallState.SpeedUp;
+                        niveau.lstPerso.Remove(pFire);
+                    }
+                    else if (mesPerso is pIce pIce)
+                    {
+                        pIce.currentState = Personnages.State.Catch;
+                        SprBalle.CurrentBallState = Balle.BallState.SlowDown;
+                        niveau.lstPerso.Remove(pIce);
+                    }
                 }
 
                 if (collision == true)
                 {
                     mesPerso.currentState = Personnages.State.Falling;
                     mesPerso.Tombe();
+                    if (mesPerso.Position.Y > ResolutionEcran.Height)
+                    {
+                        niveau.lstPerso.Remove(mesPerso);
+                    }
                 }
             }
-            
+
             base.Update();
         }
         public override void DrawScene()
         {
             SpriteBatch pBatch = ServiceLocator.GetService<SpriteBatch>();
             pBatch.Draw(background, new Vector2(0, 0), Color.White);
-            pBatch.Draw(HUD.texture, new Vector2(0,0), Color.White);
+            pBatch.Draw(HUD.texture, new Vector2(0, 0), Color.White);
             HUD.DrawScore();
             SprPad.Draw();
             SprBalle.Draw();
+            niveau.DrawLevel();
 
-            float rotation;
-            foreach (var Briques in ListeBriques)
-            {
-
-                if (Briques is bFeu Fire)
-                {
-                    rotation = Fire.Rotation;
-                }
-                else
-                {
-                    rotation = 0;
-
-                }
-                pBatch.Draw(Briques.texture,
-                               Briques.Position,
-                               null,
-                               Color.White,
-                               rotation,
-                               new Vector2(Briques.CentreSpriteL, Briques.CentreSpriteH),
-                               Briques.scale,
-                               SpriteEffects.None,
-                               0);
-
-               pBatch.DrawRectangle(Briques.BoundingBox, Color.Red);
-            }
-
-            foreach (var Perso in lstPerso)
-            {
-                if (Perso.currentState != Personnages.State.Idle)
-                {
-                    pBatch.Draw(Perso.texture,
-                                   Perso.Position,
-                                   null,
-                                   Color.White,
-                                   0,
-                                   new Vector2(Perso.CentreSpriteL, Perso.CentreSpriteH),
-                                   1.0f,
-                                   SpriteEffects.None,
-                                   0);
-                   // pBatch.DrawRectangle(Perso.BoundingBox, Color.Yellow);
-                }
-
-            }
         }
     }
 }

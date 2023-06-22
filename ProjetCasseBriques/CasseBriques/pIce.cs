@@ -44,7 +44,6 @@ namespace CasseBriques
         public override void TimerON()
         {
             spawnDelay += 0.1f;
-            Trace.WriteLine(spawnDelay);
             if (spawnDelay > spawnTimer)
             {
                 TimerIsOver = true;
@@ -82,10 +81,6 @@ namespace CasseBriques
             {
                 Vitesse = new Vector2(Vitesse.X, Vitesse.Y + 0.5f);
             }
-
-
-           
-            Trace.WriteLine(currentState);
             base.Update();
         }
     }

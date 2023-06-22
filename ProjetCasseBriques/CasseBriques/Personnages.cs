@@ -59,7 +59,6 @@ namespace CasseBriques
             {
                 Position = new Vector2(0, Position.Y);
             }
-            Trace.WriteLine(currentState);
             base.Update();
         }
 
