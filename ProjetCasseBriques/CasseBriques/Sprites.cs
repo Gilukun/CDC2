@@ -88,7 +88,7 @@ namespace CasseBriques
         { 
         }
       
-        public virtual void Update()
+        public virtual void Update( )
         {
             Position += Vitesse; // Pour les sprites avec de la vitesse on aura automatiquement la mise à jour de la vitesse
             BoundingBox = new Rectangle((int)Position.X-LargeurSprite/2,(int)Position.Y-HauteurSprite/2, LargeurSprite,  HauteurSprite);
@@ -101,7 +101,7 @@ namespace CasseBriques
         public virtual void Draw()
         {
             SpriteBatch pBatch = ServiceLocator.GetService<SpriteBatch>();
-            pBatch.DrawRectangle(BoundingBox, Color.Red); // affichage des boundingBox
+           // pBatch.DrawRectangle(BoundingBox, Color.Red); // affichage des boundingBox
 
             pBatch.Draw(texture,
                         Position,

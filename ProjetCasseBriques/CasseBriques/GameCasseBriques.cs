@@ -15,20 +15,15 @@ namespace CasseBriques
 
         ScreenManager _screenManager;
         ScreenManager _Resolution;
+        public GameTime gameTime;
 
-        private AssetsManager TitleFont;
-        private AssetsManager MenuFont;
         AssetsManager AssetsManager = new AssetsManager();
 
-        HUD HUD;
-
-      
         public GameState State;
 
         ScenesManager Menu;
         ScenesManager Gameplay;
 
-        private Level currentLevel;
         public int MaxLevel;
 
         public CasseBriques()
@@ -37,7 +32,6 @@ namespace CasseBriques
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
             State = new GameState(this);
-
         }
 
         protected override void Initialize()
@@ -46,9 +40,8 @@ namespace CasseBriques
             ServiceLocator.RegisterService<ScreenManager>(_screenManager);
             _Resolution = ServiceLocator.GetService<ScreenManager>();
             _Resolution.ChangeResolution(1024, 900);
-            ServiceLocator.RegisterService<GraphicsDeviceManager>(_graphics);
-
             
+
 
             MaxLevel = 4;
             for (int i = 1; i <= MaxLevel; i++) // le nombre de niveau correspond au nombre max de Background (4) que j'ai. Si je met 4, la boucle 
@@ -71,7 +64,9 @@ namespace CasseBriques
             ServiceLocator.RegisterService<GameState>(State);
             AssetsManager.Load();
             ServiceLocator.RegisterService<AssetsManager>(AssetsManager);
-           
+            
+            ServiceLocator.RegisterService<GameTime>(gameTime);
+
             Menu = new Menu();
             Gameplay = new Gameplay();
             
@@ -88,7 +83,7 @@ namespace CasseBriques
             {
                 State.CurrentScene.Update();
             }
-
+         
 
             base.Update(gameTime);
         }

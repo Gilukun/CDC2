@@ -20,6 +20,10 @@ namespace CasseBriques
         private KeyboardState NewKbState;
         private KeyboardState OldKbState;
         GameState Status = ServiceLocator.GetService<GameState>();
+        GameState GameState;
+        private int Sand;
+        private float Timer;
+       
         // Constructeur 
         public ScenesManager()
         {
@@ -29,6 +33,7 @@ namespace CasseBriques
             int HauteurEcran = ResolutionEcran.PreferredBackBufferHeight;
             DimensionEcran = new Rectangle(0, 0, LargeurEcran, HauteurEcran);
             background = _content.Load<Texture2D>("background");
+
         }
 
         public virtual void Load()
@@ -38,6 +43,7 @@ namespace CasseBriques
         public virtual void Unload()
         { }
 
+     
         public virtual void Update()
         {
             NewKbState = Keyboard.GetState();
@@ -47,6 +53,7 @@ namespace CasseBriques
                 Status.ChangeScene(GameState.Scenes.Menu);
             }
             OldKbState = NewKbState;
+
         }
 
         public virtual void DrawScene()

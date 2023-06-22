@@ -29,7 +29,7 @@ namespace CasseBriques
                 Map[l] = new int[5]; // on lui dit qu'il a 10 ligne
                 for (int c = 0; c < 5; c++)
                 {
-                    Map[l][c] = rnd.Next(1,4); // dans chaque case on met un rnd 
+                    Map[l][c] = rnd.Next(1,2); // dans chaque case on met un rnd 
                 }
 
             }

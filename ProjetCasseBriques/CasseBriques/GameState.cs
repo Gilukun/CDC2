@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,11 +11,14 @@ namespace CasseBriques
     public class GameState
     {
         public ScenesManager CurrentScene { get; set; }
-        protected CasseBriques casseBriques; 
+        protected CasseBriques casseBriques;
         public GameState(CasseBriques pGame) 
         {
             casseBriques = pGame;
         }
+
+        
+     
 
         public enum Scenes
         {
@@ -58,8 +62,8 @@ namespace CasseBriques
         }
 
         public void Update()
-        { 
-        
+        {
+       
         }
 
 

@@ -21,14 +21,16 @@ namespace CasseBriques
     public class Gameplay : ScenesManager
     {
         ScreenManager ResolutionEcran = ServiceLocator.GetService<ScreenManager>();
-
+        ContentManager _content = ServiceLocator.GetService<ContentManager>();
         GameState Status = ServiceLocator.GetService<GameState>();
         private Texture2D background;
 
         Raquette SprPad;
         Balle SprBalle;
         Briques SprBriques;
-        HUD HUD; 
+        HUD HUD;
+        pIce BriqueMan;
+        pFire BriqueMan2;
 
         private Vector2 positionGrille;
         private int[,] Levels;
@@ -42,13 +44,14 @@ namespace CasseBriques
         private Vector2 Velocity;
         List<Briques> ListeBriques = new List<Briques>();
         List<Personnages> lstPerso = new List<Personnages>();
-        GameState gameState;
+
+        GameState CurrentScene;
         Level currentLevel;
+
         private int currentLevelNB;
         private int currentBackground;
         private int MaxLevel;
-        private int currentBackgroundMAX;
-        ContentManager _content = ServiceLocator.GetService<ContentManager>();
+       
 
         public void LoadBackground()
         {
@@ -86,10 +89,16 @@ namespace CasseBriques
             SprBriques = new Briques(_content.Load<Texture2D>("Brique_1"));
             HUD = new HUD(_content.Load<Texture2D>("HUD2"));
 
+            BriqueMan = new pIce(_content.Load<Texture2D>("pIce"));
+            lstPerso.Add(BriqueMan);
+            BriqueMan2 = new pFire(_content.Load<Texture2D>("pFire"));
+            lstPerso.Add(BriqueMan2);
+
             OldKbState = Keyboard.GetState();
             currentLevelNB = 1;
             
             LoadLevel(currentLevelNB);
+          
         }
 
         public void LoadLevel(int pLevel)
@@ -132,16 +141,6 @@ namespace CasseBriques
                             bMetal.SetPosition(c * SprBriques.LargeurSprite + spacing, l * SprBriques.HauteurSprite);
                             ListeBriques.Add(bMetal);
                             break;
-                        case 5:
-                            Personnages Glace = new Personnages(_content.Load<Texture2D>("pIce"));
-                            Glace.SetPosition(c * SprBriques.LargeurSprite + SprBriques.CentreSpriteL + spacing, l * SprBriques.HauteurSprite + SprBriques.CentreSpriteH);
-                            lstPerso.Add(Glace);
-                            break;
-                        case 6:
-                            Personnages Feu = new Personnages(_content.Load<Texture2D>("pFire"));
-                            Feu.SetPosition(c * SprBriques.LargeurSprite + SprBriques.CentreSpriteL + spacing, l * SprBriques.HauteurSprite + SprBriques.CentreSpriteH);
-                            lstPerso.Add(Feu);
-                            break;
                         default:
                             break;
                     }
@@ -149,7 +148,8 @@ namespace CasseBriques
             }
         }
 
-        public override void Update()
+
+        public override void Update( )
         {
             NewKbState = Keyboard.GetState();
             SprPad.Update();
@@ -178,16 +178,16 @@ namespace CasseBriques
 
                 HUD.Vie--;
                 Stick = true;
-                if (HUD.Vie<= 0) 
+                if (HUD.Vie <= 0)
                 {
-                    SprBalle.CurrrentBallState = Balle.BallState.Dead;
+                    SprBalle.CurrentBallState = Balle.BallState.Dead;
                     Status.ChangeScene(GameState.Scenes.GameOver);
                 }
-               
+
             }
 
             for (int b = ListeBriques.Count - 1; b >= 0; b--)
-             {
+            {
                 bool collision = false;
                 Briques mesBriques = ListeBriques[b];
                 mesBriques.Update();
@@ -223,17 +223,14 @@ namespace CasseBriques
                             {
                                 mesBriques.Scalling = true;
                                 HUD.GlobalScore += mesBriques.Points;
-                                Trace.WriteLine(mesBriques.scale);
                             }
                         }
                     }
                     if (mesBriques.scale <= 0)
                     {
                         ListeBriques.Remove(mesBriques);
-                        Trace.WriteLine(ListeBriques.Count);
                         if (!ListeBriques.Any(brique => brique.isBreakable)) // comme count mais avec de meilleur performance/ Proposé par VisualStudio
                         {
-                            // casseBriques.gameState.ChangeScene(GameState.Scenes.Win);
                             currentLevelNB++;
                             currentBackground++;
                             if (currentBackground > MaxLevel)
@@ -248,7 +245,6 @@ namespace CasseBriques
                                 LoadBackground();
                                 LoadLevel(currentLevelNB);
                             }
-
                         }
                     }
                 }
@@ -273,21 +269,21 @@ namespace CasseBriques
                     SprBalle.Vitesse = new Vector2(SprBalle.Vitesse.X, -SprBalle.Vitesse.Y);
                     //SprBalle.SetPosition(SprBalle.Position.X, mesBriques.Position.Y - mesBriques.HauteurSprite/2 - SprBalle.HauteurSprite);
                 }
+
                 if (SprPad.BoundingBox.Intersects(mesPerso.NextPositionY()))
                 {
-                    collision = true;
                     mesPerso.currentState = Personnages.State.Catch;
+                    SprBalle.CurrentBallState = Balle.BallState.SpeedUp;
                     lstPerso.Remove(mesPerso);
-                    Trace.WriteLine(mesPerso.currentState);
-
                 }
+
                 if (collision == true)
                 {
-                    mesPerso.currentState = Personnages.State.Moving;
+                    mesPerso.currentState = Personnages.State.Falling;
                     mesPerso.Tombe();
-                    Trace.WriteLine(mesPerso.currentState);
                 }
             }
+            
             base.Update();
         }
         public override void DrawScene()
@@ -327,16 +323,19 @@ namespace CasseBriques
 
             foreach (var Perso in lstPerso)
             {
-                pBatch.Draw(Perso.texture,
-                               Perso.Position,
-                               null,
-                               Color.White,
-                               0,
-                               new Vector2(Perso.CentreSpriteL, Perso.CentreSpriteH),
-                               1.0f,
-                               SpriteEffects.None,
-                               0);
-                pBatch.DrawRectangle(Perso.BoundingBox, Color.Yellow);
+                if (Perso.currentState != Personnages.State.Idle)
+                {
+                    pBatch.Draw(Perso.texture,
+                                   Perso.Position,
+                                   null,
+                                   Color.White,
+                                   0,
+                                   new Vector2(Perso.CentreSpriteL, Perso.CentreSpriteH),
+                                   1.0f,
+                                   SpriteEffects.None,
+                                   0);
+                   // pBatch.DrawRectangle(Perso.BoundingBox, Color.Yellow);
+                }
 
             }
         }

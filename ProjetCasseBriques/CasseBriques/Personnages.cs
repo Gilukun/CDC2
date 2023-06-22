@@ -2,44 +2,66 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace CasseBriques
 {
-    internal class Personnages : Sprites
+    public class Personnages : Sprites
     {
         public Texture2D texture;
+        ScreenManager ResolutionEcran = ServiceLocator.GetService<ScreenManager>();
         public enum State
-            { Idle,
+        { Idle,
+            Spawn,
+            Falling,
             Moving,
             Collision,
             Catch
-            }
+        }
         public State currentState;
+        protected float spawnDelay;
+        protected float spawnTimer;
+        protected bool TimerIsOver;
+        protected bool isSpawn;
         public Personnages(Texture2D pTexture) : base(pTexture)
         {
             texture = pTexture;
+            spawnDelay = 0;
+            spawnTimer = 3;
             currentState = State.Idle;
+            isSpawn = false;
         }
-        public void Tombe()
+        public virtual void Tombe()
         {
-            if (currentState != State.Moving)
-            { 
-            currentState = State.Moving;
-            Vitesse = new Vector2(Vitesse.X, 1);
-             }
-    
+       
+        }
+
+        public virtual void Moving()
+        {
+        }
+
+        public virtual void TimerON()
+        {
+
         }
 
         public override void Update()
-        { 
-            if (currentState == State.Moving)
+        {
+  
+            if (Position.X < 0)
             {
-                Vitesse = new Vector2(Vitesse.X, Vitesse.Y + 0.5f);
+                Position = new Vector2(ResolutionEcran.Width, Position.Y);
             }
+            if (Position.X > ResolutionEcran.Width)
+            {
+                Position = new Vector2(0, Position.Y);
+            }
+            Trace.WriteLine(currentState);
             base.Update();
         }
+
     }
 }

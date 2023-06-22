@@ -44,7 +44,7 @@ namespace CasseBriques
             Vector2 DimensionScore = AssetsManager.GetSize(Score, Font.HUDFont);
             Vector2 positiontext = new Vector2(0, texture.Height / 2 - DimensionScore.Y / 2);
             Rectangle boundingBox = AssetsManager.getBoundingBox(Score, Font.HUDFont, positiontext);
-            pBatch.DrawRectangle(boundingBox, Color.Red);
+           // pBatch.DrawRectangle(boundingBox, Color.Red);
             pBatch.DrawString(Font.HUDFont,   
                             Score,
                             new Vector2 (0, texture.Height/2 - DimensionScore.Y/2),
