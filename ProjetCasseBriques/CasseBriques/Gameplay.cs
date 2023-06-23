@@ -64,7 +64,8 @@ namespace CasseBriques
 
         public Gameplay()
         {
-            currentBackground = 1;
+            currentLevelNB = 2;
+            currentBackground = currentLevelNB;
             LoadBackground();
 
             // texture de ma raquette
@@ -82,7 +83,7 @@ namespace CasseBriques
 
             OldKbState = Keyboard.GetState();
 
-            currentLevelNB = 2;
+            
             niveau.LoadLevel(currentLevelNB);
             winDelay = 0;
             winTimer = 5;
@@ -125,6 +126,27 @@ namespace CasseBriques
                 }
 
             }
+
+            foreach (var Briques in niveau.lstSolidBricks)
+            {
+                bool collision = false;
+                Briques.Update();
+                if (Briques.BoundingBox.Intersects(SprBalle.NextPositionX()))
+                    {
+                    CamShake = 30;
+                    collision = true;
+                    SprBalle.Vitesse = new Vector2(-SprBalle.Vitesse.X, SprBalle.Vitesse.Y);
+                    //SprBalle.SetPosition(mesBriques.Positi on.X + mesBriques.LargeurSprite/2 + SprBalle.LargeurSprite, SprBalle.Position.Y);
+                }
+                if (Briques.BoundingBox.Intersects(SprBalle.NextPositionY()))
+                {
+                    CamShake = 30;
+                    collision = true;
+                    SprBalle.Vitesse = new Vector2(SprBalle.Vitesse.X, -SprBalle.Vitesse.Y);
+                    //SprBalle.SetPosition(SprBalle.Position.X, mesBriques.Position.Y - mesBriques.HauteurSprite/2 - SprBalle.HauteurSprite);
+                }
+            }
+
 
             for (int b = niveau.ListeBriques.Count - 1; b >= 0; b--)
             {
@@ -171,6 +193,7 @@ namespace CasseBriques
                         niveau.ListeBriques.Remove(mesBriques);
                         if (!niveau.ListeBriques.Any(brique => brique.isBreakable)) // comme count mais avec de meilleur performance/ Proposé par VisualStudio
                         {
+                            
                             currentLevelNB++;
                             currentBackground++;
                             if (currentBackground > niveau.LevelMax)
@@ -180,21 +203,11 @@ namespace CasseBriques
                                 currentBackground = 1;
                             }
                             else
-                            {  
-                                if (!TimerIsOver)
-                                {
-                                    Status.ChangeScene(GameState.Scenes.Win);
-                                    TimerON();
-
-                                }
-
-                                if (winDelay > winTimer)
-                                {
-                                    Status.ChangeScene(GameState.Scenes.Gameplay);
-                                    Stick = true;
-                                    LoadBackground();
-                                    niveau.LoadLevel(currentLevelNB);
-                                }
+                            {
+                                Stick = true;
+                                LoadBackground();
+                                niveau.LoadLevel(currentLevelNB);
+                                winDelay = 0;
                             }
                         }
                     }

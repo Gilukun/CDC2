@@ -23,7 +23,10 @@ namespace CasseBriques
         GameState GameState;
         private int Sand;
         private float Timer;
-       
+        protected int CamShake;
+        private Random rnd;
+        GameOver GO;
+
         // Constructeur 
         public ScenesManager()
         {
@@ -33,11 +36,13 @@ namespace CasseBriques
             int HauteurEcran = ResolutionEcran.PreferredBackBufferHeight;
             DimensionEcran = new Rectangle(0, 0, LargeurEcran, HauteurEcran);
             background = _content.Load<Texture2D>("background");
-
+            rnd = new Random();
         }
+         
 
         public virtual void Load()
         {
+            
         }
 
         public virtual void Unload()
@@ -53,7 +58,7 @@ namespace CasseBriques
                 Status.ChangeScene(GameState.Scenes.Menu);
             }
             OldKbState = NewKbState;
-
+  
         }
 
         public virtual void DrawScene()
@@ -68,9 +73,23 @@ namespace CasseBriques
             pBatch.Draw(background, new Vector2(0,0), Color.White);
             pBatch.End();
 
-            pBatch.Begin();
-            DrawScene();
-            pBatch.End();
+            if (CamShake > 0)
+            {
+                int offset = rnd.Next(-2, 2); // décallage de la caméra
+                pBatch.Begin(SpriteSortMode.Deferred,
+                             null,
+                             null,
+                             null,
+                             null,
+                             null,
+                             Matrix.CreateTranslation(offset, offset, 0f));
+                CamShake--;
+
+            }
+            else
+                pBatch.Begin();
+                DrawScene();
+                pBatch.End();
             
         }
 

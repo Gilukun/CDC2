@@ -109,6 +109,18 @@
 /processorParam:TextureFormat=Color
 /build:BK_4.png
 
+#begin BkGameOver.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:BkGameOver.png
+
 #begin bMenu.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -217,17 +229,12 @@
 /processorParam:TextureFormat=Color
 /build:Button1.png
 
-#begin GameOver.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
+#begin GameOver.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
 /processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:GameOver.png
+/processorParam:TextureFormat=Compressed
+/build:GameOver.spritefont
 
 #begin HUD.png
 /importer:TextureImporter

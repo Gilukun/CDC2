@@ -49,7 +49,7 @@ namespace CasseBriques
         public  void TimerON()
         {
             SpeedBonusDelay += 0.05f;
-            Trace.WriteLine(SpeedBonusDelay);
+           
             if (SpeedBonusDelay > SpeedBonusTimer)
             {
                 TimerIsOver = true;
@@ -106,7 +106,7 @@ namespace CasseBriques
             {
                 SlowDown();
                 TimerON();
-                Trace.WriteLine(Vitesse);
+                
                 if (SpeedBonusDelay > SpeedBonusTimer)
                 {
                     CurrentBallState = BallState.Alive;
@@ -114,7 +114,7 @@ namespace CasseBriques
                 }
             }
             Position += Vitesse * initSpeed;
-           Rebounds();
+            Rebounds();
           
             base.Update();
 

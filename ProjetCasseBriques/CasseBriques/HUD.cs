@@ -26,7 +26,7 @@ namespace CasseBriques
             texture = pTexture;
             HauteurBarre = texture.Height;
             GlobalScore = 0;
-            Vie = 3;
+            Vie = 1;
         }
 
         public override void Load()

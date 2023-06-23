@@ -3,6 +3,7 @@ C:\Users\Gilles\Documents\GameCodeur\CDC2\ProjetCasseBriques\CasseBriques\bin\De
 C:\Users\Gilles\Documents\GameCodeur\CDC2\ProjetCasseBriques\CasseBriques\bin\Debug\net6.0\Content\BckMenu.xnb
 C:\Users\Gilles\Documents\GameCodeur\CDC2\ProjetCasseBriques\CasseBriques\bin\Debug\net6.0\Content\bFire.xnb
 C:\Users\Gilles\Documents\GameCodeur\CDC2\ProjetCasseBriques\CasseBriques\bin\Debug\net6.0\Content\bice.xnb
+C:\Users\Gilles\Documents\GameCodeur\CDC2\ProjetCasseBriques\CasseBriques\bin\Debug\net6.0\Content\BkGameOver.xnb
 C:\Users\Gilles\Documents\GameCodeur\CDC2\ProjetCasseBriques\CasseBriques\bin\Debug\net6.0\Content\Bk_1.xnb
 C:\Users\Gilles\Documents\GameCodeur\CDC2\ProjetCasseBriques\CasseBriques\bin\Debug\net6.0\Content\Bk_2.xnb
 C:\Users\Gilles\Documents\GameCodeur\CDC2\ProjetCasseBriques\CasseBriques\bin\Debug\net6.0\Content\Bk_3.xnb

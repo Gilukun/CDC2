@@ -15,7 +15,7 @@ namespace CasseBriques
 
         ScreenManager _screenManager;
         ScreenManager _Resolution;
-        public GameTime gameTime;
+        public GameTime gameTime = new GameTime();
 
         AssetsManager AssetsManager = new AssetsManager();
 
@@ -40,7 +40,7 @@ namespace CasseBriques
             ServiceLocator.RegisterService<ScreenManager>(_screenManager);
             _Resolution = ServiceLocator.GetService<ScreenManager>();
             _Resolution.ChangeResolution(1024, 900);
-            
+           
 
 
             MaxLevel = 4;
@@ -65,7 +65,8 @@ namespace CasseBriques
             AssetsManager.Load();
             ServiceLocator.RegisterService<AssetsManager>(AssetsManager);
             
-            ServiceLocator.RegisterService<GameTime>(gameTime);
+            
+            
 
             Menu = new Menu();
             Gameplay = new Gameplay();
@@ -76,6 +77,7 @@ namespace CasseBriques
 
         protected override void Update(GameTime gameTime)
         {
+
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 

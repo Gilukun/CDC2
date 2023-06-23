@@ -12,6 +12,7 @@
     <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/ProjetCasseBriques/CasseBriques/Content/BK_2.png</File>
     <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/ProjetCasseBriques/CasseBriques/Content/Bk_3.png</File>
     <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/ProjetCasseBriques/CasseBriques/Content/BK_4.png</File>
+    <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/ProjetCasseBriques/CasseBriques/Content/BkGameOver.png</File>
     <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/ProjetCasseBriques/CasseBriques/Content/bMenu.png</File>
     <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/ProjetCasseBriques/CasseBriques/Content/bNormal.png</File>
     <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/ProjetCasseBriques/CasseBriques/Content/Brique_1.png</File>
@@ -21,7 +22,7 @@
     <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/ProjetCasseBriques/CasseBriques/Content/Brique_5.png</File>
     <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/ProjetCasseBriques/CasseBriques/Content/bTime.png</File>
     <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/ProjetCasseBriques/CasseBriques/Content/Button1.png</File>
-    <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/ProjetCasseBriques/CasseBriques/Content/GameOver.png</File>
+    <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/ProjetCasseBriques/CasseBriques/Content/GameOver.spritefont</File>
     <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/ProjetCasseBriques/CasseBriques/Content/HUD.png</File>
     <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/ProjetCasseBriques/CasseBriques/Content/HUD1Font.spritefont</File>
     <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/ProjetCasseBriques/CasseBriques/Content/HUD2.png</File>
@@ -38,6 +39,7 @@
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File>BK_1.png</File>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

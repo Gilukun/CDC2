@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net.Security;
 using System.Text.Json;
 
 namespace CasseBriques
@@ -27,8 +28,13 @@ namespace CasseBriques
         Briques SprBriques;
         pIce BriqueMan;
         pFire BriqueMan2;
+        pIce BriqueMan3;
+        pFire BriqueMan4;
         public List<Briques> ListeBriques { get; private set; }
         public List<Personnages> lstPerso { get; private set; }
+        public List<Personnages> lstPerso2 { get; private set; }
+        public List<Briques> lstSolidBricks { get; private set; }
+
 
         private int currentLevelNB;
 
@@ -79,6 +85,7 @@ namespace CasseBriques
             int NiveauHauteur = currentLevel.Map.GetLength(0);
             int NiveauLargeur = currentLevel.Map[1].Length;
             int largeurGrille = NiveauLargeur * SprBriques.LargeurSprite;
+            int hauteurGrille = NiveauHauteur  * SprBriques.HauteurSprite;
             int spacing = (ResolutionEcran.Width - largeurGrille) / 2;
 
             for (int l = 0; l < NiveauHauteur; l++)
@@ -104,21 +111,44 @@ namespace CasseBriques
                             bFeu.SetPosition(c * bFeu.LargeurSprite + spacing, l * bFeu.HauteurSprite + bFeu.CentreSpriteH + HUD.HauteurSprite);
                             ListeBriques.Add(bFeu);
                             break;
-                        case 4:
-                            Briques bMetal = new bMetal(_content.Load<Texture2D>("Brique_" + typeBriques));
-                            bMetal.SetPosition(c * SprBriques.LargeurSprite + spacing, l * SprBriques.HauteurSprite);
-                            ListeBriques.Add(bMetal);
-                            break;
+                        
+                        
                         default:
                             break;
                     }
                 }
             }
+
             lstPerso = new List<Personnages>();
-            BriqueMan = new pIce(_content.Load<Texture2D>("pIce"));
-            lstPerso.Add(BriqueMan);
-            BriqueMan2 = new pFire(_content.Load<Texture2D>("pFire"));
-            lstPerso.Add(BriqueMan2);
+            lstPerso2 = new List<Personnages>();
+            lstSolidBricks = new List<Briques>();
+
+            if (pLevel == 2)
+            {
+             
+                BriqueMan3 = new pIce(_content.Load<Texture2D>("bIce"));
+                lstPerso.Add(BriqueMan3);
+                BriqueMan4 = new pFire(_content.Load<Texture2D>("bTime"));
+                lstPerso.Add(BriqueMan4);
+
+                int spacingX = 200;
+                int firstBrickX = 200;
+                for (int i=1; i < 5; i++)
+                { 
+                    Briques bMetal= new bMetal(_content.Load<Texture2D>("Brique_4"));
+                    int brickX = firstBrickX + (i - 1) * spacingX;
+                    int brickY = hauteurGrille + 200;
+                    bMetal.SetPosition(brickX, brickY);
+                    lstSolidBricks.Add(bMetal);
+                }
+            }
+            else
+            {
+                BriqueMan = new pIce(_content.Load<Texture2D>("pIce"));
+                lstPerso.Add(BriqueMan);
+                BriqueMan2 = new pFire(_content.Load<Texture2D>("pFire"));
+                lstPerso.Add(BriqueMan2);
+            }  
         }
 
         public void DrawLevel()
@@ -148,7 +178,7 @@ namespace CasseBriques
                                SpriteEffects.None,
                                0);
 
-                pBatch.DrawRectangle(Briques.BoundingBox, Color.Red);
+                //pBatch.DrawRectangle(Briques.BoundingBox, Color.Red);
             }
 
             foreach (var Perso in lstPerso)
@@ -168,6 +198,23 @@ namespace CasseBriques
                 }
 
             }
+            foreach (var Briques in lstSolidBricks)
+            {
+                {
+                    pBatch.Draw(Briques.texture,
+                                    Briques.Position,
+                                    null,
+                                    Color.White,
+                                    0,
+                                    new Vector2(Briques.CentreSpriteL, Briques.CentreSpriteH),
+                                    1.0f,
+                                    SpriteEffects.None,
+                                    0);
+                    // pBatch.DrawRectangle(Perso.BoundingBox, Color.Yellow);
+                }
+
+            }
+            
         }
     }
 }
