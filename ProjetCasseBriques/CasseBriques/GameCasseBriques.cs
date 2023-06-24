@@ -15,6 +15,7 @@ namespace CasseBriques
 
         ScreenManager _screenManager;
         ScreenManager _Resolution;
+        GraphicsDevice GraphDevice;
         public GameTime gameTime = new GameTime();
 
         AssetsManager AssetsManager = new AssetsManager();
@@ -40,7 +41,8 @@ namespace CasseBriques
             ServiceLocator.RegisterService<ScreenManager>(_screenManager);
             _Resolution = ServiceLocator.GetService<ScreenManager>();
             _Resolution.ChangeResolution(1024, 900);
-           
+            
+
 
 
             MaxLevel = 4;
@@ -64,9 +66,11 @@ namespace CasseBriques
             ServiceLocator.RegisterService<GameState>(State);
             AssetsManager.Load();
             ServiceLocator.RegisterService<AssetsManager>(AssetsManager);
-            
-            
-            
+            ServiceLocator.RegisterService<GraphicsDevice>(GraphDevice);
+
+
+
+
 
             Menu = new Menu();
             Gameplay = new Gameplay();

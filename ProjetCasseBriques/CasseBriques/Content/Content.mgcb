@@ -317,6 +317,13 @@
 /processorParam:TextureFormat=Color
 /build:PNormal.png
 
+#begin PopUpFont.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:PopUpFont.spritefont
+
 #begin TitleFont.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor

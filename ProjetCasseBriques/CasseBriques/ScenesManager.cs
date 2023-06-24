@@ -64,13 +64,17 @@ namespace CasseBriques
         public virtual void DrawScene()
         { 
         }
+        public virtual void DrawBackground()
+        {
+        }
 
-       public void Draw()
+        public void Draw()
         {
             SpriteBatch pBatch = ServiceLocator.GetService<SpriteBatch>();
 
             pBatch.Begin();
             pBatch.Draw(background, new Vector2(0,0), Color.White);
+            DrawBackground();
             pBatch.End();
 
             if (CamShake > 0)
@@ -87,9 +91,10 @@ namespace CasseBriques
 
             }
             else
-                pBatch.Begin();
-                DrawScene();
-                pBatch.End();
+            pBatch.Begin();
+            DrawScene();
+           
+            pBatch.End();
             
         }
 

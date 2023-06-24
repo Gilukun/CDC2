@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace CasseBriques
 {
-    public class bGlace : Briques
+    public class BGlace : Briques
     {
 
         //public int NbCoups { get; set; }
 
-        public bGlace(Texture2D pTexture) : base(pTexture)
+        public BGlace(Texture2D pTexture) : base(pTexture)
         {
             texture = pTexture;
             scale = 1.0f;

@@ -20,7 +20,6 @@ public static class SpriteBatchExtensions // Classe Static qui permet de créer 
         spriteBatch.Draw(pixel, new Rectangle(rectangle.Right, rectangle.Top, 1, rectangle.Height + 1), color);
     }
 }
-
 namespace CasseBriques
 {
     public abstract class Sprites
@@ -28,6 +27,7 @@ namespace CasseBriques
         private Texture2D texture;
         public Vector2 Position { get; set; }
         public Vector2 Vitesse { get; set; }
+        public float Speed;
         protected int hauteurEcran;
         protected int largeurEcran;
         public int LargeurSprite
@@ -50,9 +50,7 @@ namespace CasseBriques
             get
             { return texture.Height/2; }
         }
-
         public Rectangle BoundingBox;
-        
 
         // Constructeur
         public Sprites(Texture2D pTexture)
@@ -62,15 +60,12 @@ namespace CasseBriques
             hauteurEcran = ResolutionEcran.Height; 
             texture = pTexture;
         }
-
         // Fonction pour avoir le centre des sprites
 
         public virtual void SetPosition(float pX, float pY)
         {
             Position = new Vector2(pX, pY);
         }
-
-
         public virtual Rectangle NextPositionX()
         {
             Rectangle NextPosition = BoundingBox;
@@ -83,11 +78,9 @@ namespace CasseBriques
             NextPosition.Offset(new Point(0, (int)Vitesse.Y));
             return NextPosition;
         }
-
         public virtual void Load()
         { 
         }
-      
         public virtual void Update( )
         {
             Position += Vitesse; // Pour les sprites avec de la vitesse on aura automatiquement la mise à jour de la vitesse
@@ -97,12 +90,10 @@ namespace CasseBriques
         public virtual void DrawScore()
         { 
         }
-
         public virtual void Draw()
         {
             SpriteBatch pBatch = ServiceLocator.GetService<SpriteBatch>();
            // pBatch.DrawRectangle(BoundingBox, Color.Red); // affichage des boundingBox
-
             pBatch.Draw(texture,
                         Position,
                         null,
@@ -111,25 +102,7 @@ namespace CasseBriques
                         new Vector2(LargeurSprite/2, HauteurSprite/2),
                         1f,
                         SpriteEffects.None,
-                        0);
-
-            
-
-            //RasterizerState state = new RasterizerState();
-            //state.FillMode = FillMode.Solid;
-            //pBatch.GraphicsDevice.RasterizerState = state;
-
-            //Texture2D texture,
-            //Vector2 position,
-            //Nullable<Rectangle> sourceRectangle,
-            //Color color,
-            //float rotation,
-            //Vector2 origin,
-            //float scale,
-            //SpriteEffects effects,
-            //float layerDepth
-
+                        0);  
         }
-
     }
 }

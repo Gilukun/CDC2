@@ -23,12 +23,7 @@ namespace CasseBriques
 
         public override void Tombe()
         {
-            if (currentState != State.Moving)
-            {
-                currentState = State.Falling;
-                Vitesse = new Vector2(Vitesse.X, 1);
-            }
-
+                Vitesse = new Vector2(Vitesse.X, Vitesse.Y + 0.5f);
         }
 
         public override void SetPosition(float pX, float pY)
@@ -80,7 +75,7 @@ namespace CasseBriques
             }
             else if (currentState == State.Falling)
             {
-                Vitesse = new Vector2(Vitesse.X, Vitesse.Y + 0.5f);
+                Tombe();
             }
 
             //Trace.WriteLine(currentState);

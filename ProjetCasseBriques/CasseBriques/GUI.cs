@@ -38,8 +38,7 @@ namespace CasseBriques
             {
                 if (!IsHover)
                 {
-                    IsHover = true;
-                    Trace.WriteLine("Je survole mon bouton");
+                    IsHover = true; 
                 }
             }
             else
@@ -49,12 +48,10 @@ namespace CasseBriques
                     IsHover = false;
                 }
             }
-
             if (IsHover)
             {
                 if (newMState.LeftButton == ButtonState.Pressed && oldMState.LeftButton == ButtonState.Released)
                 {
-                    Trace.WriteLine("Je clique");
                     if (onClick != null)
                     {
                         onClick(this);

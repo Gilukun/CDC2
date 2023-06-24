@@ -3,8 +3,10 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Net.Security;
+//using System.Numerics;
 using System.Text.Json;
 
 namespace CasseBriques
@@ -20,21 +22,25 @@ namespace CasseBriques
         {
             numero = pNumero;
             LevelMax = 4;
+           
         }
 
         HUD HUD;
         GameState CurrentScene;
         LevelManager currentLevel;
         Briques SprBriques;
+        public Briques bNormal;
         pIce BriqueMan;
         pFire BriqueMan2;
         pIce BriqueMan3;
         pFire BriqueMan4;
+       
         public List<Briques> ListeBriques { get; private set; }
         public List<Personnages> lstPerso { get; private set; }
         public List<Personnages> lstPerso2 { get; private set; }
         public List<Briques> lstSolidBricks { get; private set; }
-
+     
+        int pType;
 
         private int currentLevelNB;
 
@@ -42,13 +48,13 @@ namespace CasseBriques
         public void RandomLevel()
         {
             Random rnd = new Random();
-            Map = new int[3][]; // on créer en nouveau tableau de 10 
-            for (int l = 0; l < 3; l++)
+            Map = new int[6][]; // on créer en nouveau tableau de 3 lignes 
+            for (int l = 0; l < 6; l++)
             {
-                Map[l] = new int[5]; // on lui dit qu'il a 10 ligne
-                for (int c = 0; c < 5; c++)
+                Map[l] = new int[10]; // on lui dit qu'il a 10 ligne
+                for (int c = 0; c < 10; c++)
                 {
-                    Map[l][c] = rnd.Next(1, 2); // dans chaque case on met un rnd 
+                    Map[l][c] = rnd.Next(1, 4); // dans chaque case on met un rnd 
                 }
             }
         }
@@ -71,10 +77,18 @@ namespace CasseBriques
             string jsonLevel = JsonSerializer.Serialize(this); // on créer le fichier JSON
             File.WriteAllText("level" + numero + ".json", jsonLevel); // on l'exporte en fichier .Json
         }
+
+
         public void LoadLevel(int pLevel)
         {
             InitializeLevel();
+
             ListeBriques = new List<Briques>();
+            lstPerso = new List<Personnages>();
+            lstPerso2 = new List<Personnages>();
+            lstSolidBricks = new List<Briques>();
+           
+
             ContentManager _content = ServiceLocator.GetService<ContentManager>();
             string levelData = File.ReadAllText("level" + pLevel + ".json");
             currentLevel = JsonSerializer.Deserialize<LevelManager>(levelData);
@@ -97,32 +111,31 @@ namespace CasseBriques
                     switch (typeBriques)
                     {
                         case 1:
-                            Briques bNormal = new Briques(_content.Load<Texture2D>("Brique_" + typeBriques));
+                            Briques bNormal = new BBase(_content.Load<Texture2D>("Brique_" + typeBriques));
                             bNormal.SetPosition(c * bNormal.LargeurSprite + spacing, l * bNormal.HauteurSprite + bNormal.CentreSpriteH + HUD.HauteurSprite);
                             ListeBriques.Add(bNormal);
                             break;
                         case 2:
-                            Briques bGlace = new bGlace(_content.Load<Texture2D>("Brique_" + typeBriques));
+                            Briques bGlace = new BGlace(_content.Load<Texture2D>("Brique_" + typeBriques));
                             bGlace.SetPosition(c * bGlace.LargeurSprite + spacing, l * bGlace.HauteurSprite + bGlace.CentreSpriteH + HUD.HauteurSprite);
                             ListeBriques.Add(bGlace);
                             break;
+
                         case 3:
-                            Briques bFeu = new bFeu(_content.Load<Texture2D>("Brique_" + typeBriques));
+                            Briques bFeu = new BFeu(_content.Load<Texture2D>("Brique_" + typeBriques));
                             bFeu.SetPosition(c * bFeu.LargeurSprite + spacing, l * bFeu.HauteurSprite + bFeu.CentreSpriteH + HUD.HauteurSprite);
                             ListeBriques.Add(bFeu);
+                            
                             break;
-                        
-                        
+
                         default:
                             break;
                     }
                 }
             }
 
-            lstPerso = new List<Personnages>();
-            lstPerso2 = new List<Personnages>();
-            lstSolidBricks = new List<Briques>();
-
+           
+            
             if (pLevel == 2)
             {
              
@@ -135,7 +148,7 @@ namespace CasseBriques
                 int firstBrickX = 200;
                 for (int i=1; i < 5; i++)
                 { 
-                    Briques bMetal= new bMetal(_content.Load<Texture2D>("Brique_4"));
+                    Briques bMetal= new BMetal(_content.Load<Texture2D>("Brique_4"));
                     int brickX = firstBrickX + (i - 1) * spacingX;
                     int brickY = hauteurGrille + 200;
                     bMetal.SetPosition(brickX, brickY);
@@ -158,10 +171,10 @@ namespace CasseBriques
             float rotation;
             foreach (var Briques in ListeBriques)
             {
-
-                if (Briques is bFeu Fire)
+                if (Briques is BFeu Fire)
                 {
                     rotation = Fire.Rotation;
+                   
                 }
                 else
                 {
@@ -177,7 +190,7 @@ namespace CasseBriques
                                Briques.scale,
                                SpriteEffects.None,
                                0);
-
+               
                 //pBatch.DrawRectangle(Briques.BoundingBox, Color.Red);
             }
 
@@ -200,7 +213,7 @@ namespace CasseBriques
             }
             foreach (var Briques in lstSolidBricks)
             {
-                {
+           
                     pBatch.Draw(Briques.texture,
                                     Briques.Position,
                                     null,
@@ -211,11 +224,9 @@ namespace CasseBriques
                                     SpriteEffects.None,
                                     0);
                     // pBatch.DrawRectangle(Perso.BoundingBox, Color.Yellow);
-                }
-
             }
-            
         }
+    
     }
 }
 

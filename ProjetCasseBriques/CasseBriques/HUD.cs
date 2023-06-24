@@ -17,7 +17,7 @@ namespace CasseBriques
         public Texture2D texture;
         public int HauteurBarre { get; set; }
         public int GlobalScore;
-        public int Vie;
+        public int Vie { get; set; }
         private string Score;
         private string Life;
         public Balle balle;
@@ -26,7 +26,7 @@ namespace CasseBriques
             texture = pTexture;
             HauteurBarre = texture.Height;
             GlobalScore = 0;
-            Vie = 1;
+            Vie = 3;
         }
 
         public override void Load()

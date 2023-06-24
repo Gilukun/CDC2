@@ -17,6 +17,8 @@ namespace CasseBriques
         public  SpriteFont MenuFont { get; set; }
         public SpriteFont HUDFont { get; set; }
         public SpriteFont GameOverFont { get; set; }
+        public SpriteFont ContextualFont { get; set; }
+
 
 
 
@@ -27,6 +29,7 @@ namespace CasseBriques
             MenuFont = pContent.Load<SpriteFont>("MenuFont");
             HUDFont = pContent.Load<SpriteFont>("HUD1Font");
             GameOverFont = pContent.Load<SpriteFont>("GameOver");
+            ContextualFont = pContent.Load<SpriteFont>("PopUpFont");
         }
 
         public static Vector2 GetSize(string pText, SpriteFont pFont)

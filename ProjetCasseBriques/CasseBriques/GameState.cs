@@ -17,9 +17,6 @@ namespace CasseBriques
             casseBriques = pGame;
         }
 
-        
-     
-
         public enum Scenes
         {
             Menu,

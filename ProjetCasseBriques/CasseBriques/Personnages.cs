@@ -19,9 +19,10 @@ namespace CasseBriques
             Falling,
             Moving,
             Collision,
-            Catch
+            Catch,
+            Dead
         }
-        public State currentState;
+        public State currentState { get; set; }
         protected float spawnDelay;
         protected float spawnTimer;
         protected bool TimerIsOver;

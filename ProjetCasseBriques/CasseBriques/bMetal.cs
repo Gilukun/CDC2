@@ -9,9 +9,9 @@ using static System.Formats.Asn1.AsnWriter;
 
 namespace CasseBriques
 {
-    public class bMetal : Briques
+    public class BMetal : Briques
     {
-        public bMetal(Texture2D pTexture) : base(pTexture)
+        public BMetal(Texture2D pTexture) : base(pTexture)
         {
             texture = pTexture;
             

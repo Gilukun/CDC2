@@ -1,9 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Diagnostics;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,7 +16,6 @@ namespace CasseBriques
     {
         public Texture2D texture;
         public float scale { get; set; }
-   
         public int nbHits { get; set; }
         public int Points { get; set; }
         public bool Scalling;
@@ -25,17 +27,18 @@ namespace CasseBriques
             }
         }
         public bool isBreakable;
+
+        public enum State
+        {
+            Idle,
+            Hit,
+            Broken,
+        }
+        public State currentState { get; set; }
         public Briques(Texture2D pTexture) : base(pTexture)
         {
             texture = pTexture;
-            scale = 1.0f;
-            Scalling = false;
-            isBreakable = true;
-            nbHits = 1;
-            Points = 100;
         }
-
-
         public override void Update()
         {
             if (Scalling)
@@ -48,10 +51,6 @@ namespace CasseBriques
                 }
             }
           base.Update();
-        }
-
-        
-     
-       
+        } 
     }
 }

@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace CasseBriques
 {
-    public class bFeu : Briques
+    public class BFeu : Briques
     {
         public float Rotation { get; set; }
         public bool rotate;
 
    
-     public bFeu(Texture2D pTexture) : base(pTexture)
+     public BFeu(Texture2D pTexture) : base(pTexture)
         {
             texture = pTexture;
             Rotation = 0.0f;
