@@ -1,7 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -25,7 +27,14 @@ namespace CasseBriques
         ScreenManager ResolutionEcran = ServiceLocator.GetService<ScreenManager>();
         ContentManager _content = ServiceLocator.GetService<ContentManager>();
         GameState Status = ServiceLocator.GetService<GameState>();
-       
+
+        AssetsManager Audio = ServiceLocator.GetService<AssetsManager>();
+        SoundEffectInstance PadImpact;
+        SoundEffectInstance Catch;
+        SoundEffectInstance Col;
+
+
+
         private Texture2D background;
         Raquette SprPad;
         Balle SprBalle;
@@ -46,18 +55,17 @@ namespace CasseBriques
         private int currentBackground;
         private int currentLevelNB;
 
-        private float winDelay;
-        private float winTimer;
+        private float Delay;
+        private float Timer;
         private bool TimerIsOver; 
-        public void TimerON()
+        public void TimerON(float pIncrement)
         {
-            winDelay += 0.02f;
-            if (winDelay > winTimer)
+            Delay += pIncrement;
+            if (Delay > Timer)
             {
                 TimerIsOver = true;
             }
         }
-
 
         public void LoadBackground()
         {
@@ -66,12 +74,16 @@ namespace CasseBriques
 
         }
 
-
         public Gameplay()
         {
-            currentLevelNB = 1;
+            currentLevelNB = 2;
             currentBackground = currentLevelNB;
             LoadBackground();
+
+            //Soundtracks
+            MediaPlayer.Volume = 0.1f;
+            MediaPlayer.Play(Audio.InGame);
+            
 
             // texture de ma raquette
             SprPad = new Raquette(_content.Load<Texture2D>("pNormal"));
@@ -88,8 +100,13 @@ namespace CasseBriques
             OldKbState = Keyboard.GetState();
 
             niveau.LoadLevel(currentLevelNB);
-            winDelay = 0;
-            winTimer = 5;
+            Delay = 0;
+            Timer = 5;
+        }
+
+        public void Rebounds()
+        { 
+        
         }
 
         public override void Update()
@@ -114,6 +131,7 @@ namespace CasseBriques
             {
                 SprBalle.Vitesse = new Vector2(SprBalle.Vitesse.X, -SprBalle.Vitesse.Y);
                 SprBalle.SetPosition(SprBalle.Position.X, SprPad.Position.Y - SprBalle.HauteurSprite);
+                Audio.PlaySFX(PadImpact, Audio.PadRebound);
             }
 
             if (SprBalle.Position.Y > ResolutionEcran.Height)
@@ -137,16 +155,19 @@ namespace CasseBriques
                 {
                     CamShake = 30;
                     collision = true;
+                    Audio.PlaySFX(Col, Audio.hitBricks);
                     SprBalle.Vitesse = new Vector2(-SprBalle.Vitesse.X, SprBalle.Vitesse.Y);
-                    //SprBalle.SetPosition(mesBriques.Positi on.X + mesBriques.LargeurSprite/2 + SprBalle.LargeurSprite, SprBalle.Position.Y);
+                   // SprBalle.SetPosition(Briques.Position.X + Briques.LargeurSprite/2, SprBalle.Position.Y);
                 }
                 if (Briques.BoundingBox.Intersects(SprBalle.NextPositionY()))
                 {
                     CamShake = 30;
                     collision = true;
+                    Audio.PlaySFX(Col, Audio.hitBricks);
                     SprBalle.Vitesse = new Vector2(SprBalle.Vitesse.X, -SprBalle.Vitesse.Y);
-                    //SprBalle.SetPosition(SprBalle.Position.X, mesBriques.Position.Y - mesBriques.HauteurSprite/2 - SprBalle.HauteurSprite);
+                    //SprBalle.SetPosition(SprBalle.Position.X, Briques.Position.Y - Briques.HauteurSprite/2 - SprBalle.HauteurSprite);
                 }
+
             }
 
             for (int b = niveau.ListeBriques.Count - 1; b >= 0; b--)
@@ -160,21 +181,24 @@ namespace CasseBriques
                     if (mesBriques.BoundingBox.Intersects(SprBalle.NextPositionX()))
                     {
                         collision = true;
+                        Audio.PlaySFX(Col, Audio.hitBricks);
                         SprBalle.Vitesse = new Vector2(-SprBalle.Vitesse.X, SprBalle.Vitesse.Y);
-                        //SprBalle.SetPosition(mesBriques.Positi on.X + mesBriques.LargeurSprite/2 + SprBalle.LargeurSprite, SprBalle.Position.Y);
+                        //SprBalle.SetPosition(mesBriques.Position.X + mesBriques.LargeurSprite/2, SprBalle.Position.Y);
                     }
 
                     if (mesBriques.BoundingBox.Intersects(SprBalle.NextPositionY()))
                     {
                         collision = true;
-                        SprBalle.Vitesse = new Vector2(SprBalle.Vitesse.X, -SprBalle.Vitesse.Y);
+                        Audio.PlaySFX(Col, Audio.hitBricks);
+                        SprBalle.Vitesse = new Vector2(SprBalle.Vitesse.X, - SprBalle.Vitesse.Y);
                         //SprBalle.SetPosition(SprBalle.Position.X, mesBriques.Position.Y - mesBriques.HauteurSprite/2 - SprBalle.HauteurSprite);
                     }
                     if (collision && mesBriques.isBreakable == true)
                     {
-                        mesBriques.nbHits --;
-                        Trace.WriteLine(mesBriques.nbHits);
-                        if (mesBriques.nbHits == 0)
+
+                        mesBriques.nbHits -= SprBalle.Impact;
+                        
+                        if (mesBriques.nbHits <= 0)
                         {
                             if (mesBriques is BFeu Fire)
                             {
@@ -205,35 +229,37 @@ namespace CasseBriques
                             {
                                 mesBriques.Scalling = true;
                                 HUD.GlobalScore += mesBriques.Points;
-                            }
-                            
+                            } 
                         }
                     }
                     if (mesBriques.scale <= 0)
                     {
                         niveau.ListeBriques.Remove(mesBriques);
-
-                        if (!niveau.ListeBriques.Any(brique => brique.isBreakable)) // comme count mais avec de meilleur performance/ Proposé par VisualStudio
-                        {
-                            currentLevelNB++;
-                            currentBackground++;
-                            if (currentBackground > niveau.LevelMax)
-                            {
-                                Status.ChangeScene(GameState.Scenes.Menu);
-                                currentLevelNB = 1;
-                                currentBackground = 1;
-                            }
-                            else
-                            {
-                                Stick = true;
-                                LoadBackground();
-                                niveau.LoadLevel(currentLevelNB);
-                                winDelay = 0;
-                            }
-                        }
                     }
                 }       
             }
+
+            if (!niveau.ListeBriques.Any(brique => brique.isBreakable)) // comme count mais avec de meilleur performance/ Proposé par VisualStudio
+            {
+                niveau.lstPerso.Clear();
+                listeBonus.Clear();
+                currentLevelNB++;
+                currentBackground++;
+
+                if (currentBackground > niveau.LevelMax)
+                {
+                    Status.ChangeScene(GameState.Scenes.Menu);
+                    currentLevelNB = 1;
+                    currentBackground = 1;
+                }
+                else
+                {
+                    Stick = true;
+                    LoadBackground();
+                    niveau.LoadLevel(currentLevelNB);
+                }
+            }
+
             for (int p = listeBonus.Count - 1; p >= 0; p--)
             {
                 Bonus mesitems = listeBonus[p];
@@ -246,20 +272,21 @@ namespace CasseBriques
                         mesitems.currentState = Bonus.BonusState.Catch;
                         listeBonus.RemoveAt(p);
                         HUD.Vie += mesitems.AddBonus;
+                        Audio.PlaySFX(Catch, Audio.CatchLife);
                     }
                     else if (mesitems is BonusImpact Ice)
                     {
                         mesitems.currentState = Bonus.BonusState.Catch;
                         SprBalle.CurrentBallState = Balle.BallState.Ice;
-                        
+                        Audio.PlaySFX(Catch, Audio.CatchLife);
+
                         listeBonus.RemoveAt(p);
                         Trace.WriteLine(SprBalle.CurrentBallState);
                     }
                 }
             }
 
-
-                for (int p = niveau.lstPerso.Count - 1; p >= 0; p--)
+            for (int p = niveau.lstPerso.Count - 1; p >= 0; p--)
             {
                 bool collision = false;
                 Personnages mesPerso = niveau.lstPerso[p];
@@ -268,15 +295,17 @@ namespace CasseBriques
                 if (mesPerso.BoundingBox.Intersects(SprBalle.NextPositionX()))
                 {
                     collision = true;
+                    Audio.PlaySFX(Col, Audio.hitBricks);
                     SprBalle.Vitesse = new Vector2(-SprBalle.Vitesse.X, SprBalle.Vitesse.Y);
-                    //SprBalle.SetPosition(mesBriques.Positi on.X + mesBriques.LargeurSprite/2 + SprBalle.LargeurSprite, SprBalle.Position.Y);
+                    //SprBalle.SetPosition(mesPerso.Position.X + mesPerso.LargeurSprite/2 + SprBalle.LargeurSprite, SprBalle.Position.Y);
                 }
 
                 if (mesPerso.BoundingBox.Intersects(SprBalle.NextPositionY()))
                 {
                     collision = true;
+                    Audio.PlaySFX(Col, Audio.hitBricks);
                     SprBalle.Vitesse = new Vector2(SprBalle.Vitesse.X, -SprBalle.Vitesse.Y);
-                    //SprBalle.SetPosition(SprBalle.Position.X, mesBriques.Position.Y - mesBriques.HauteurSprite/2 - SprBalle.HauteurSprite);
+                    //SprBalle.SetPosition(SprBalle.Position.X, mesPerso.Position.Y - mesPerso.HauteurSprite/2 - SprBalle.HauteurSprite);
                 }
 
                 if (SprPad.BoundingBox.Intersects(mesPerso.NextPositionY()))
@@ -286,12 +315,14 @@ namespace CasseBriques
                         pFire.currentState = Personnages.State.Catch;
                         SprBalle.CurrentBallState = Balle.BallState.SpeedUp;
                         niveau.lstPerso.Remove(pFire);
+                        Audio.PlaySFX(Col, Audio.hitBricks);
                     }
                     else if (mesPerso is pIce pIce)
                     {
                         pIce.currentState = Personnages.State.Catch;
                         SprBalle.CurrentBallState = Balle.BallState.SlowDown;
                         niveau.lstPerso.Remove(pIce);
+                        Audio.PlaySFX(Col, Audio.hitBricks);
                     }
                 }
 

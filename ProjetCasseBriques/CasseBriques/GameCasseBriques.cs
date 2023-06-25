@@ -41,9 +41,6 @@ namespace CasseBriques
             ServiceLocator.RegisterService<ScreenManager>(_screenManager);
             _Resolution = ServiceLocator.GetService<ScreenManager>();
             _Resolution.ChangeResolution(1024, 900);
-            
-
-
 
             MaxLevel = 4;
             for (int i = 1; i <= MaxLevel; i++) // le nombre de niveau correspond au nombre max de Background (4) que j'ai. Si je met 4, la boucle 
@@ -64,19 +61,14 @@ namespace CasseBriques
             ServiceLocator.RegisterService<ContentManager>(Content);
             ServiceLocator.RegisterService<GraphicsDeviceManager>(_graphics);
             ServiceLocator.RegisterService<GameState>(State);
+
             AssetsManager.Load();
             ServiceLocator.RegisterService<AssetsManager>(AssetsManager);
-            ServiceLocator.RegisterService<GraphicsDevice>(GraphDevice);
-
-
-
-
 
             Menu = new Menu();
             Gameplay = new Gameplay();
             
             State.ChangeScene(GameState.Scenes.Menu);
-           
         }
 
         protected override void Update(GameTime gameTime)

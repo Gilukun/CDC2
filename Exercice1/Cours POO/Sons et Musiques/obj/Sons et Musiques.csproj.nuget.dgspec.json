@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Gilles\\Documents\\GameCodeur\\CDC2\\Cours POO\\Sons et Musiques\\Sons et Musiques.csproj": {}
+    "C:\\Users\\Gilles\\Documents\\GameCodeur\\CDC2\\Exercice1\\Cours POO\\Sons et Musiques\\Sons et Musiques.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Gilles\\Documents\\GameCodeur\\CDC2\\Cours POO\\Sons et Musiques\\Sons et Musiques.csproj": {
+    "C:\\Users\\Gilles\\Documents\\GameCodeur\\CDC2\\Exercice1\\Cours POO\\Sons et Musiques\\Sons et Musiques.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Gilles\\Documents\\GameCodeur\\CDC2\\Cours POO\\Sons et Musiques\\Sons et Musiques.csproj",
+        "projectUniqueName": "C:\\Users\\Gilles\\Documents\\GameCodeur\\CDC2\\Exercice1\\Cours POO\\Sons et Musiques\\Sons et Musiques.csproj",
         "projectName": "Sons et Musiques",
-        "projectPath": "C:\\Users\\Gilles\\Documents\\GameCodeur\\CDC2\\Cours POO\\Sons et Musiques\\Sons et Musiques.csproj",
+        "projectPath": "C:\\Users\\Gilles\\Documents\\GameCodeur\\CDC2\\Exercice1\\Cours POO\\Sons et Musiques\\Sons et Musiques.csproj",
         "packagesPath": "C:\\Users\\Gilles\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Gilles\\Documents\\GameCodeur\\CDC2\\Cours POO\\Sons et Musiques\\obj\\",
+        "outputPath": "C:\\Users\\Gilles\\Documents\\GameCodeur\\CDC2\\Exercice1\\Cours POO\\Sons et Musiques\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

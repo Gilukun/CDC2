@@ -48,11 +48,11 @@ namespace CasseBriques
         public void RandomLevel()
         {
             Random rnd = new Random();
-            Map = new int[6][]; // on créer en nouveau tableau de 3 lignes 
-            for (int l = 0; l < 6; l++)
+            Map = new int[5][]; // on créer en nouveau tableau de 3 lignes 
+            for (int l = 0; l < 5; l++)
             {
-                Map[l] = new int[10]; // on lui dit qu'il a 10 ligne
-                for (int c = 0; c < 10; c++)
+                Map[l] = new int[5]; // on lui dit qu'il a 10 ligne
+                for (int c = 0; c < 5; c++)
                 {
                     Map[l][c] = rnd.Next(1, 4); // dans chaque case on met un rnd 
                 }
@@ -163,6 +163,8 @@ namespace CasseBriques
                 lstPerso.Add(BriqueMan2);
             }  
         }
+        public virtual void Update()
+        { }
 
         public void DrawLevel()
         {

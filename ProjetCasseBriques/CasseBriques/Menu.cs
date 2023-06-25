@@ -1,9 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -33,22 +36,37 @@ namespace CasseBriques
 
         AssetsManager Font = ServiceLocator.GetService<AssetsManager>();
         ContentManager _content = ServiceLocator.GetService<ContentManager>();
-        
+        AssetsManager Audio = ServiceLocator.GetService<AssetsManager>();
+        SoundEffectInstance Selection;
+
+        private float Delay;
+        private float Timer;
+        private bool TimerIsOn;
         public Menu()
         {
             background = _content.Load<Texture2D>("BckMenu");
+            MediaPlayer.Play(Audio.Intro);
+            Timer = 2;
+            Delay = 0;
+        }
+
+        public void TimerON(float pIncrement)
+        {
+            Delay += pIncrement;
         }
 
         public void OnClick(GUI pSender)
         {
             if (pSender == BoutonEnter)
             {
-                Status.ChangeScene(GameState.Scenes.Gameplay);
-                //casseBriques.gameState.ChangeScene(GameState.Scenes.Gameplay);
+                Audio.PlaySFX(Selection, Audio.Select);
+                TimerIsOn = true;  
             }
-            if (pSender == BoutonSettings)
+            else if (pSender == BoutonSettings)
             {
+                Audio.PlaySFX(Selection, Audio.Select);
                 Status.ChangeScene(GameState.Scenes.Setting);
+                MediaPlayer.Stop();
             }
 
         }
@@ -86,6 +104,17 @@ namespace CasseBriques
 
         public override void Update()
         {
+            if (TimerIsOn)
+            {
+                TimerON(0.03f);
+            }
+            if (Delay > Timer)
+            {
+                Status.ChangeScene(GameState.Scenes.Gameplay);
+                Delay = 0;
+                TimerIsOn = false;
+            }
+
             BoutonEnter.Update();
             BoutonSettings.Update();
             base.Update();

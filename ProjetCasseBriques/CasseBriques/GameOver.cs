@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Media;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -16,6 +17,7 @@ namespace CasseBriques
         AssetsManager Font = ServiceLocator.GetService<AssetsManager>();
         SpriteBatch _spriteBatch = ServiceLocator.GetService<SpriteBatch>();
         ScreenManager ResolutionEcran = ServiceLocator.GetService<ScreenManager>();
+        AssetsManager Audio = ServiceLocator.GetService<AssetsManager>();
         private GraphicsDevice graphicsDevice;
 
         Texture2D background;
@@ -41,6 +43,7 @@ namespace CasseBriques
         {
             background = _content.Load<Texture2D>("BkGameOver");
             graphicsDevice = _spriteBatch.GraphicsDevice;
+            MediaPlayer.Play(Audio.End);
         }
 
         public override void Load()

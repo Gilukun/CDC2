@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ysyqNooJ3+9V/dUZq9aGZMG8r5RwivCXSUmtpeya1plqO6KAwX3/cTDyjRqeBtgvuVi+GAe/8PQGv0TKFnU7Sw==",
+  "dgSpecHash": "xl3GTRRSWmb4E8bCyzsvJJqGyEPPunNa/1HZ5jkU53saV5U2dPXX0M85j/hovJVneFMCKoi+zAYG02ri5CDiCQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Gilles\\Documents\\GameCodeur\\CDC2\\Cours POO\\Sons et Musiques\\Sons et Musiques.csproj",
+  "projectFilePath": "C:\\Users\\Gilles\\Documents\\GameCodeur\\CDC2\\Exercice1\\Cours POO\\Sons et Musiques\\Sons et Musiques.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Gilles\\.nuget\\packages\\libuv\\1.9.1\\libuv.1.9.1.nupkg.sha512",
     "C:\\Users\\Gilles\\.nuget\\packages\\microsoft.codeanalysis.analyzers\\1.1.0\\microsoft.codeanalysis.analyzers.1.1.0.nupkg.sha512",

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Media;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -10,11 +11,18 @@ namespace CasseBriques
 {
     public class GameState
     {
+        
         public ScenesManager CurrentScene { get; set; }
         protected CasseBriques casseBriques;
-        public GameState(CasseBriques pGame) 
+        public float Delay;
+        public int Timer;
+        public bool timerIsOver;
+        public Scenes currentState { get; set; }
+        public GameState(CasseBriques pGame)
         {
             casseBriques = pGame;
+            Timer = 5;
+            Delay = 0;
         }
 
         public enum Scenes
@@ -25,6 +33,15 @@ namespace CasseBriques
             Gameplay,
             Win,
             GameOver,
+        }
+
+        public void TimerON(float pIncrement)
+        {
+            Delay += pIncrement;
+            if (Delay > Timer)
+            {
+                timerIsOver = true;
+            }
         }
 
         public void ChangeScene(Scenes pScene)
@@ -54,15 +71,12 @@ namespace CasseBriques
                 default:
                     break;
             }
-
             CurrentScene.Load();
         }
 
-        public void Update()
+        public  void Update()
         {
-       
         }
-
-
     }
 }
+

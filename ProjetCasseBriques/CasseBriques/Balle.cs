@@ -18,13 +18,13 @@ namespace CasseBriques
         ContentManager _content = ServiceLocator.GetService<ContentManager>();
         HUD HUD;
         Texture2D texture;
-        Balle bIce;
+        Texture2D bIce;
         private int initSpeed;
         private float BonusSpeed;
         private float bonusSlowdown;
 
-        protected float SpeedBonusDelay;
-        protected float SpeedBonusTimer;
+        protected float Delay;
+        protected float Timer;
         protected bool TimerIsOver;
         public int Impact { get; set; }
 
@@ -45,27 +45,29 @@ namespace CasseBriques
             texture = pTexture;
             CurrentBallState = BallState.Alive;
             initSpeed = 1;
-            SpeedBonusDelay  = 0;
-            SpeedBonusTimer = 5;
+            Delay  = 0;
+            Timer = 5;
             BonusSpeed = 2;
             bonusSlowdown = 0.5f;
             Impact = 1;
+            bIce = _content.Load<Texture2D>("bMenu");
 
         }
 
-        public  void TimerON()
+        public  void TimerON(float pIncrement)
         {
-            SpeedBonusDelay += 0.05f;
+            Delay += pIncrement;
            
-            if (SpeedBonusDelay > SpeedBonusTimer)
+            if (Delay > Timer)
             {
                 TimerIsOver = true;
             }
         }
+     
 
         public override void Load()
         {
-            bIce = new Balle(_content.Load<Texture2D>("bIce"));
+            
         }
 
         public void SpeedUp()
@@ -102,56 +104,58 @@ namespace CasseBriques
             if (CurrentBallState == BallState.SpeedUp)
             {
                 SpeedUp();
-                TimerON();
-                if (SpeedBonusDelay > SpeedBonusTimer) 
+                TimerON(0.005f);
+                if (Delay > Timer) 
                 {
                     CurrentBallState = BallState.Alive;
-                    SpeedBonusDelay = 0; 
+                    Delay = 0; 
                 }
             }
             else if  (CurrentBallState == BallState.SlowDown)
             {
                 SlowDown();
-                TimerON();
+                TimerON(0.005f);
                 
-                if (SpeedBonusDelay > SpeedBonusTimer)
+                if (Delay > Timer)
                 {
                     CurrentBallState = BallState.Alive;
-                    SpeedBonusDelay = 0;  
+                    Delay = 0;  
                 }
             }
             else if (CurrentBallState == BallState.Ice)
             {
+                Impact = 3;
+                TimerON(0.005f);
                 
+                if (Delay > Timer)
+                {
+                    CurrentBallState = BallState.Alive;
+                    Impact = 1;
+                    Delay = 0;
+                }
             }
 
             Position += Vitesse * initSpeed;
             Rebounds();
-            Trace.WriteLine(Impact);
+            
             base.Update();
-
         }
 
         public void DrawBall()
         {
             SpriteBatch pBatch = ServiceLocator.GetService<SpriteBatch>();
-            if (CurrentBallState == BallState.Ice)
-            {
-                texture = bIce.texture;
+            Texture2D currentTexture = (CurrentBallState == BallState.Ice) ? bIce : texture;
 
-            }
-            else
-            {
-                pBatch.Draw(texture,
-                            Position,
-                            null,
-                            Color.White,
-                            0,
-                            new Vector2(LargeurSprite / 2, HauteurSprite / 2),
-                            1f,
-                            SpriteEffects.None,
-                            0);
-            }
+            pBatch.Draw(currentTexture,
+                        Position,
+                        null,
+                        Color.White,
+                        0,
+                        new Vector2(LargeurSprite / 2, HauteurSprite / 2),
+                        1f,
+                        SpriteEffects.None,
+                        0);
+            
         }
     }
 }

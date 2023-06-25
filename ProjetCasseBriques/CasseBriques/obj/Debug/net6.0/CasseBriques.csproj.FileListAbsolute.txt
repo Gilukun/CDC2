@@ -53,3 +53,17 @@ C:\Users\Gilles\Documents\GameCodeur\CDC2\ProjetCasseBriques\CasseBriques\obj\De
 C:\Users\Gilles\Documents\GameCodeur\CDC2\ProjetCasseBriques\CasseBriques\obj\Debug\net6.0\CasseBriques.pdb
 C:\Users\Gilles\Documents\GameCodeur\CDC2\ProjetCasseBriques\CasseBriques\obj\Debug\net6.0\CasseBriques.genruntimeconfig.cache
 C:\Users\Gilles\Documents\GameCodeur\CDC2\ProjetCasseBriques\CasseBriques\obj\Debug\net6.0\ref\CasseBriques.dll
+C:\Users\Gilles\Documents\GameCodeur\CDC2\ProjetCasseBriques\CasseBriques\bin\Debug\net6.0\Content\Musics\End.ogg
+C:\Users\Gilles\Documents\GameCodeur\CDC2\ProjetCasseBriques\CasseBriques\bin\Debug\net6.0\Content\Musics\End.xnb
+C:\Users\Gilles\Documents\GameCodeur\CDC2\ProjetCasseBriques\CasseBriques\bin\Debug\net6.0\Content\Musics\Intro.ogg
+C:\Users\Gilles\Documents\GameCodeur\CDC2\ProjetCasseBriques\CasseBriques\bin\Debug\net6.0\Content\Musics\Intro.xnb
+C:\Users\Gilles\Documents\GameCodeur\CDC2\ProjetCasseBriques\CasseBriques\bin\Debug\net6.0\Content\Musics\Catch.xnb
+C:\Users\Gilles\Documents\GameCodeur\CDC2\ProjetCasseBriques\CasseBriques\bin\Debug\net6.0\Content\Musics\Catch2.xnb
+C:\Users\Gilles\Documents\GameCodeur\CDC2\ProjetCasseBriques\CasseBriques\bin\Debug\net6.0\Content\Musics\CatchPersonnage.xnb
+C:\Users\Gilles\Documents\GameCodeur\CDC2\ProjetCasseBriques\CasseBriques\bin\Debug\net6.0\Content\Musics\GamePlay.ogg
+C:\Users\Gilles\Documents\GameCodeur\CDC2\ProjetCasseBriques\CasseBriques\bin\Debug\net6.0\Content\Musics\GamePlay.xnb
+C:\Users\Gilles\Documents\GameCodeur\CDC2\ProjetCasseBriques\CasseBriques\bin\Debug\net6.0\Content\Musics\hitfreeze.xnb
+C:\Users\Gilles\Documents\GameCodeur\CDC2\ProjetCasseBriques\CasseBriques\bin\Debug\net6.0\Content\Musics\hitMetal.xnb
+C:\Users\Gilles\Documents\GameCodeur\CDC2\ProjetCasseBriques\CasseBriques\bin\Debug\net6.0\Content\Musics\MegaBall.xnb
+C:\Users\Gilles\Documents\GameCodeur\CDC2\ProjetCasseBriques\CasseBriques\bin\Debug\net6.0\Content\Musics\multiball.xnb
+C:\Users\Gilles\Documents\GameCodeur\CDC2\ProjetCasseBriques\CasseBriques\bin\Debug\net6.0\Content\Musics\Selection.xnb
