@@ -36,18 +36,20 @@ namespace CasseBriques
 
         AssetsManager Font = ServiceLocator.GetService<AssetsManager>();
         ContentManager _content = ServiceLocator.GetService<ContentManager>();
-        AssetsManager Audio = ServiceLocator.GetService<AssetsManager>();
-        SoundEffectInstance Selection;
+        AssetsManager audio = ServiceLocator.GetService<AssetsManager>();
+
+        Balle mouseIcon;
 
         private float Delay;
         private float Timer;
         private bool TimerIsOn;
         public Menu()
-        {
+        { 
             background = _content.Load<Texture2D>("BckMenu");
-            MediaPlayer.Play(Audio.Intro);
+            mouseIcon = new Balle (_content.Load<Texture2D>("bMenu"));
             Timer = 2;
             Delay = 0;
+            MediaPlayer.Play(audio.Intro);
         }
 
         public void TimerON(float pIncrement)
@@ -59,12 +61,12 @@ namespace CasseBriques
         {
             if (pSender == BoutonEnter)
             {
-                Audio.PlaySFX(Selection, Audio.Select);
+                AssetsManager.PlaySFX(audio.Select);
                 TimerIsOn = true;  
             }
             else if (pSender == BoutonSettings)
             {
-                Audio.PlaySFX(Selection, Audio.Select);
+                AssetsManager.PlaySFX(audio.Select);
                 Status.ChangeScene(GameState.Scenes.Setting);
                 MediaPlayer.Stop();
             }
@@ -75,7 +77,7 @@ namespace CasseBriques
         {
             
             listeBouttons = new List<GUI>();
-            BoutonEnter = new GUI(_content.Load<Texture2D>("Button1"));
+            BoutonEnter = new GUI(_content.Load<Texture2D>("Bouton_1"));
             BoutonEnter.SetPosition(ResolutionEcran.CenterWidth, ResolutionEcran.CenterHeight);
 
             int LargeurBouton = BoutonEnter.LargeurSprite;
@@ -85,7 +87,7 @@ namespace CasseBriques
             BoutonEnter.onClick = OnClick;
             listeBouttons.Add(BoutonEnter);
 
-            BoutonSettings = new GUI(_content.Load<Texture2D>("Button1"));
+            BoutonSettings = new GUI(_content.Load<Texture2D>("Bouton_1"));
             BoutonSettings.SetPosition(ResolutionEcran.CenterWidth, BoutonEnter.Position.Y + HauteurBouton + spacing);
             BoutonSettings.onClick = OnClick;
 
@@ -96,14 +98,17 @@ namespace CasseBriques
             DimensionTitre = AssetsManager.GetSize(Titre, Font.TitleFont);
 
             Start = "START";
-            DimensionStart = AssetsManager.GetSize(Start, Font.MenuFont);
+            DimensionStart = AssetsManager.GetSize(Start, Font.HUDFont);
 
             Settings = "SETTINGS";
-            DimensionSettings = AssetsManager.GetSize(Settings, Font.MenuFont);
+            DimensionSettings = AssetsManager.GetSize(Settings, Font.HUDFont);
         }
 
         public override void Update()
         {
+            mouseIcon.SetPosition((Mouse.GetState().X - mouseIcon.CentreSpriteH), (Mouse.GetState().Y - mouseIcon.CentreSpriteH));
+
+
             if (TimerIsOn)
             {
                 TimerON(0.03f);
@@ -125,14 +130,17 @@ namespace CasseBriques
             SpriteBatch pBatch = ServiceLocator.GetService<SpriteBatch>();
             pBatch.Draw(background, new Vector2(0, 0), Color.White);
 
+            // Dessin des boutons
             BoutonEnter.Draw();
-
             BoutonSettings.Draw();
+
+            // Affichage du nom du jeu 
             pBatch.DrawString(Font.TitleFont,
                               "FANTASOID",
                               new Vector2(ResolutionEcran.CenterWidth - DimensionTitre.X / 2, 100 - DimensionTitre.Y / 2),
                               Color.DarkSlateBlue);
 
+            // Affichage des textes au dessus des boutons
             Color color;
             foreach (GUI item in listeBouttons)
             {
@@ -142,24 +150,26 @@ namespace CasseBriques
                 }
                 else
                 {
-                    color = Color.Black;
+                    color = Color.DarkMagenta;
                 }
                 if (item == BoutonEnter)
                 {
-                    pBatch.DrawString(Font.MenuFont,
+                    pBatch.DrawString(Font.HUDFont,
                                              "START",
                                              new Vector2(BoutonEnter.Position.X - DimensionStart.X / 2, BoutonEnter.Position.Y - DimensionStart.Y / 2),
                                              color);
                 }
                 else if (item == BoutonSettings)
                 {
-                    pBatch.DrawString(Font.MenuFont,
+                    pBatch.DrawString(Font.HUDFont,
                                      "SETTINGS",
                                      new Vector2(BoutonSettings.Position.X - DimensionSettings.X / 2, BoutonSettings.Position.Y - DimensionSettings.Y / 2),
                                      color);
                 }
-
             }
+
+            // Icone de la souris
+            pBatch.Draw(mouseIcon.texture, new Vector2(mouseIcon.Position.X, mouseIcon.Position.Y), Color.White);
         }
     }
 }

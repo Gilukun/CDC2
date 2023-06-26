@@ -61,8 +61,5 @@ namespace CasseBriques
             oldMState = newMState;
             base.Update();
         }
-
-
-
     }
 }

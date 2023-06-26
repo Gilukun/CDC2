@@ -11,7 +11,6 @@ namespace CasseBriques
 {
     public class GameState
     {
-        
         public ScenesManager CurrentScene { get; set; }
         protected CasseBriques casseBriques;
         public float Delay;
@@ -24,7 +23,6 @@ namespace CasseBriques
             Timer = 5;
             Delay = 0;
         }
-
         public enum Scenes
         {
             Menu,
@@ -34,7 +32,6 @@ namespace CasseBriques
             Win,
             GameOver,
         }
-
         public void TimerON(float pIncrement)
         {
             Delay += pIncrement;
@@ -43,7 +40,6 @@ namespace CasseBriques
                 timerIsOver = true;
             }
         }
-
         public void ChangeScene(Scenes pScene)
         {
             if (CurrentScene != null)
@@ -73,7 +69,6 @@ namespace CasseBriques
             }
             CurrentScene.Load();
         }
-
         public  void Update()
         {
         }

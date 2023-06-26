@@ -12,7 +12,6 @@ namespace CasseBriques
         public float Rotation { get; set; }
         public bool rotate;
 
-   
      public BFeu(Texture2D pTexture) : base(pTexture)
         {
             texture = pTexture;
@@ -31,12 +30,9 @@ namespace CasseBriques
             {
                 Rotation += 10f;
             }
-
-
             base.Update();
 
         }
-
        
     }
 }

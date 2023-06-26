@@ -12,12 +12,10 @@ namespace CasseBriques
 {
     public class Bonus : Sprites
     {
-
         public Texture2D texture;
         protected HUD HUD;
         public BonusVie Vie;
         public int AddBonus;
-
         public enum BonusState
         {
             Idle,

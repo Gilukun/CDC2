@@ -15,20 +15,22 @@ namespace CasseBriques
 {
     public class AssetsManager
     {
-        public SpriteFont TitleFont { get; set; }
-        public SpriteFont MenuFont { get; set; }
-        public SpriteFont HUDFont { get; set; }
-        public SpriteFont GameOverFont { get; set; }
-        public SpriteFont ContextualFont { get; set; }
+        public SpriteFont TitleFont { get; private set; }
+        public SpriteFont MenuFont { get; private set; }
+        public SpriteFont HUDFont { get; private set; }
+        public SpriteFont GameOverFont { get; private set; }
+        public SpriteFont ContextualFont { get; private set; }
+        public SpriteFont PopUpFont { get; private set; }
 
-        public Song Intro { get; set; }
-        public Song End { get; set; }
-        public Song InGame { get; set; }
 
-        public SoundEffect PadRebound { get; set; }
-        public SoundEffect CatchLife { get; set; }
-        public SoundEffect Select { get; set; }
-        public SoundEffect hitBricks { get; set; }
+        public Song Intro { get; private set; }
+        public Song End { get; private set; }
+        public Song InGame { get; private set; }
+
+        public SoundEffect PadRebound { get; private set; }
+        public SoundEffect CatchLife { get; private set; }
+        public SoundEffect Select { get; private set; }
+        public SoundEffect hitBricks { get; private set; }
 
 
 
@@ -40,6 +42,8 @@ namespace CasseBriques
             HUDFont = pContent.Load<SpriteFont>("HUD1Font");
             GameOverFont = pContent.Load<SpriteFont>("GameOver");
             ContextualFont = pContent.Load<SpriteFont>("PopUpFont");
+            PopUpFont = pContent.Load<SpriteFont>("PopUps");
+
 
             // Soundtracks
             Intro = pContent.Load<Song>("Musics\\Intro");
@@ -51,8 +55,6 @@ namespace CasseBriques
             CatchLife = pContent.Load<SoundEffect>("Musics\\CatchPersonnage");
             Select = pContent.Load<SoundEffect>("Musics\\Selection");
             hitBricks = pContent.Load<SoundEffect>("Musics\\HitFreeze");
-
-
         }
 
         public static Vector2 GetSize(string pText, SpriteFont pFont)
@@ -64,15 +66,19 @@ namespace CasseBriques
         public static Rectangle getBoundingBox(string pText, SpriteFont pFont, Vector2 position)
         {
             Vector2 textsize = pFont.MeasureString(pText);
-
             Rectangle boundingBox = new Rectangle((int)position.X, (int)position.Y, (int)textsize.X, (int)textsize.Y);
             return boundingBox;
         }
 
-        public void PlaySFX(SoundEffectInstance pInstance, SoundEffect pSound)
+        public static void PlaySong(Song pSong)
         {
-            pInstance = pSound.CreateInstance();
-            pInstance.Play();
+            MediaPlayer.Play(pSong);
+        }
+        public static SoundEffectInstance PlaySFX(SoundEffect pSound)
+        {
+            SoundEffectInstance  instance = pSound.CreateInstance();
+            instance.Play();
+            return instance;
         }
     }
 }

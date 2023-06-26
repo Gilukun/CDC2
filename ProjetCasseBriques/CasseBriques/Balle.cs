@@ -1,10 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Net.Mime;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -16,8 +18,10 @@ namespace CasseBriques
     public class Balle : Sprites
     {
         ContentManager _content = ServiceLocator.GetService<ContentManager>();
-        HUD HUD;
-        Texture2D texture;
+        ScreenManager ResolutionEcran = ServiceLocator.GetService<ScreenManager>();
+        
+        HUD hud;
+        public Texture2D texture;
         Texture2D bIce;
         private int initSpeed;
         private float BonusSpeed;
@@ -35,13 +39,14 @@ namespace CasseBriques
             SpeedUp,
             SlowDown,
             Ice,
+            Reset,
         }
          public BallState CurrentBallState { get; set; }
         
         public Balle(Texture2D pTexture) : base(pTexture)
         {
             
-            HUD = new HUD(_content.Load<Texture2D>("HUD2"));
+            //HUD = new HUD(_content.Load<Texture2D>("HUD2"));
             texture = pTexture;
             CurrentBallState = BallState.Alive;
             initSpeed = 1;
@@ -51,7 +56,6 @@ namespace CasseBriques
             bonusSlowdown = 0.5f;
             Impact = 1;
             bIce = _content.Load<Texture2D>("bMenu");
-
         }
 
         public  void TimerON(float pIncrement)
@@ -87,20 +91,22 @@ namespace CasseBriques
                 Vitesse = new Vector2(-Vitesse.X, Vitesse.Y);
                 SetPosition(0, Position.Y);
             }
-            if (Position.X + LargeurSprite > largeurEcran)
+              if (Position.X + LargeurSprite > ResolutionEcran.Width)
             {
                 Vitesse = new Vector2(-Vitesse.X, Vitesse.Y);
-                SetPosition(largeurEcran - LargeurSprite, Position.Y);
+                SetPosition(ResolutionEcran.Width - LargeurSprite, Position.Y);
             }
-
-            if (Position.Y < HUD.HauteurBarre)
+            hud = ServiceLocator.GetService<HUD>();
+            if (Position.Y < hud.Hudhauteur)
             {
                 Vitesse = new Vector2(Vitesse.X, -Vitesse.Y);
-                SetPosition(Position.X, HUD.HauteurSprite);
+                SetPosition(Position.X, hud.HauteurSprite);
             }
         }
         public override void Update()
         {
+            
+
             if (CurrentBallState == BallState.SpeedUp)
             {
                 SpeedUp();
@@ -134,8 +140,12 @@ namespace CasseBriques
                     Delay = 0;
                 }
             }
+            else if (CurrentBallState == BallState.Reset)
+            {
+                Position = new Vector2(0,0);
+            }
 
-            Position += Vitesse * initSpeed;
+                Position += Vitesse * initSpeed;
             Rebounds();
             
             base.Update();

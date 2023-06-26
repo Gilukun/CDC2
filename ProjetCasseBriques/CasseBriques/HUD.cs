@@ -13,20 +13,28 @@ namespace CasseBriques
 {
     public class HUD : GUI
     {
-
         public Texture2D texture;
-        public int HauteurBarre { get; set; }
+        Vector2 DimensionScore;
+        Vector2 positiontext;
+        Rectangle boundingBox;
+        Vector2 dimensionLife;
+        //public int hauteurBarre { get;set; }
+        public int Hudhauteur
+        { get
+            { return texture.Height; ; }
+            }
+
         public int GlobalScore;
         public int Vie { get; set; }
         private string Score;
         private string Life;
         public Balle balle;
+
         public HUD(Texture2D pTexture) : base(pTexture)
         {
             texture = pTexture;
-            HauteurBarre = texture.Height;
             GlobalScore = 0;
-            Vie = 1;
+            Vie = 3;
         }
 
         public override void Load()
@@ -38,27 +46,26 @@ namespace CasseBriques
             SpriteBatch pBatch = ServiceLocator.GetService<SpriteBatch>();
             AssetsManager Font = ServiceLocator.GetService<AssetsManager>();
             ScreenManager ResolutionEcran = ServiceLocator.GetService<ScreenManager>();
-          
-            
+
             Score = "SCORE" + " " + GlobalScore;
-            Vector2 DimensionScore = AssetsManager.GetSize(Score, Font.HUDFont);
-            Vector2 positiontext = new Vector2(0, texture.Height / 2 - DimensionScore.Y / 2);
-            Rectangle boundingBox = AssetsManager.getBoundingBox(Score, Font.HUDFont, positiontext);
+            DimensionScore = AssetsManager.GetSize(Score, Font.HUDFont);
+            float posXScore = 10f;
+            float posYScore = texture.Height / 2 - DimensionScore.Y / 2;
+           // boundingBox = AssetsManager.getBoundingBox(Score, Font.HUDFont, positiontext);
            // pBatch.DrawRectangle(boundingBox, Color.Red);
             pBatch.DrawString(Font.HUDFont,   
                             Score,
-                            new Vector2 (0, texture.Height/2 - DimensionScore.Y/2),
+                            new Vector2 (posXScore, posYScore),
                             Color.White);
 
             Life = "VIE" + " " + Vie;
-            Vector2 DimensionLife = AssetsManager.GetSize(Life, Font.HUDFont);
+            dimensionLife = AssetsManager.GetSize(Life, Font.HUDFont);
+            float posX = ResolutionEcran.Width - dimensionLife.X;
+            float posY = texture.Height / 2 - dimensionLife.Y / 2;
             pBatch.DrawString(Font.HUDFont,
                            Life,
-                           new Vector2( ResolutionEcran.Width - DimensionLife.X , texture.Height / 2 - DimensionLife.Y / 2),
+                           new Vector2(posX, posY),
                            Color.White);
-
-
         }
-
     }
 }

@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+//using System.Drawing;
 using System.IO;
 using System.Net.Security;
 //using System.Numerics;
@@ -14,19 +15,12 @@ namespace CasseBriques
     public class LevelManager
     {
         ScreenManager ResolutionEcran = ServiceLocator.GetService<ScreenManager>();
-        public int numero { get; set; } // pour que Json fonction il faut sérialiser, donc il faut absolumnt mettre get;set.
-        public int[][] Map { get; set; } // on créer une liste avec 2 champs
+        
+        public int numero { get; set; } 
+        public int[][] Map { get; set; } 
         public int LevelMax;
-        public LevelManager() { } // constructeur par défaut pour pourvoir désérialiser le fichier. Il faut donc qu'il soit vide car il doit faire en background un new sans paramètre
-        public LevelManager(int pNumero)
-        {
-            numero = pNumero;
-            LevelMax = 4;
-           
-        }
-
+        
         HUD HUD;
-        GameState CurrentScene;
         LevelManager currentLevel;
         Briques SprBriques;
         public Briques bNormal;
@@ -39,31 +33,35 @@ namespace CasseBriques
         public List<Personnages> lstPerso { get; private set; }
         public List<Personnages> lstPerso2 { get; private set; }
         public List<Briques> lstSolidBricks { get; private set; }
-     
-        int pType;
 
-        private int currentLevelNB;
+        public LevelManager() 
+        {
 
+        } 
+        public LevelManager(int pNumero)
+        {
+            numero = pNumero;
+            LevelMax = 4;
 
+        }
         public void RandomLevel()
         {
             Random rnd = new Random();
-            Map = new int[5][]; // on créer en nouveau tableau de 3 lignes 
+            Map = new int[5][]; 
             for (int l = 0; l < 5; l++)
             {
-                Map[l] = new int[5]; // on lui dit qu'il a 10 ligne
+                Map[l] = new int[5];
                 for (int c = 0; c < 5; c++)
                 {
-                    Map[l][c] = rnd.Next(1, 4); // dans chaque case on met un rnd 
+                    Map[l][c] = rnd.Next(1, 4);
                 }
             }
         }
 
-
         public void InitializeLevel()
         {
             LevelMax = 4;
-            for (int i = 1; i <= LevelMax; i++) // le nombre de niveau correspond au nombre max de Background (4) que j'ai. Si je met 4, la boucle 
+            for (int i = 1; i <= LevelMax; i++)
             {
                 LevelManager level = new LevelManager(i);
                 level.RandomLevel();
@@ -71,13 +69,11 @@ namespace CasseBriques
             }
         }
 
-
         public void Save()
         {
             string jsonLevel = JsonSerializer.Serialize(this); // on créer le fichier JSON
             File.WriteAllText("level" + numero + ".json", jsonLevel); // on l'exporte en fichier .Json
         }
-
 
         public void LoadLevel(int pLevel)
         {
@@ -87,13 +83,12 @@ namespace CasseBriques
             lstPerso = new List<Personnages>();
             lstPerso2 = new List<Personnages>();
             lstSolidBricks = new List<Briques>();
-           
-
+          
             ContentManager _content = ServiceLocator.GetService<ContentManager>();
             string levelData = File.ReadAllText("level" + pLevel + ".json");
             currentLevel = JsonSerializer.Deserialize<LevelManager>(levelData);
 
-            SprBriques = new Briques(_content.Load<Texture2D>("Brique_1"));
+            SprBriques = new Briques(_content.Load<Texture2D>("Bricks\\Brique_1"));
             HUD = new HUD(_content.Load<Texture2D>("HUD2"));
 
             int NiveauHauteur = currentLevel.Map.GetLength(0);
@@ -111,18 +106,18 @@ namespace CasseBriques
                     switch (typeBriques)
                     {
                         case 1:
-                            Briques bNormal = new BBase(_content.Load<Texture2D>("Brique_" + typeBriques));
+                            Briques bNormal = new BBase(_content.Load<Texture2D>("Bricks\\Brique_" + typeBriques));
                             bNormal.SetPosition(c * bNormal.LargeurSprite + spacing, l * bNormal.HauteurSprite + bNormal.CentreSpriteH + HUD.HauteurSprite);
                             ListeBriques.Add(bNormal);
                             break;
                         case 2:
-                            Briques bGlace = new BGlace(_content.Load<Texture2D>("Brique_" + typeBriques));
+                            Briques bGlace = new BGlace(_content.Load<Texture2D>("Bricks\\Brique_" + typeBriques));
                             bGlace.SetPosition(c * bGlace.LargeurSprite + spacing, l * bGlace.HauteurSprite + bGlace.CentreSpriteH + HUD.HauteurSprite);
                             ListeBriques.Add(bGlace);
                             break;
 
                         case 3:
-                            Briques bFeu = new BFeu(_content.Load<Texture2D>("Brique_" + typeBriques));
+                            Briques bFeu = new BFeu(_content.Load<Texture2D>("Bricks\\Brique_" + typeBriques));
                             bFeu.SetPosition(c * bFeu.LargeurSprite + spacing, l * bFeu.HauteurSprite + bFeu.CentreSpriteH + HUD.HauteurSprite);
                             ListeBriques.Add(bFeu);
                             
@@ -134,8 +129,6 @@ namespace CasseBriques
                 }
             }
 
-           
-            
             if (pLevel == 2)
             {
              
@@ -163,12 +156,12 @@ namespace CasseBriques
                 lstPerso.Add(BriqueMan2);
             }  
         }
-        public virtual void Update()
-        { }
+       
 
         public void DrawLevel()
         {
             SpriteBatch pBatch = ServiceLocator.GetService<SpriteBatch>();
+            AssetsManager font = ServiceLocator.GetService<AssetsManager>();
 
             float rotation;
             foreach (var Briques in ListeBriques)
@@ -211,7 +204,6 @@ namespace CasseBriques
                                    0);
                     // pBatch.DrawRectangle(Perso.BoundingBox, Color.Yellow);
                 }
-
             }
             foreach (var Briques in lstSolidBricks)
             {
@@ -226,6 +218,15 @@ namespace CasseBriques
                                     SpriteEffects.None,
                                     0);
                     // pBatch.DrawRectangle(Perso.BoundingBox, Color.Yellow);
+            }
+
+            foreach (var Briques in ListeBriques)
+            {
+
+                if (Briques.nbHits == 0)
+                {
+                    
+                }
             }
         }
     

@@ -64,7 +64,6 @@ namespace CasseBriques
             base.Load();
         }
 
-       
         public void UpdateTxt()
         {
             if (currentAlpha < 1)
@@ -86,8 +85,6 @@ namespace CasseBriques
             {
                 blinkTimer = 0;
             }
-            
-            Trace.WriteLine(blinkTimer);
         }
 
         public override void Update()

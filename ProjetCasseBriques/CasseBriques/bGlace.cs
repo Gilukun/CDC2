@@ -9,9 +9,6 @@ namespace CasseBriques
 {
     public class BGlace : Briques
     {
-
-        //public int NbCoups { get; set; }
-
         public BGlace(Texture2D pTexture) : base(pTexture)
         {
             texture = pTexture;
@@ -22,8 +19,7 @@ namespace CasseBriques
         }
 
         public override void Update()
-        {
-           
+        { 
             base.Update();
         }
 

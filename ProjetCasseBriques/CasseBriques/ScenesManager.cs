@@ -72,11 +72,13 @@ namespace CasseBriques
         {
             SpriteBatch pBatch = ServiceLocator.GetService<SpriteBatch>();
 
+            // premier batch qui affiche le background general et le background de chaque niveau
             pBatch.Begin();
             pBatch.Draw(background, new Vector2(0,0), Color.White);
             DrawBackground();
             pBatch.End();
 
+            //second batch qui affiche les éléments qui vibrent lors d'une collision
             if (CamShake > 0)
             {
                 int offset = rnd.Next(-2, 2); // décallage de la caméra
@@ -93,7 +95,6 @@ namespace CasseBriques
             else
             pBatch.Begin();
             DrawScene();
-           
             pBatch.End();
             
         }

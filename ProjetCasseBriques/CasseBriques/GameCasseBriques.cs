@@ -21,6 +21,7 @@ namespace CasseBriques
         AssetsManager AssetsManager = new AssetsManager();
 
         public GameState State;
+        public HUD hud;
 
         ScenesManager Menu;
         ScenesManager Gameplay;
@@ -31,7 +32,7 @@ namespace CasseBriques
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            IsMouseVisible = true;
+            IsMouseVisible = false;
             State = new GameState(this);
         }
 
@@ -40,7 +41,7 @@ namespace CasseBriques
             _screenManager = new ScreenManager(_graphics);
             ServiceLocator.RegisterService<ScreenManager>(_screenManager);
             _Resolution = ServiceLocator.GetService<ScreenManager>();
-            _Resolution.ChangeResolution(1024, 900);
+            _Resolution.ChangeResolution(900, 900);
 
             MaxLevel = 4;
             for (int i = 1; i <= MaxLevel; i++) // le nombre de niveau correspond au nombre max de Background (4) que j'ai. Si je met 4, la boucle 
@@ -48,7 +49,6 @@ namespace CasseBriques
                 LevelManager level = new LevelManager(i);
                 level.RandomLevel();
                 level.Save();
-
             }
 
             base.Initialize();
@@ -62,6 +62,9 @@ namespace CasseBriques
             ServiceLocator.RegisterService<GraphicsDeviceManager>(_graphics);
             ServiceLocator.RegisterService<GameState>(State);
 
+            hud = new HUD(Content.Load<Texture2D>("HUD2"));
+            ServiceLocator.RegisterService<HUD>(hud);
+
             AssetsManager.Load();
             ServiceLocator.RegisterService<AssetsManager>(AssetsManager);
 
@@ -73,7 +76,6 @@ namespace CasseBriques
 
         protected override void Update(GameTime gameTime)
         {
-
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
@@ -81,8 +83,8 @@ namespace CasseBriques
             {
                 State.CurrentScene.Update();
             }
-         
 
+            _Resolution.Update();
             base.Update(gameTime);
         }
 
