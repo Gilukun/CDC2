@@ -19,9 +19,9 @@ namespace CasseBriques
     {
         ContentManager _content = ServiceLocator.GetService<ContentManager>();
         ScreenManager ResolutionEcran = ServiceLocator.GetService<ScreenManager>();
-        
-        HUD hud;
-        public Texture2D texture;
+        HUD hud = ServiceLocator.GetService<HUD>();
+        AssetsManager audio = ServiceLocator.GetService<AssetsManager>();   
+       
         Texture2D bIce;
         private int initSpeed;
         private float BonusSpeed;
@@ -45,8 +45,6 @@ namespace CasseBriques
         
         public Balle(Texture2D pTexture) : base(pTexture)
         {
-            
-            //HUD = new HUD(_content.Load<Texture2D>("HUD2"));
             texture = pTexture;
             CurrentBallState = BallState.Alive;
             initSpeed = 1;
@@ -61,7 +59,6 @@ namespace CasseBriques
         public  void TimerON(float pIncrement)
         {
             Delay += pIncrement;
-           
             if (Delay > Timer)
             {
                 TimerIsOver = true;
@@ -89,24 +86,25 @@ namespace CasseBriques
             if (Position.X < 0)
             {
                 Vitesse = new Vector2(-Vitesse.X, Vitesse.Y);
+                AssetsManager.PlaySFX(audio.hitWalls);
                 SetPosition(0, Position.Y);
             }
               if (Position.X + LargeurSprite > ResolutionEcran.Width)
             {
                 Vitesse = new Vector2(-Vitesse.X, Vitesse.Y);
+                AssetsManager.PlaySFX(audio.hitWalls);
                 SetPosition(ResolutionEcran.Width - LargeurSprite, Position.Y);
             }
             hud = ServiceLocator.GetService<HUD>();
             if (Position.Y < hud.Hudhauteur)
             {
                 Vitesse = new Vector2(Vitesse.X, -Vitesse.Y);
-                SetPosition(Position.X, hud.HauteurSprite);
+                AssetsManager.PlaySFX(audio.hitWalls);
+                SetPosition(Position.X, hud.Hudhauteur);
             }
         }
         public override void Update()
         {
-            
-
             if (CurrentBallState == BallState.SpeedUp)
             {
                 SpeedUp();
@@ -142,10 +140,9 @@ namespace CasseBriques
             }
             else if (CurrentBallState == BallState.Reset)
             {
-                Position = new Vector2(0,0);
             }
 
-                Position += Vitesse * initSpeed;
+            Position += Vitesse * initSpeed;
             Rebounds();
             
             base.Update();

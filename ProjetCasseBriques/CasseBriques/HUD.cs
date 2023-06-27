@@ -18,23 +18,31 @@ namespace CasseBriques
         Vector2 positiontext;
         Rectangle boundingBox;
         Vector2 dimensionLife;
+        Vector2 dimensionNiveau;
+
         //public int hauteurBarre { get;set; }
         public int Hudhauteur
         { get
             { return texture.Height; ; }
             }
 
+        public int level;
+
         public int GlobalScore;
         public int Vie { get; set; }
         private string Score;
         private string Life;
+        private string niveau;
+
         public Balle balle;
+        public Gameplay currentLvlNB;
 
         public HUD(Texture2D pTexture) : base(pTexture)
         {
             texture = pTexture;
             GlobalScore = 0;
             Vie = 3;
+            level = 1; 
         }
 
         public override void Load()
@@ -66,6 +74,17 @@ namespace CasseBriques
                            Life,
                            new Vector2(posX, posY),
                            Color.White);
+
+            niveau = "Lvl : " + " " + level ;
+            dimensionNiveau= AssetsManager.GetSize(niveau, Font.HUDFont);
+            float posXLevel = ResolutionEcran.CenterWidth;
+            float posYLevel = texture.Height / 2 - dimensionNiveau.Y / 2;
+            // boundingBox = AssetsManager.getBoundingBox(Score, Font.HUDFont, positiontext);
+            // pBatch.DrawRectangle(boundingBox, Color.Red);
+            pBatch.DrawString(Font.HUDFont,
+                            niveau,
+                            new Vector2(posXLevel, posYLevel),
+                            Color.White);
         }
     }
 }

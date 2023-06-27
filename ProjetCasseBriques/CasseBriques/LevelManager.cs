@@ -46,12 +46,14 @@ namespace CasseBriques
         }
         public void RandomLevel()
         {
+            int colNb = 10;
+            int linNb = 4;
             Random rnd = new Random();
-            Map = new int[5][]; 
-            for (int l = 0; l < 5; l++)
+            Map = new int[linNb][]; 
+            for (int l = 0; l < linNb; l++)
             {
-                Map[l] = new int[5];
-                for (int c = 0; c < 5; c++)
+                Map[l] = new int[colNb];
+                for (int c = 0; c < colNb; c++)
                 {
                     Map[l][c] = rnd.Next(1, 4);
                 }
@@ -137,13 +139,14 @@ namespace CasseBriques
                 BriqueMan4 = new pFire(_content.Load<Texture2D>("bTime"));
                 lstPerso.Add(BriqueMan4);
 
-                int spacingX = 200;
-                int firstBrickX = 200;
+                int spacingX = ResolutionEcran.Width / 2;
+                int firstBrickX = ResolutionEcran.Width / 4;
+                int spacingGrille = 200;
                 for (int i=1; i < 5; i++)
                 { 
                     Briques bMetal= new BMetal(_content.Load<Texture2D>("Brique_4"));
                     int brickX = firstBrickX + (i - 1) * spacingX;
-                    int brickY = hauteurGrille + 200;
+                    int brickY = hauteurGrille + spacingGrille;
                     bMetal.SetPosition(brickX, brickY);
                     lstSolidBricks.Add(bMetal);
                 }
@@ -202,7 +205,7 @@ namespace CasseBriques
                                    1.0f,
                                    SpriteEffects.None,
                                    0);
-                    // pBatch.DrawRectangle(Perso.BoundingBox, Color.Yellow);
+                  //pBatch.DrawRectangle(Perso.BoundingBox, Color.Yellow);
                 }
             }
             foreach (var Briques in lstSolidBricks)
@@ -217,16 +220,7 @@ namespace CasseBriques
                                     1.0f,
                                     SpriteEffects.None,
                                     0);
-                    // pBatch.DrawRectangle(Perso.BoundingBox, Color.Yellow);
-            }
-
-            foreach (var Briques in ListeBriques)
-            {
-
-                if (Briques.nbHits == 0)
-                {
-                    
-                }
+                   // pBatch.DrawRectangle(Briques.BoundingBox, Color.Yellow);
             }
         }
     

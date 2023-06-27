@@ -12,13 +12,30 @@ namespace CasseBriques
 {
     public class pFire : Personnages
     {
+        private float delay;
+        private float timer;
+        private Vector2 point1;
+        private Vector2 point2;
+
+
         public pFire(Texture2D pTexture) : base(pTexture)
         {
             texture = pTexture;
             spawnDelay = 0;
-            spawnTimer = 3;
+            spawnTimer = 5;
             currentState = State.Idle;
             isSpawn = false;
+            delay = 0;
+            timer = 4;
+        }
+
+        public void TimerUpDown(float pIncrement)
+        {
+            delay += pIncrement;
+            if (delay > timer)
+            {
+                TimerIsOver = true;
+            }
         }
 
         public override void Tombe()
@@ -33,12 +50,24 @@ namespace CasseBriques
 
         public override void Moving()
         {
-            Vitesse = new Vector2(-1, Vitesse.Y);
-            Position += Vitesse;
+          
+            if (Position.Y >= 600)
+            {
+                float Up = 2f;
+                Vitesse = new Vector2(-1, Vitesse.Y - Up);
+                Position += Vitesse;
+            }
+            else if (Position.Y <= 500) 
+            {
+                float Down = 2f;
+                Vitesse = new Vector2(-1, Vitesse.Y + Down);
+                Position += Vitesse;
+            }
         }
 
         public override void TimerON()
         {
+            isSpawn = false;
             spawnDelay += 0.02f;
             if (spawnDelay > spawnTimer)
             {
@@ -62,6 +91,7 @@ namespace CasseBriques
                     spawnDelay = 0;
                     isSpawn = true;
                     currentState = State.Spawn;
+                    TimerIsOver = false;
                 }
             }
             else if (currentState == State.Spawn)
@@ -77,8 +107,6 @@ namespace CasseBriques
             {
                 Tombe();
             }
-
-            //Trace.WriteLine(currentState);
             base.Update();
         }
     }

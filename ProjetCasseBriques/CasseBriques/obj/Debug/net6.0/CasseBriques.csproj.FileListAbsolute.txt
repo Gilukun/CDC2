@@ -20,6 +20,7 @@ C:\Users\Gilles\Documents\GameCodeur\CDC2\ProjetCasseBriques\CasseBriques\bin\De
 C:\Users\Gilles\Documents\GameCodeur\CDC2\ProjetCasseBriques\CasseBriques\bin\Debug\net6.0\Content\bMenu.xnb
 C:\Users\Gilles\Documents\GameCodeur\CDC2\ProjetCasseBriques\CasseBriques\bin\Debug\net6.0\Content\bNormal.xnb
 C:\Users\Gilles\Documents\GameCodeur\CDC2\ProjetCasseBriques\CasseBriques\bin\Debug\net6.0\Content\Bouton_1.xnb
+C:\Users\Gilles\Documents\GameCodeur\CDC2\ProjetCasseBriques\CasseBriques\bin\Debug\net6.0\Content\Bouton_2.xnb
 C:\Users\Gilles\Documents\GameCodeur\CDC2\ProjetCasseBriques\CasseBriques\bin\Debug\net6.0\Content\Bricks\Brique_1.xnb
 C:\Users\Gilles\Documents\GameCodeur\CDC2\ProjetCasseBriques\CasseBriques\bin\Debug\net6.0\Content\Bricks\Brique_2.xnb
 C:\Users\Gilles\Documents\GameCodeur\CDC2\ProjetCasseBriques\CasseBriques\bin\Debug\net6.0\Content\Bricks\Brique_3.xnb
@@ -53,6 +54,7 @@ C:\Users\Gilles\Documents\GameCodeur\CDC2\ProjetCasseBriques\CasseBriques\bin\De
 C:\Users\Gilles\Documents\GameCodeur\CDC2\ProjetCasseBriques\CasseBriques\bin\Debug\net6.0\Content\Musics\multiball.xnb
 C:\Users\Gilles\Documents\GameCodeur\CDC2\ProjetCasseBriques\CasseBriques\bin\Debug\net6.0\Content\Musics\Selection.xnb
 C:\Users\Gilles\Documents\GameCodeur\CDC2\ProjetCasseBriques\CasseBriques\bin\Debug\net6.0\Content\Pad_1.xnb
+C:\Users\Gilles\Documents\GameCodeur\CDC2\ProjetCasseBriques\CasseBriques\bin\Debug\net6.0\Content\Pad_2.xnb
 C:\Users\Gilles\Documents\GameCodeur\CDC2\ProjetCasseBriques\CasseBriques\bin\Debug\net6.0\Content\pFire.xnb
 C:\Users\Gilles\Documents\GameCodeur\CDC2\ProjetCasseBriques\CasseBriques\bin\Debug\net6.0\Content\pIce.xnb
 C:\Users\Gilles\Documents\GameCodeur\CDC2\ProjetCasseBriques\CasseBriques\bin\Debug\net6.0\Content\PNormal.xnb
@@ -60,6 +62,7 @@ C:\Users\Gilles\Documents\GameCodeur\CDC2\ProjetCasseBriques\CasseBriques\bin\De
 C:\Users\Gilles\Documents\GameCodeur\CDC2\ProjetCasseBriques\CasseBriques\bin\Debug\net6.0\Content\PopUps.xnb
 C:\Users\Gilles\Documents\GameCodeur\CDC2\ProjetCasseBriques\CasseBriques\bin\Debug\net6.0\Content\ScoresFont.xnb
 C:\Users\Gilles\Documents\GameCodeur\CDC2\ProjetCasseBriques\CasseBriques\bin\Debug\net6.0\Content\TitleFont.xnb
+C:\Users\Gilles\Documents\GameCodeur\CDC2\ProjetCasseBriques\CasseBriques\bin\Debug\net6.0\Content\victory.xnb
 C:\Users\Gilles\Documents\GameCodeur\CDC2\ProjetCasseBriques\CasseBriques\bin\Debug\net6.0\CasseBriques.exe
 C:\Users\Gilles\Documents\GameCodeur\CDC2\ProjetCasseBriques\CasseBriques\bin\Debug\net6.0\CasseBriques.deps.json
 C:\Users\Gilles\Documents\GameCodeur\CDC2\ProjetCasseBriques\CasseBriques\bin\Debug\net6.0\CasseBriques.runtimeconfig.json
@@ -85,3 +88,10 @@ C:\Users\Gilles\Documents\GameCodeur\CDC2\ProjetCasseBriques\CasseBriques\obj\De
 C:\Users\Gilles\Documents\GameCodeur\CDC2\ProjetCasseBriques\CasseBriques\obj\Debug\net6.0\CasseBriques.pdb
 C:\Users\Gilles\Documents\GameCodeur\CDC2\ProjetCasseBriques\CasseBriques\obj\Debug\net6.0\CasseBriques.genruntimeconfig.cache
 C:\Users\Gilles\Documents\GameCodeur\CDC2\ProjetCasseBriques\CasseBriques\obj\Debug\net6.0\ref\CasseBriques.dll
+C:\Users\Gilles\Documents\GameCodeur\CDC2\ProjetCasseBriques\CasseBriques\bin\Debug\net6.0\Content\Musics\bomb.xnb
+C:\Users\Gilles\Documents\GameCodeur\CDC2\ProjetCasseBriques\CasseBriques\bin\Debug\net6.0\Content\Musics\BulletHits.xnb
+C:\Users\Gilles\Documents\GameCodeur\CDC2\ProjetCasseBriques\CasseBriques\bin\Debug\net6.0\Content\Musics\Dead.xnb
+C:\Users\Gilles\Documents\GameCodeur\CDC2\ProjetCasseBriques\CasseBriques\bin\Debug\net6.0\Content\Musics\enlarge.xnb
+C:\Users\Gilles\Documents\GameCodeur\CDC2\ProjetCasseBriques\CasseBriques\bin\Debug\net6.0\Content\Musics\hitcadre.xnb
+C:\Users\Gilles\Documents\GameCodeur\CDC2\ProjetCasseBriques\CasseBriques\bin\Debug\net6.0\Content\Musics\hitmonster.xnb
+C:\Users\Gilles\Documents\GameCodeur\CDC2\ProjetCasseBriques\CasseBriques\bin\Debug\net6.0\Content\Musics\shoot.xnb

@@ -15,7 +15,7 @@ namespace CasseBriques
         {
             texture = pTexture;
             spawnDelay = 0;
-            spawnTimer = 3;
+            spawnTimer = 20;
             currentState = State.Idle;
             isSpawn = false;
         }
@@ -66,6 +66,7 @@ namespace CasseBriques
                     spawnDelay = 0;
                     isSpawn = true;
                     currentState = State.Spawn;
+                    TimerIsOver = false;
                 }
             }
             else if (currentState == State.Spawn)
@@ -80,6 +81,11 @@ namespace CasseBriques
             else if (currentState == State.Falling)
             {
                 Vitesse = new Vector2(Vitesse.X, Vitesse.Y + 0.5f);
+            }
+            else if (currentState == State.Catch)
+            {
+                currentState = State.Idle;
+                isSpawn = false;
             }
             base.Update();
         }

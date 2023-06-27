@@ -14,7 +14,8 @@ namespace CasseBriques
         public Texture2D texture;
         ScreenManager ResolutionEcran = ServiceLocator.GetService<ScreenManager>();
         public enum State
-        { Idle,
+        { 
+            Idle,
             Spawn,
             Falling,
             Moving,

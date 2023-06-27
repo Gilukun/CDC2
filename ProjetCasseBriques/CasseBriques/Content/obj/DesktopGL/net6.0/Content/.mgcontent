@@ -21,6 +21,7 @@
     <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/ProjetCasseBriques/CasseBriques/Content/BckMenu.png</File>
     <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/ProjetCasseBriques/CasseBriques/Content/BkGameOver.png</File>
     <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/ProjetCasseBriques/CasseBriques/Content/Bouton_1.png</File>
+    <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/ProjetCasseBriques/CasseBriques/Content/Bouton_2.png</File>
     <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/ProjetCasseBriques/CasseBriques/Content/Bricks/Brique_1.png</File>
     <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/ProjetCasseBriques/CasseBriques/Content/Bricks/Brique_2.png</File>
     <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/ProjetCasseBriques/CasseBriques/Content/Bricks/Brique_3.png</File>
@@ -33,26 +34,45 @@
     <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/ProjetCasseBriques/CasseBriques/Content/HUD2.png</File>
     <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/ProjetCasseBriques/CasseBriques/Content/HUDFont.spritefont</File>
     <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/ProjetCasseBriques/CasseBriques/Content/MenuFont.spritefont</File>
+    <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/ProjetCasseBriques/CasseBriques/Content/Musics/bomb.wav</File>
+    <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/ProjetCasseBriques/CasseBriques/Content/Musics/BulletHits.wav</File>
     <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/ProjetCasseBriques/CasseBriques/Content/Musics/Catch.wav</File>
     <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/ProjetCasseBriques/CasseBriques/Content/Musics/Catch2.wav</File>
     <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/ProjetCasseBriques/CasseBriques/Content/Musics/CatchPersonnage.wav</File>
+    <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/ProjetCasseBriques/CasseBriques/Content/Musics/Dead.wav</File>
     <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/ProjetCasseBriques/CasseBriques/Content/Musics/End.mp3</File>
+    <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/ProjetCasseBriques/CasseBriques/Content/Musics/enlarge.wav</File>
     <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/ProjetCasseBriques/CasseBriques/Content/Musics/GamePlay.mp3</File>
+    <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/ProjetCasseBriques/CasseBriques/Content/Musics/hitcadre.wav</File>
     <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/ProjetCasseBriques/CasseBriques/Content/Musics/hitfreeze.wav</File>
     <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/ProjetCasseBriques/CasseBriques/Content/Musics/hitMetal.wav</File>
+    <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/ProjetCasseBriques/CasseBriques/Content/Musics/hitmonster.wav</File>
     <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/ProjetCasseBriques/CasseBriques/Content/Musics/Intro.mp3</File>
     <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/ProjetCasseBriques/CasseBriques/Content/Musics/MegaBall.wav</File>
     <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/ProjetCasseBriques/CasseBriques/Content/Musics/multiball.wav</File>
     <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/ProjetCasseBriques/CasseBriques/Content/Musics/Selection.wav</File>
+    <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/ProjetCasseBriques/CasseBriques/Content/Musics/shoot.wav</File>
     <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/ProjetCasseBriques/CasseBriques/Content/Pad_1.png</File>
+    <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/ProjetCasseBriques/CasseBriques/Content/Pad_2.png</File>
     <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/ProjetCasseBriques/CasseBriques/Content/pFire.png</File>
     <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/ProjetCasseBriques/CasseBriques/Content/pIce.png</File>
     <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/ProjetCasseBriques/CasseBriques/Content/PNormal.png</File>
     <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/ProjetCasseBriques/CasseBriques/Content/PopUpFont.spritefont</File>
     <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/ProjetCasseBriques/CasseBriques/Content/PopUps.spritefont</File>
     <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/ProjetCasseBriques/CasseBriques/Content/TitleFont.spritefont</File>
+    <File>C:/Users/Gilles/Documents/GameCodeur/CDC2/ProjetCasseBriques/CasseBriques/Content/victory.spritefont</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

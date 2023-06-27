@@ -3,7 +3,7 @@
   <SourceFile>C:/Users/Gilles/Documents/GameCodeur/CDC2/ProjetCasseBriques/CasseBriques/Content/Musics/hitMetal.wav</SourceFile>
   <SourceTime>2008-10-01T13:18:26+04:00</SourceTime>
   <DestFile>C:/Users/Gilles/Documents/GameCodeur/CDC2/ProjetCasseBriques/CasseBriques/Content/bin/DesktopGL/Musics/hitMetal.xnb</DestFile>
-  <DestTime>2023-06-26T15:30:08.6665929+04:00</DestTime>
+  <DestTime>2023-06-27T10:51:35.0865241+04:00</DestTime>
   <Importer>WavImporter</Importer>
   <ImporterTime>2022-07-26T15:44:56+04:00</ImporterTime>
   <Processor>SoundEffectProcessor</Processor>

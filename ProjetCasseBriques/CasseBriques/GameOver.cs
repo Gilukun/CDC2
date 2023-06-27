@@ -18,7 +18,6 @@ namespace CasseBriques
         SpriteBatch _spriteBatch = ServiceLocator.GetService<SpriteBatch>();
         ScreenManager ResolutionEcran = ServiceLocator.GetService<ScreenManager>();
         AssetsManager Audio = ServiceLocator.GetService<AssetsManager>();
-        private GraphicsDevice graphicsDevice;
 
         Texture2D background;
         private string gOver;
@@ -30,19 +29,19 @@ namespace CasseBriques
         private float fadeSpeed;
         private float currentAlpha;
         Color textColor = Color.Black;
+
         private float blinkSpeed;
         private float blinkMax;
         private bool textVisible;
         private float blinkTimer;
-        Texture2D TextRect;
+      
         Color rectColor;
 
         private Rectangle backText;
        
         public GameOver()
         {
-            background = _content.Load<Texture2D>("BkGameOver");
-            graphicsDevice = _spriteBatch.GraphicsDevice;
+            background = _content.Load<Texture2D>("Backgrounds\\Back_7");
             MediaPlayer.Play(Audio.End);
         }
 
@@ -58,8 +57,6 @@ namespace CasseBriques
             blinkSpeed = 0.05f;
             blinkTimer = 0;
             blinkMax = 4;
-            TextRect = new Texture2D(graphicsDevice, 1, 1);
-            TextRect.SetData(new[] { Color.DarkSlateBlue });
 
             base.Load();
         }
@@ -96,16 +93,13 @@ namespace CasseBriques
         {
             SpriteBatch pBatch = ServiceLocator.GetService<SpriteBatch>();
             pBatch.Draw(background, new Vector2(0, 0), Color.White);
+            
             textColor = new Color(Color.Black, currentAlpha);
             pBatch.DrawString(Font.GameOverFont,
-                             "GAMEOVER",
+                             gOver,
                              new Vector2(ResolutionEcran.CenterWidth - DimensionGameOver.X/2, ResolutionEcran.CenterHeight - DimensionGameOver.Y/2),
                              textColor);
-
-            backText = new Rectangle(ResolutionEcran.CenterWidth - (int)(DimensionBackToMenu.X / 2), ResolutionEcran.CenterHeight + (int)(DimensionGameOver.Y / 2), 
-                                    (int)DimensionBackToMenu.X,  (int)DimensionBackToMenu.Y);
-            rectColor = new Color(Color.White, 0.6f);
-            pBatch.Draw(TextRect, backText, rectColor);
+     
 
             if (textVisible)
             {

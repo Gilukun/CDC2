@@ -65,6 +65,9 @@ namespace CasseBriques
             hud = new HUD(Content.Load<Texture2D>("HUD2"));
             ServiceLocator.RegisterService<HUD>(hud);
 
+            Bullet arme = new Bullet(Content.Load<Texture2D>("bFire"));
+            ServiceLocator.RegisterService<Bullet>(arme);
+
             AssetsManager.Load();
             ServiceLocator.RegisterService<AssetsManager>(AssetsManager);
 

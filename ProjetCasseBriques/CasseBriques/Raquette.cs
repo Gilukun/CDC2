@@ -15,7 +15,7 @@ namespace CasseBriques
         private int speed;
         public Raquette(Texture2D pTexture) : base(pTexture)
         {
-            speed = 20;
+            speed = 30;
         }
 
         public override void Update()

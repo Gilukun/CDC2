@@ -217,7 +217,7 @@
 /processorParam:TextureFormat=Color
 /build:Bouton_1.png
 
-#begin Bricks/Brique_1.png
+#begin Bouton_2.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -227,7 +227,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Bricks/Brique_1.png
+/build:Bouton_2.png
 
 #begin Bricks/Brique_1.png
 /importer:TextureImporter
@@ -252,30 +252,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Bricks/Brique_2.png
-
-#begin Bricks/Brique_2.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Bricks/Brique_2.png
-
-#begin Bricks/Brique_3.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Bricks/Brique_3.png
 
 #begin Bricks/Brique_3.png
 /importer:TextureImporter
@@ -377,11 +353,35 @@
 /processorParam:TextureFormat=Compressed
 /build:MenuFont.spritefont
 
+#begin Musics/bomb.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Musics/bomb.wav
+
+#begin Musics/BulletHits.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Musics/BulletHits.wav
+
 #begin Musics/Catch.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Musics/Catch.wav
+
+#begin Musics/Catch.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Musics/Catch.wav
+
+#begin Musics/Catch2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Musics/Catch2.wav
 
 #begin Musics/Catch2.wav
 /importer:WavImporter
@@ -395,17 +395,59 @@
 /processorParam:Quality=Best
 /build:Musics/CatchPersonnage.wav
 
+#begin Musics/CatchPersonnage.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Musics/CatchPersonnage.wav
+
+#begin Musics/Dead.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Musics/Dead.wav
+
 #begin Musics/End.mp3
 /importer:Mp3Importer
 /processor:SongProcessor
 /processorParam:Quality=Best
 /build:Musics/End.mp3
 
+#begin Musics/End.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Musics/End.mp3
+
+#begin Musics/enlarge.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Musics/enlarge.wav
+
 #begin Musics/GamePlay.mp3
 /importer:Mp3Importer
 /processor:SongProcessor
 /processorParam:Quality=Best
 /build:Musics/GamePlay.mp3
+
+#begin Musics/GamePlay.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Musics/GamePlay.mp3
+
+#begin Musics/hitcadre.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Musics/hitcadre.wav
+
+#begin Musics/hitfreeze.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Musics/hitfreeze.wav
 
 #begin Musics/hitfreeze.wav
 /importer:WavImporter
@@ -419,11 +461,35 @@
 /processorParam:Quality=Best
 /build:Musics/hitMetal.wav
 
+#begin Musics/hitMetal.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Musics/hitMetal.wav
+
+#begin Musics/hitmonster.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Musics/hitmonster.wav
+
 #begin Musics/Intro.mp3
 /importer:Mp3Importer
 /processor:SongProcessor
 /processorParam:Quality=Best
 /build:Musics/Intro.mp3
+
+#begin Musics/Intro.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Musics/Intro.mp3
+
+#begin Musics/MegaBall.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Musics/MegaBall.wav
 
 #begin Musics/MegaBall.wav
 /importer:WavImporter
@@ -437,11 +503,29 @@
 /processorParam:Quality=Best
 /build:Musics/multiball.wav
 
+#begin Musics/multiball.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Musics/multiball.wav
+
 #begin Musics/Selection.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Musics/Selection.wav
+
+#begin Musics/Selection.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Musics/Selection.wav
+
+#begin Musics/shoot.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Musics/shoot.wav
 
 #begin Pad_1.png
 /importer:TextureImporter
@@ -454,6 +538,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Pad_1.png
+
+#begin Pad_2.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Pad_2.png
 
 #begin pFire.png
 /importer:TextureImporter
@@ -511,4 +607,11 @@
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
 /build:TitleFont.spritefont
+
+#begin victory.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:victory.spritefont
 

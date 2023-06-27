@@ -77,7 +77,7 @@ namespace CasseBriques
         {
             
             listeBouttons = new List<GUI>();
-            BoutonEnter = new GUI(_content.Load<Texture2D>("Bouton_1"));
+            BoutonEnter = new GUI(_content.Load<Texture2D>("Bouton_2"));
             BoutonEnter.SetPosition(ResolutionEcran.CenterWidth, ResolutionEcran.CenterHeight);
 
             int LargeurBouton = BoutonEnter.LargeurSprite;
@@ -87,7 +87,7 @@ namespace CasseBriques
             BoutonEnter.onClick = OnClick;
             listeBouttons.Add(BoutonEnter);
 
-            BoutonSettings = new GUI(_content.Load<Texture2D>("Bouton_1"));
+            BoutonSettings = new GUI(_content.Load<Texture2D>("Bouton_2"));
             BoutonSettings.SetPosition(ResolutionEcran.CenterWidth, BoutonEnter.Position.Y + HauteurBouton + spacing);
             BoutonSettings.onClick = OnClick;
 

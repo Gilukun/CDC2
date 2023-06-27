@@ -7,24 +7,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-public static class SpriteBatchExtensions // Classe Static qui permet de créer une méthode pour afficher les hitbox
-{
-    public static void DrawRectangle(this SpriteBatch spriteBatch, Rectangle rectangle, Color color)
-    {
-        Texture2D pixel = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
-        pixel.SetData(new[] { color });
 
-        spriteBatch.Draw(pixel, new Rectangle(rectangle.Left, rectangle.Top, rectangle.Width, 1), color);
-        spriteBatch.Draw(pixel, new Rectangle(rectangle.Left, rectangle.Bottom, rectangle.Width, 1), color);
-        spriteBatch.Draw(pixel, new Rectangle(rectangle.Left, rectangle.Top, 1, rectangle.Height), color);
-        spriteBatch.Draw(pixel, new Rectangle(rectangle.Right, rectangle.Top, 1, rectangle.Height + 1), color);
-    }
-}
 namespace CasseBriques
 {
+    public static class SpriteBatchExtensions // Classe Static qui permet de créer une méthode pour afficher les hitbox
+    {
+        public static void DrawRectangle(this SpriteBatch spriteBatch, Rectangle rectangle, Color color)
+        {
+            Texture2D pixel = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
+            pixel.SetData(new[] { color });
+
+            spriteBatch.Draw(pixel, new Rectangle(rectangle.Left, rectangle.Top, rectangle.Width, 1), color);
+            spriteBatch.Draw(pixel, new Rectangle(rectangle.Left, rectangle.Bottom, rectangle.Width, 1), color);
+            spriteBatch.Draw(pixel, new Rectangle(rectangle.Left, rectangle.Top, 1, rectangle.Height), color);
+            spriteBatch.Draw(pixel, new Rectangle(rectangle.Right, rectangle.Top, 1, rectangle.Height + 1), color);
+        }
+    }
     public abstract class Sprites
     {
-        private Texture2D texture;
+        public Texture2D texture;
         public Vector2 Position { get; set; }
         public Vector2 Vitesse { get; set; }
         public float Speed;
@@ -84,7 +85,7 @@ namespace CasseBriques
         public virtual void Update( )
         {
             Position += Vitesse; // Pour les sprites avec de la vitesse on aura automatiquement la mise à jour de la vitesse
-            BoundingBox = new Rectangle((int)Position.X-LargeurSprite/2,(int)Position.Y-HauteurSprite/2, LargeurSprite,  HauteurSprite);
+            BoundingBox = new Rectangle((int)Position.X-LargeurSprite/2,(int)Position.Y-HauteurSprite/2, LargeurSprite, HauteurSprite);
         }
 
         public virtual void DrawScore()
@@ -93,7 +94,7 @@ namespace CasseBriques
         public virtual void Draw()
         {
             SpriteBatch pBatch = ServiceLocator.GetService<SpriteBatch>();
-           // pBatch.DrawRectangle(BoundingBox, Color.Red); // affichage des boundingBox
+            pBatch.DrawRectangle(BoundingBox, Color.Red); // affichage des boundingBox
             pBatch.Draw(texture,
                         Position,
                         null,

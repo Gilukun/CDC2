@@ -21,6 +21,8 @@ namespace CasseBriques
         public SpriteFont GameOverFont { get; private set; }
         public SpriteFont ContextualFont { get; private set; }
         public SpriteFont PopUpFont { get; private set; }
+        public SpriteFont Victory { get; private set; }
+
 
 
         public Song Intro { get; private set; }
@@ -31,6 +33,18 @@ namespace CasseBriques
         public SoundEffect CatchLife { get; private set; }
         public SoundEffect Select { get; private set; }
         public SoundEffect hitBricks { get; private set; }
+        public SoundEffect hitWalls { get; private set; }
+        public SoundEffect shoot { get; private set; }
+        public SoundEffect enlarge { get; private set; }
+        public SoundEffect hitMonster { get; private set; }
+        public SoundEffect bulletHit { get; private set; }
+        public SoundEffect ballLost { get; private set; }
+
+
+
+
+
+
 
 
 
@@ -43,7 +57,7 @@ namespace CasseBriques
             GameOverFont = pContent.Load<SpriteFont>("GameOver");
             ContextualFont = pContent.Load<SpriteFont>("PopUpFont");
             PopUpFont = pContent.Load<SpriteFont>("PopUps");
-
+            Victory = pContent.Load<SpriteFont>("Victory");
 
             // Soundtracks
             Intro = pContent.Load<Song>("Musics\\Intro");
@@ -55,6 +69,13 @@ namespace CasseBriques
             CatchLife = pContent.Load<SoundEffect>("Musics\\CatchPersonnage");
             Select = pContent.Load<SoundEffect>("Musics\\Selection");
             hitBricks = pContent.Load<SoundEffect>("Musics\\HitFreeze");
+            hitWalls = pContent.Load<SoundEffect>("Musics\\hitcadre");
+            shoot = pContent.Load<SoundEffect>("Musics\\shoot");
+            enlarge = pContent.Load<SoundEffect>("Musics\\enlarge");
+            hitMonster = pContent.Load<SoundEffect>("Musics\\hitMonster");
+            bulletHit = pContent.Load<SoundEffect>("Musics\\BulletHits");
+            ballLost = pContent.Load<SoundEffect>("Musics\\Dead");
+
         }
 
         public static Vector2 GetSize(string pText, SpriteFont pFont)

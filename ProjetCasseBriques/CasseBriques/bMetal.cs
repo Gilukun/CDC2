@@ -15,6 +15,7 @@ namespace CasseBriques
         {
             texture = pTexture;
             isBreakable = false;
+            Points = 1000;
         }
     }
 }
