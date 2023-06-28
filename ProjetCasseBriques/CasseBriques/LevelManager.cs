@@ -135,8 +135,8 @@ namespace CasseBriques
                 fireman2 = new PersonnageFire(_content.Load<Texture2D>("bTime"));
                 listPerso.Add(fireman2);
 
-                int spacingX = ResolutionEcran.Width / 6;
-                int firstBrickX = ResolutionEcran.Width / 6;
+                int spacingX = 200;
+                int firstBrickX = 200;
                 int spacingGrille = 200;
                 for (int i=1; i < 5; i++)
                 { 
@@ -186,7 +186,7 @@ namespace CasseBriques
                                SpriteEffects.None,
                                0);
                
-                //pBatch.DrawRectangle(Briques.BoundingBox, Color.Red);
+                pBatch.DrawRectangle(Briques.BoundingBox, Color.Red);
             }
 
             foreach (var Perso in listPerso)
@@ -202,7 +202,7 @@ namespace CasseBriques
                                    1.0f,
                                    SpriteEffects.None,
                                    0);
-                  //pBatch.DrawRectangle(Perso.BoundingBox, Color.Yellow);
+                  pBatch.DrawRectangle(Perso.BoundingBox, Color.Yellow);
                 }
             }
             foreach (var Briques in listSolidBricks)
@@ -217,7 +217,7 @@ namespace CasseBriques
                                     1.0f,
                                     SpriteEffects.None,
                                     0);
-                   // pBatch.DrawRectangle(Briques.BoundingBox, Color.Yellow);
+                   pBatch.DrawRectangle(Briques.BoundingBox, Color.Yellow);
             }
         }
     

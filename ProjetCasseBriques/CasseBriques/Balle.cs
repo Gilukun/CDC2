@@ -37,11 +37,11 @@ namespace CasseBriques
         {
             texture = pTexture;
             CurrentBallState = BallState.Alive;
-            initSpeed = 1;
+            initSpeed = 10;
             Delay  = 0;
             Timer = 5;
-            bonusSpeed = 2;
-            bonusSlowdown = 0.5f;
+            bonusSpeed = 15;
+            bonusSlowdown = 5f;
             Impact = 1;
             Big = _content.Load<Texture2D>("bMenu");
             collision = false;
@@ -94,6 +94,8 @@ namespace CasseBriques
         }
         public override void Update()
         {
+            Position += Vitesse * initSpeed;
+
             if (CurrentBallState == BallState.SpeedUp)
             {
                 SpeedUp();
@@ -126,7 +128,7 @@ namespace CasseBriques
                     Delay = 0;
                 }
             }
-            Position += Vitesse * initSpeed;
+            
             Rebounds();
             base.Update();
         }
@@ -145,6 +147,7 @@ namespace CasseBriques
                         1f,
                         SpriteEffects.None,
                         0);
+            pBatch.DrawRectangle(BoundingBox, Color.Red); // affichage des boundingBox
         }
     }
 }

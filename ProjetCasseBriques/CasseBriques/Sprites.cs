@@ -27,6 +27,7 @@ namespace CasseBriques
         public Texture2D texture;
         public Vector2 Position { get; set; }
         public Vector2 Vitesse { get; set; }
+
         public float Speed;
         protected int hauteurEcran;
         protected int largeurEcran;
@@ -54,10 +55,7 @@ namespace CasseBriques
 
         // Constructeur
         public Sprites(Texture2D pTexture)
-         { 
-            //ScreenManager ResolutionEcran = ServiceLocator.GetService<ScreenManager>();
-            //largeurEcran = ResolutionEcran.Width;
-            //hauteurEcran = ResolutionEcran.Height; 
+        { 
             texture = pTexture;
         }
        
@@ -103,7 +101,7 @@ namespace CasseBriques
         public virtual void Draw()
         {
             SpriteBatch pBatch = ServiceLocator.GetService<SpriteBatch>();
-            pBatch.DrawRectangle(BoundingBox, Color.Red); // affichage des boundingBox
+           
             pBatch.Draw(texture,
                         Position,
                         null,
@@ -112,7 +110,8 @@ namespace CasseBriques
                         new Vector2(SpriteWidth/2, SpriteHeight/2),
                         1f,
                         SpriteEffects.None,
-                        0);  
+                        0);
+            pBatch.DrawRectangle(BoundingBox, Color.Red); // affichage des boundingBox
         }
     }
 }
