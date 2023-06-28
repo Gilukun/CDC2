@@ -9,13 +9,13 @@ using static System.Formats.Asn1.AsnWriter;
 
 namespace CasseBriques
 {
-   public class BMetal : Briques
+   public class BriqueMetal : Briques
     {
-        public BMetal(Texture2D pTexture) : base(pTexture)
+        public BriqueMetal(Texture2D pTexture) : base(pTexture)
         {
             texture = pTexture;
             isBreakable = false;
-            Points = 1000;
+            points = 1000;
         }
     }
 }

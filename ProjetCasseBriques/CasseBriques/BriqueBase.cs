@@ -7,15 +7,16 @@ using System.Threading.Tasks;
 
 namespace CasseBriques
 {
-    internal class BBase : Briques
+    internal class BriqueBase : Briques
     {
-        public BBase(Texture2D pTexture) : base(pTexture)
+        public BriqueBase(Texture2D pTexture) : base(pTexture)
         {
             scale = 1.0f;
-            Scalling = false;
+            scalling = false;
             isBreakable = true;
             nbHits = 1;
-            Points = 100;
+            points = 100;
+            id = ID.Base;
         }
     }
 }

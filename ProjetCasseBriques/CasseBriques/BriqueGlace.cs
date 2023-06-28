@@ -7,15 +7,16 @@ using System.Threading.Tasks;
 
 namespace CasseBriques
 {
-    public class BGlace : Briques
+    public class BriqueGlace : Briques
     {
-        public BGlace(Texture2D pTexture) : base(pTexture)
+        public BriqueGlace(Texture2D pTexture) : base(pTexture)
         {
             texture = pTexture;
             scale = 1.0f;
             isBreakable = true;
             nbHits = 3;
-            Points = 300;
+            points = 300;
+            id = ID.Glace;
         }
 
         public override void Update()

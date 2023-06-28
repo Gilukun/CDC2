@@ -12,21 +12,7 @@ namespace CasseBriques
     public class PopUp
     {
         AssetsManager font = ServiceLocator.GetService<AssetsManager>();
-        Texture2D texture;
         Vector2 Position;
-        private float alpha;
-        private float currentAlpha;
-        private float fadeSpeed;
-        Color color;
-
-        public enum State
-        {
-            Idle,
-            fadeIn,
-            fadeOut,
-        }
-        public State currentState;
-
         public PopUp()
         {
         }

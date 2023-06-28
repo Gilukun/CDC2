@@ -15,24 +15,23 @@ namespace CasseBriques
     public class LevelManager
     {
         ScreenManager ResolutionEcran = ServiceLocator.GetService<ScreenManager>();
-        
+        HUD hud = ServiceLocator.GetService<HUD>();
         public int numero { get; set; } 
         public int[][] Map { get; set; } 
         public int LevelMax;
         
-        HUD HUD;
         LevelManager currentLevel;
         Briques SprBriques;
         public Briques bNormal;
-        pIce BriqueMan;
-        pFire BriqueMan2;
-        pIce BriqueMan3;
-        pFire BriqueMan4;
+        PersonnageIce iceMan1;
+        PersonnageFire fireMan1;
+        PersonnageIce iceMan2;
+        PersonnageFire fireman2;
        
-        public List<Briques> ListeBriques { get; private set; }
-        public List<Personnages> lstPerso { get; private set; }
-        public List<Personnages> lstPerso2 { get; private set; }
-        public List<Briques> lstSolidBricks { get; private set; }
+        public List<Briques> listBriques { get; private set; }
+        public List<Personnages> listPerso { get; private set; }
+        public List<Personnages> listPerso2 { get; private set; }
+        public List<Briques> listSolidBricks { get; private set; }
 
         public LevelManager() 
         {
@@ -81,22 +80,21 @@ namespace CasseBriques
         {
             InitializeLevel();
 
-            ListeBriques = new List<Briques>();
-            lstPerso = new List<Personnages>();
-            lstPerso2 = new List<Personnages>();
-            lstSolidBricks = new List<Briques>();
+            listBriques = new List<Briques>();
+            listPerso = new List<Personnages>();
+            listPerso2 = new List<Personnages>();
+            listSolidBricks = new List<Briques>();
           
             ContentManager _content = ServiceLocator.GetService<ContentManager>();
             string levelData = File.ReadAllText("level" + pLevel + ".json");
             currentLevel = JsonSerializer.Deserialize<LevelManager>(levelData);
 
             SprBriques = new Briques(_content.Load<Texture2D>("Bricks\\Brique_1"));
-            HUD = new HUD(_content.Load<Texture2D>("HUD2"));
 
             int NiveauHauteur = currentLevel.Map.GetLength(0);
             int NiveauLargeur = currentLevel.Map[1].Length;
-            int largeurGrille = NiveauLargeur * SprBriques.LargeurSprite;
-            int hauteurGrille = NiveauHauteur  * SprBriques.HauteurSprite;
+            int largeurGrille = NiveauLargeur * SprBriques.SpriteWidth;
+            int hauteurGrille = NiveauHauteur  * SprBriques.SpriteHeight;
             int spacing = (ResolutionEcran.Width - largeurGrille) / 2;
 
             for (int l = 0; l < NiveauHauteur; l++)
@@ -108,21 +106,20 @@ namespace CasseBriques
                     switch (typeBriques)
                     {
                         case 1:
-                            Briques bNormal = new BBase(_content.Load<Texture2D>("Bricks\\Brique_" + typeBriques));
-                            bNormal.SetPosition(c * bNormal.LargeurSprite + spacing, l * bNormal.HauteurSprite + bNormal.CentreSpriteH + HUD.HauteurSprite);
-                            ListeBriques.Add(bNormal);
+                            Briques bNormal = new BriqueBase(_content.Load<Texture2D>("Bricks\\Brique_" + typeBriques));
+                            bNormal.SetPosition(c * bNormal.SpriteWidth + spacing, l * bNormal.SpriteHeight + bNormal.HalfHeitgh + hud.SpriteHeight);
+                            listBriques.Add(bNormal);
                             break;
                         case 2:
-                            Briques bGlace = new BGlace(_content.Load<Texture2D>("Bricks\\Brique_" + typeBriques));
-                            bGlace.SetPosition(c * bGlace.LargeurSprite + spacing, l * bGlace.HauteurSprite + bGlace.CentreSpriteH + HUD.HauteurSprite);
-                            ListeBriques.Add(bGlace);
+                            Briques bGlace = new BriqueGlace(_content.Load<Texture2D>("Bricks\\Brique_" + typeBriques));
+                            bGlace.SetPosition(c * bGlace.SpriteWidth + spacing, l * bGlace.SpriteHeight + bGlace.HalfHeitgh + hud.SpriteHeight);
+                            listBriques.Add(bGlace);
                             break;
 
                         case 3:
-                            Briques bFeu = new BFeu(_content.Load<Texture2D>("Bricks\\Brique_" + typeBriques));
-                            bFeu.SetPosition(c * bFeu.LargeurSprite + spacing, l * bFeu.HauteurSprite + bFeu.CentreSpriteH + HUD.HauteurSprite);
-                            ListeBriques.Add(bFeu);
-                            
+                            Briques bFeu = new BriqueFeu(_content.Load<Texture2D>("Bricks\\Brique_" + typeBriques));
+                            bFeu.SetPosition(c * bFeu.SpriteWidth + spacing, l * bFeu.SpriteHeight + bFeu.HalfHeitgh + hud.SpriteHeight);
+                            listBriques.Add(bFeu);
                             break;
 
                         default:
@@ -133,45 +130,45 @@ namespace CasseBriques
 
             if (pLevel == 2)
             {
-             
-                BriqueMan3 = new pIce(_content.Load<Texture2D>("bIce"));
-                lstPerso.Add(BriqueMan3);
-                BriqueMan4 = new pFire(_content.Load<Texture2D>("bTime"));
-                lstPerso.Add(BriqueMan4);
+                iceMan2 = new PersonnageIce(_content.Load<Texture2D>("bIce"));
+                listPerso.Add(iceMan2);
+                fireman2 = new PersonnageFire(_content.Load<Texture2D>("bTime"));
+                listPerso.Add(fireman2);
 
-                int spacingX = ResolutionEcran.Width / 2;
-                int firstBrickX = ResolutionEcran.Width / 4;
+                int spacingX = ResolutionEcran.Width / 6;
+                int firstBrickX = ResolutionEcran.Width / 6;
                 int spacingGrille = 200;
                 for (int i=1; i < 5; i++)
                 { 
-                    Briques bMetal= new BMetal(_content.Load<Texture2D>("Brique_4"));
+                    Briques bMetal= new BriqueMetal(_content.Load<Texture2D>("Brique_4"));
                     int brickX = firstBrickX + (i - 1) * spacingX;
                     int brickY = hauteurGrille + spacingGrille;
                     bMetal.SetPosition(brickX, brickY);
-                    lstSolidBricks.Add(bMetal);
+                    listSolidBricks.Add(bMetal);
                 }
             }
             else
             {
-                BriqueMan = new pIce(_content.Load<Texture2D>("pIce"));
-                lstPerso.Add(BriqueMan);
-                BriqueMan2 = new pFire(_content.Load<Texture2D>("pFire"));
-                lstPerso.Add(BriqueMan2);
+                iceMan1 = new PersonnageIce(_content.Load<Texture2D>("pIce"));
+                listPerso.Add(iceMan1);
+                fireMan1 = new PersonnageFire(_content.Load<Texture2D>("pFire"));
+                listPerso.Add(fireMan1);
             }  
         }
        
+        public void Update()
+        {
 
+        }
         public void DrawLevel()
         {
             SpriteBatch pBatch = ServiceLocator.GetService<SpriteBatch>();
-            AssetsManager font = ServiceLocator.GetService<AssetsManager>();
-
             float rotation;
-            foreach (var Briques in ListeBriques)
+            foreach (var Briques in listBriques)
             {
-                if (Briques is BFeu Fire)
+                if (Briques is BriqueFeu Fire)
                 {
-                    rotation = Fire.Rotation;
+                    rotation = Fire.rotation;
                    
                 }
                 else
@@ -184,7 +181,7 @@ namespace CasseBriques
                                null,
                                Color.White,
                                rotation,
-                               new Vector2(Briques.CentreSpriteL, Briques.CentreSpriteH),
+                               new Vector2(Briques.HalfWidth, Briques.HalfHeitgh),
                                Briques.scale,
                                SpriteEffects.None,
                                0);
@@ -192,23 +189,23 @@ namespace CasseBriques
                 //pBatch.DrawRectangle(Briques.BoundingBox, Color.Red);
             }
 
-            foreach (var Perso in lstPerso)
+            foreach (var Perso in listPerso)
             {
-                if (Perso.currentState != Personnages.State.Idle)
+                if (Perso.CurrentState != Personnages.State.Idle)
                 {
                     pBatch.Draw(Perso.texture,
                                    Perso.Position,
                                    null,
                                    Color.White,
                                    0,
-                                   new Vector2(Perso.CentreSpriteL, Perso.CentreSpriteH),
+                                   new Vector2(Perso.HalfWidth, Perso.HalfHeitgh),
                                    1.0f,
                                    SpriteEffects.None,
                                    0);
                   //pBatch.DrawRectangle(Perso.BoundingBox, Color.Yellow);
                 }
             }
-            foreach (var Briques in lstSolidBricks)
+            foreach (var Briques in listSolidBricks)
             {
            
                     pBatch.Draw(Briques.texture,
@@ -216,7 +213,7 @@ namespace CasseBriques
                                     null,
                                     Color.White,
                                     0,
-                                    new Vector2(Briques.CentreSpriteL, Briques.CentreSpriteH),
+                                    new Vector2(Briques.HalfWidth, Briques.HalfHeitgh),
                                     1.0f,
                                     SpriteEffects.None,
                                     0);

@@ -33,7 +33,7 @@ namespace CasseBriques
             }
         }
 
-        public int CenterWidth
+        public int HalfScreenWidth
         {
             get
             {

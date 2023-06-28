@@ -16,7 +16,6 @@ namespace CasseBriques
         {
             Texture2D pixel = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
             pixel.SetData(new[] { color });
-
             spriteBatch.Draw(pixel, new Rectangle(rectangle.Left, rectangle.Top, rectangle.Width, 1), color);
             spriteBatch.Draw(pixel, new Rectangle(rectangle.Left, rectangle.Bottom, rectangle.Width, 1), color);
             spriteBatch.Draw(pixel, new Rectangle(rectangle.Left, rectangle.Top, 1, rectangle.Height), color);
@@ -31,22 +30,22 @@ namespace CasseBriques
         public float Speed;
         protected int hauteurEcran;
         protected int largeurEcran;
-        public int LargeurSprite
+        public int SpriteWidth
         {
             get
             { return texture.Width; }
         }
-        public int HauteurSprite
+        public int SpriteHeight
         {
             get
             { return texture.Height; }
         }
-        public int CentreSpriteL
+        public int HalfWidth
         {
             get
             { return texture.Width/2; }
         }
-        public int CentreSpriteH
+        public int HalfHeitgh
         {
             get
             { return texture.Height/2; }
@@ -56,12 +55,12 @@ namespace CasseBriques
         // Constructeur
         public Sprites(Texture2D pTexture)
          { 
-            ScreenManager ResolutionEcran = ServiceLocator.GetService<ScreenManager>();
-            largeurEcran = ResolutionEcran.Width;
-            hauteurEcran = ResolutionEcran.Height; 
+            //ScreenManager ResolutionEcran = ServiceLocator.GetService<ScreenManager>();
+            //largeurEcran = ResolutionEcran.Width;
+            //hauteurEcran = ResolutionEcran.Height; 
             texture = pTexture;
         }
-        // Fonction pour avoir le centre des sprites
+       
 
         public virtual void SetPosition(float pX, float pY)
         {
@@ -79,13 +78,23 @@ namespace CasseBriques
             NextPosition.Offset(new Point(0, (int)Vitesse.Y));
             return NextPosition;
         }
+
+        public virtual void InverseVitesseY()
+        {
+           Vitesse =  new Vector2(Vitesse.X, -Vitesse.Y);
+        }
+
+        public virtual void InverseVitesseX()
+        {
+            Vitesse = new Vector2(-Vitesse.X, Vitesse.Y);
+        }
         public virtual void Load()
         { 
         }
         public virtual void Update( )
         {
             Position += Vitesse; // Pour les sprites avec de la vitesse on aura automatiquement la mise à jour de la vitesse
-            BoundingBox = new Rectangle((int)Position.X-LargeurSprite/2,(int)Position.Y-HauteurSprite/2, LargeurSprite, HauteurSprite);
+            BoundingBox = new Rectangle((int)Position.X-SpriteWidth/2,(int)Position.Y-SpriteHeight/2, SpriteWidth, SpriteHeight);
         }
 
         public virtual void DrawScore()
@@ -100,7 +109,7 @@ namespace CasseBriques
                         null,
                         Color.White,
                         0,
-                        new Vector2(LargeurSprite/2, HauteurSprite/2),
+                        new Vector2(SpriteWidth/2, SpriteHeight/2),
                         1f,
                         SpriteEffects.None,
                         0);  

@@ -14,18 +14,19 @@ namespace CasseBriques
 {
     public class Briques : Sprites
     {
-        public Texture2D texture;
         public float scale { get; set; }
         public int nbHits { get; set; }
-        public int Points { get; set; }
-        public bool Scalling;
-        public bool isScalling
+        public int points { get; set; }
+        public int iD { get; set; }
+        public bool scalling;
+        public bool IsScalling
         {
             get
             {
-                return Scalling;
+                return scalling;
             }
         }
+        public bool rotate { get; set; }
         public bool isBreakable;
 
         public enum State
@@ -35,19 +36,28 @@ namespace CasseBriques
             Broken,
         }
         public State currentState { get; set; }
+
+        public enum ID
+        {
+            Base,
+            Feu,
+            Glace,
+        }
+
+        public ID id { get; set; }
         public Briques(Texture2D pTexture) : base(pTexture)
         {
             texture = pTexture;
         }
         public override void Update()
         {
-            if (Scalling)
+            if (scalling)
             {
-                scale -= 0.1f;
+                scale -= 0.01f;
                 if (scale <= 0)
                 {
                     scale = 0f;
-                    Scalling = false;
+                    scalling = false;
                 }
             }
           base.Update();

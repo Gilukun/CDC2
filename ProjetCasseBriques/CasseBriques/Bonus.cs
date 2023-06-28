@@ -12,10 +12,9 @@ namespace CasseBriques
 {
     public class Bonus : Sprites
     {
-        public Texture2D texture;
-        protected HUD HUD;
-        public BonusVie Vie;
-        public int AddBonus;
+        public int addBonus;
+        internal int addlife;
+
         public enum BonusState
         {
             Idle,
@@ -31,18 +30,16 @@ namespace CasseBriques
         }
         public override void Load()
         {
-            base.Load();
-        }
-        public virtual void AddLife()
-        { 
+            base.Load(); 
         }
 
-        public virtual void RemoveLife() 
-        { 
+        public virtual void SetPositionBonus(float pX, float pY)
+        {
+            Position = new Vector2(pX, pY);
         }
         public virtual void Tombe()
         {
-
+            Vitesse = new Vector2(Vitesse.X, Vitesse.Y + Speed);
         }
 
         public override void Update()
@@ -50,9 +47,6 @@ namespace CasseBriques
             base.Update();
         }
 
-        public virtual void SetPositionBonus(float pX, float pY)
-        {
-            Position = new Vector2(pX, pY);
-        }
+       
     }
 }

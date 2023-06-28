@@ -13,32 +13,19 @@ namespace CasseBriques
     {
         public ScenesManager CurrentScene { get; set; }
         protected CasseBriques casseBriques;
-        public float Delay;
-        public int Timer;
-        public bool timerIsOver;
+   
         public Scenes currentState { get; set; }
         public GameState(CasseBriques pGame)
         {
             casseBriques = pGame;
-            Timer = 5;
-            Delay = 0;
         }
         public enum Scenes
         {
             Menu,
             Setting,
-            Pause,
             Gameplay,
             Win,
             GameOver,
-        }
-        public void TimerON(float pIncrement)
-        {
-            Delay += pIncrement;
-            if (Delay > Timer)
-            {
-                timerIsOver = true;
-            }
         }
         public void ChangeScene(Scenes pScene)
         {

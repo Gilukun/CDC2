@@ -45,17 +45,15 @@ namespace CasseBriques
         public override void Load()
         {
             win = "YOU WIN";
-            DimensionWin = AssetsManager.GetSize(win, Font.Victory);
+            DimensionWin = Font.GetSize(win, Font.Victory);
             currentAlpha = 0;
             fadeSpeed = 0.002f;
 
             BackToMenu = "Appuyez sur M pour revenir au Menu";
-            DimensionBackToMenu = AssetsManager.GetSize(BackToMenu, Font.ContextualFont);
+            DimensionBackToMenu = Font.GetSize(BackToMenu, Font.ContextualFont);
             blinkSpeed = 0.05f;
             blinkTimer = 0;
             blinkMax = 4;
-
-            Trace.WriteLine(ResolutionEcran.Width);
             base.Load();
         }
 
@@ -95,7 +93,7 @@ namespace CasseBriques
             textColor = new Color(Color.DarkRed, currentAlpha);
             pBatch.DrawString(Font.Victory,
                              win,
-                             new Vector2(ResolutionEcran.CenterWidth - DimensionWin.X / 2, ResolutionEcran.CenterHeight - DimensionWin.Y / 2),
+                             new Vector2(ResolutionEcran.HalfScreenWidth - DimensionWin.X / 2, ResolutionEcran.CenterHeight - DimensionWin.Y / 2),
                              textColor);
 
 
@@ -103,7 +101,7 @@ namespace CasseBriques
             {
                 pBatch.DrawString(Font.ContextualFont,
                                  BackToMenu,
-                                 new Vector2(ResolutionEcran.CenterWidth - DimensionBackToMenu.X / 2, ResolutionEcran.CenterHeight + DimensionWin.Y / 2),
+                                 new Vector2(ResolutionEcran.HalfScreenWidth - DimensionBackToMenu.X / 2, ResolutionEcran.CenterHeight + DimensionWin.Y / 2),
                                  Color.DarkCyan);
             }
         }

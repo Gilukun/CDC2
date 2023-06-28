@@ -10,20 +10,18 @@ using static CasseBriques.Personnages;
 
 namespace CasseBriques
 {
-    public class pFire : Personnages
+    public class PersonnageFire : Personnages
     {
         private float delay;
         private float timer;
-        private Vector2 point1;
-        private Vector2 point2;
 
 
-        public pFire(Texture2D pTexture) : base(pTexture)
+        public PersonnageFire(Texture2D pTexture) : base(pTexture)
         {
             texture = pTexture;
             spawnDelay = 0;
             spawnTimer = 5;
-            currentState = State.Idle;
+            CurrentState = State.Idle;
             isSpawn = false;
             delay = 0;
             timer = 4;
@@ -77,7 +75,7 @@ namespace CasseBriques
 
         public override void Update()
         {
-            if (currentState == State.Idle)
+            if (CurrentState == State.Idle)
             {
                 if (!TimerIsOver)
                 {
@@ -90,20 +88,20 @@ namespace CasseBriques
                     SetPosition(200, 600);
                     spawnDelay = 0;
                     isSpawn = true;
-                    currentState = State.Spawn;
+                    CurrentState = State.Spawn;
                     TimerIsOver = false;
                 }
             }
-            else if (currentState == State.Spawn)
+            else if (CurrentState == State.Spawn)
             {
-                currentState = State.Moving;
+                CurrentState = State.Moving;
 
             }
-            else if (currentState == State.Moving)
+            else if (CurrentState == State.Moving)
             {
                 Moving();
             }
-            else if (currentState == State.Falling)
+            else if (CurrentState == State.Falling)
             {
                 Tombe();
             }

@@ -14,46 +14,40 @@ namespace CasseBriques
     public class GameOver : ScenesManager
     {
         ContentManager _content = ServiceLocator.GetService<ContentManager>();
-        AssetsManager Font = ServiceLocator.GetService<AssetsManager>();
-        SpriteBatch _spriteBatch = ServiceLocator.GetService<SpriteBatch>();
-        ScreenManager ResolutionEcran = ServiceLocator.GetService<ScreenManager>();
-        AssetsManager Audio = ServiceLocator.GetService<AssetsManager>();
+        AssetsManager font = ServiceLocator.GetService<AssetsManager>();
+        ScreenManager screen = ServiceLocator.GetService<ScreenManager>();
+        AssetsManager audio = ServiceLocator.GetService<AssetsManager>();
 
         Texture2D background;
         private string gOver;
-        private string BackToMenu;
+        private string backToMenu;
 
-        Vector2 DimensionGameOver;
-        Vector2 DimensionBackToMenu;
+        Vector2 dimensionGameOver;
+        Vector2 dimensionBackToMenu;
 
         private float fadeSpeed;
         private float currentAlpha;
-        Color textColor = Color.Black;
 
         private float blinkSpeed;
         private float blinkMax;
         private bool textVisible;
         private float blinkTimer;
-      
-        Color rectColor;
-
-        private Rectangle backText;
        
         public GameOver()
         {
             background = _content.Load<Texture2D>("Backgrounds\\Back_7");
-            MediaPlayer.Play(Audio.End);
+            MediaPlayer.Play(audio.End);
         }
 
         public override void Load()
         {
             gOver = "GAMEOVER";
-            DimensionGameOver = AssetsManager.GetSize(gOver, Font.GameOverFont);
+            dimensionGameOver = font.GetSize(gOver, font.GameOverFont);
             currentAlpha = 0;
             fadeSpeed = 0.005f;
 
-            BackToMenu = "Appuyez sur M pour revenir au Menu";
-            DimensionBackToMenu = AssetsManager.GetSize(BackToMenu, Font.ContextualFont);
+            backToMenu = "Appuyez sur M pour revenir au Menu";
+            dimensionBackToMenu = font.GetSize(backToMenu, font.ContextualFont);
             blinkSpeed = 0.05f;
             blinkTimer = 0;
             blinkMax = 4;
@@ -78,7 +72,7 @@ namespace CasseBriques
             {
                 textVisible = false;
             }
-            if (blinkTimer >= 4) 
+            if (blinkTimer >= blinkMax) 
             {
                 blinkTimer = 0;
             }
@@ -94,18 +88,17 @@ namespace CasseBriques
             SpriteBatch pBatch = ServiceLocator.GetService<SpriteBatch>();
             pBatch.Draw(background, new Vector2(0, 0), Color.White);
             
-            textColor = new Color(Color.Black, currentAlpha);
-            pBatch.DrawString(Font.GameOverFont,
+            Color textColor = new Color(Color.Black, currentAlpha);
+            pBatch.DrawString(font.GameOverFont,
                              gOver,
-                             new Vector2(ResolutionEcran.CenterWidth - DimensionGameOver.X/2, ResolutionEcran.CenterHeight - DimensionGameOver.Y/2),
+                             new Vector2(screen.HalfScreenWidth - dimensionGameOver.X/2, screen.CenterHeight - dimensionGameOver.Y/2),
                              textColor);
-     
 
             if (textVisible)
             {
-                pBatch.DrawString(Font.ContextualFont,
-                                 BackToMenu,
-                                 new Vector2(ResolutionEcran.CenterWidth - DimensionBackToMenu.X / 2, ResolutionEcran.CenterHeight + DimensionGameOver.Y / 2),
+                pBatch.DrawString(font.ContextualFont,
+                                 backToMenu,
+                                 new Vector2(screen.HalfScreenWidth - dimensionBackToMenu.X / 2, screen.CenterHeight + dimensionGameOver.Y / 2),
                                  Color.DarkCyan);
             }
         }

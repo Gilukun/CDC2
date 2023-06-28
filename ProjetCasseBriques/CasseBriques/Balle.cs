@@ -1,17 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Net.Http.Headers;
-using System.Net.Mime;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using static CasseBriques.Personnages;
+
 
 namespace CasseBriques
 {
@@ -22,15 +12,16 @@ namespace CasseBriques
         HUD hud = ServiceLocator.GetService<HUD>();
         AssetsManager audio = ServiceLocator.GetService<AssetsManager>();   
        
-        Texture2D bIce;
+        Texture2D Big;
         private int initSpeed;
-        private float BonusSpeed;
+        private float bonusSpeed;
         private float bonusSlowdown;
 
         protected float Delay;
         protected float Timer;
         protected bool TimerIsOver;
-        public int Impact { get; set; }
+        public int Impact { get; private set; }
+        public bool collision;
 
         public enum BallState
         {
@@ -38,8 +29,7 @@ namespace CasseBriques
             Dead,
             SpeedUp,
             SlowDown,
-            Ice,
-            Reset,
+            Big,
         }
          public BallState CurrentBallState { get; set; }
         
@@ -50,10 +40,11 @@ namespace CasseBriques
             initSpeed = 1;
             Delay  = 0;
             Timer = 5;
-            BonusSpeed = 2;
+            bonusSpeed = 2;
             bonusSlowdown = 0.5f;
             Impact = 1;
-            bIce = _content.Load<Texture2D>("bMenu");
+            Big = _content.Load<Texture2D>("bMenu");
+            collision = false;
         }
 
         public  void TimerON(float pIncrement)
@@ -65,7 +56,6 @@ namespace CasseBriques
             }
         }
      
-
         public override void Load()
         {
             
@@ -73,7 +63,7 @@ namespace CasseBriques
 
         public void SpeedUp()
         {
-            Position += Vitesse * BonusSpeed ; 
+            Position += Vitesse * bonusSpeed ; 
         }
 
         public void SlowDown()
@@ -86,20 +76,19 @@ namespace CasseBriques
             if (Position.X < 0)
             {
                 Vitesse = new Vector2(-Vitesse.X, Vitesse.Y);
-                AssetsManager.PlaySFX(audio.hitWalls);
+                audio.PlaySFX(audio.hitWalls);
                 SetPosition(0, Position.Y);
             }
-              if (Position.X + LargeurSprite > ResolutionEcran.Width)
+              if (Position.X + SpriteWidth > ResolutionEcran.Width)
             {
                 Vitesse = new Vector2(-Vitesse.X, Vitesse.Y);
-                AssetsManager.PlaySFX(audio.hitWalls);
-                SetPosition(ResolutionEcran.Width - LargeurSprite, Position.Y);
+                audio.PlaySFX(audio.hitWalls);
+                SetPosition(ResolutionEcran.Width - SpriteWidth, Position.Y);
             }
-            hud = ServiceLocator.GetService<HUD>();
             if (Position.Y < hud.Hudhauteur)
             {
                 Vitesse = new Vector2(Vitesse.X, -Vitesse.Y);
-                AssetsManager.PlaySFX(audio.hitWalls);
+                audio.PlaySFX(audio.hitWalls);
                 SetPosition(Position.X, hud.Hudhauteur);
             }
         }
@@ -119,14 +108,13 @@ namespace CasseBriques
             {
                 SlowDown();
                 TimerON(0.005f);
-                
                 if (Delay > Timer)
                 {
                     CurrentBallState = BallState.Alive;
                     Delay = 0;  
                 }
             }
-            else if (CurrentBallState == BallState.Ice)
+            else if (CurrentBallState == BallState.Big)
             {
                 Impact = 3;
                 TimerON(0.005f);
@@ -138,31 +126,25 @@ namespace CasseBriques
                     Delay = 0;
                 }
             }
-            else if (CurrentBallState == BallState.Reset)
-            {
-            }
-
             Position += Vitesse * initSpeed;
             Rebounds();
-            
             base.Update();
         }
 
         public void DrawBall()
         {
             SpriteBatch pBatch = ServiceLocator.GetService<SpriteBatch>();
-            Texture2D currentTexture = (CurrentBallState == BallState.Ice) ? bIce : texture;
+            Texture2D currentTexture = (CurrentBallState == BallState.Big) ? Big : texture;
 
             pBatch.Draw(currentTexture,
                         Position,
                         null,
                         Color.White,
                         0,
-                        new Vector2(LargeurSprite / 2, HauteurSprite / 2),
+                        new Vector2(SpriteWidth / 2, SpriteHeight / 2),
                         1f,
                         SpriteEffects.None,
                         0);
-            
         }
     }
 }

@@ -16,13 +16,21 @@ namespace CasseBriques
     {
         ContentManager _content = ServiceLocator.GetService<ContentManager>();
         public List<Bullet> ListeBalles;
-        KeyboardState oldKbState;
-        public KeyboardState newKbState;
         public bool hasWeapon;
+        public int impact;
+
+        public enum State
+        {
+            noHit,
+            Hit,
+        }
+        public State Bulletstate;
         public Bullet(Texture2D ptexture) : base(ptexture)
         {
             texture = ptexture;
+            impact = 1;
             ListeBalles = new List<Bullet>();
+            Bulletstate = State.noHit;
         } 
 
         public void CreateBullet(string pNom, float pX, float pY, int pSpeed)

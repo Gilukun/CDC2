@@ -9,62 +9,52 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 
 namespace CasseBriques
 {
     public class Gameplay : ScenesManager
     {
-        ScreenManager ResolutionEcran = ServiceLocator.GetService<ScreenManager>();
+        ScreenManager screen = ServiceLocator.GetService<ScreenManager>();
         ContentManager _content = ServiceLocator.GetService<ContentManager>();
-        GameState Status = ServiceLocator.GetService<GameState>();
-        AssetsManager font = ServiceLocator.GetService<AssetsManager>();
-
+        GameState status = ServiceLocator.GetService<GameState>();
         AssetsManager audio = ServiceLocator.GetService<AssetsManager>();
         HUD hud = ServiceLocator.GetService<HUD>();
+        Bullet bullet = ServiceLocator.GetService<Bullet>();
 
-        Bullet arme = ServiceLocator.GetService<Bullet>();
-
-        SoundEffectInstance padImpact;
-        SoundEffectInstance catchSound;
-
-        private Texture2D background;
-        Raquette SprPad;
-        Balle SprBalle;
+        Raquette pad;
+        Balle ball;
         PopUp pop;
-
-        Bonus Vie;
-        Bonus Ice;
+        Bonus life;
+        Bonus bigBall;
+        LevelManager level = new LevelManager();
 
         List<Bonus> listeBonus = new List<Bonus>();
-        LevelManager niveau = new LevelManager();
         List<PopUp> listePopUp = new List<PopUp>();
-        public GameState State;
-
-        public bool Stick;
-
+        private Texture2D background;
+        public bool stick;
         public bool isKeyboardPressed;
-        KeyboardState OldKbState;
-        KeyboardState NewKbState;
+        KeyboardState oldKbState;
+        KeyboardState newKbState;
 
         private int currentBackground;
-        private int currentLevelNB;
 
-        private float Delay;
-        private float Timer;
-        private bool TimerIsOver;
+        private float delay;
+        private float timer;
+        private bool timerOff;
 
         private Random rnd;
 
         public int LevelNB
         {
-            get { return currentLevelNB; }
+            get { return hud.level; }
             }
         public void TimerON(float pIncrement)
         {
-            Delay += pIncrement;
-            if (Delay > Timer)
+            delay += pIncrement;
+            if (delay > timer)
             {
-                TimerIsOver = true;
+                timerOff = true;
             }
         }
 
@@ -85,211 +75,310 @@ namespace CasseBriques
             MediaPlayer.Play(audio.InGame);
             
             // texture de ma raquette
-            SprPad = new Raquette(_content.Load<Texture2D>("Pad_2"));
-            SprPad.SetPosition(ResolutionEcran.CenterWidth, ResolutionEcran.Height - SprPad.CentreSpriteH);
+            pad = new Raquette(_content.Load<Texture2D>("Pad_2"));
+            pad.SetPosition(screen.HalfScreenWidth, screen.Height - pad.HalfHeitgh);
            
             // Texture de ma balle
-            SprBalle = new Balle(_content.Load<Texture2D>("Balls\\bNormal"));
-            SprBalle.SetPosition(SprPad.Position.X, SprPad.Position.Y - SprPad.CentreSpriteH - SprBalle.CentreSpriteH);
+            ball = new Balle(_content.Load<Texture2D>("Balls\\bNormal"));
+            ball.SetPosition(pad.Position.X, pad.Position.Y - pad.HalfHeitgh - ball.HalfHeitgh);
 
-            SprBalle.Vitesse = new Vector2(6, -4);
-            Stick = true;
+            ball.Vitesse = new Vector2(6, -4);
+            stick = true;
 
             hud.texture = _content.Load<Texture2D>("HUD2");
             pop = new PopUp();
 
-            OldKbState = Keyboard.GetState();
+            oldKbState = Keyboard.GetState();
 
-            niveau.LoadLevel(hud.level);
-            Delay = 0;
-            Timer = 5;
+            hud.level = 2;
+            level.LoadLevel(hud.level);
+            delay = 0;
+            timer = 5;
             rnd = new Random(); 
-            hud.level = 1;
 
-            arme.hasWeapon= true;
+            bullet.hasWeapon= true;
         }
 
         public override void Update()
         {
-            NewKbState = Keyboard.GetState();
-            SprPad.Update();
-
-            if (NewKbState.IsKeyDown(Keys.Space) && !OldKbState.IsKeyDown(Keys.Space))
+            newKbState = Keyboard.GetState();
+            pad.Update();
+            
+            if (newKbState.IsKeyDown(Keys.Space) && !oldKbState.IsKeyDown(Keys.Space))
             {
-                Stick = false;
+                stick = false;
+                //ball.collision = false;
             }
 
-            if (arme.hasWeapon)
+            ball.Update();
+
+            if (bullet.hasWeapon)
             {
-                if (NewKbState.IsKeyDown(Keys.P) && !OldKbState.IsKeyDown(Keys.P))
+                if (newKbState.IsKeyDown(Keys.P) && !oldKbState.IsKeyDown(Keys.P))
                 {
-                    arme.CreateBullet("Hero", SprPad.Position.X, SprPad.Position.Y, 5);
-                    AssetsManager.PlaySFX(audio.shoot);
+                    bullet.CreateBullet("Hero", pad.Position.X, pad.Position.Y, 5);
+                    audio.PlaySFX(audio.shoot);
                 }
-
             }
 
-            for (int bullet = arme.ListeBalles.Count - 1; bullet >= 0; bullet--)
+            for (int bullet = this.bullet.ListeBalles.Count - 1; bullet >= 0; bullet--)
             {
-                Bullet bullets = arme.ListeBalles[bullet];
-                arme.Update();
+                Bullet bullets = this.bullet.ListeBalles[bullet];
+                this.bullet.Update();
                 if (bullets.Position.Y <= hud.Hudhauteur)
                 {
-                    arme.ListeBalles.Remove(bullets);
+                    this.bullet.ListeBalles.Remove(bullets);
                 }
             }
-            OldKbState = NewKbState;
+            oldKbState = newKbState;
 
-            SprBalle.Update();
-
+           
             // La balle reste collée à la raquette
-            if (Stick)
+            if (stick)
             {
-                SprBalle.SetPosition(SprPad.Position.X, SprPad.Position.Y - SprPad.CentreSpriteH - SprBalle.CentreSpriteH);
+                ball.SetPosition(pad.Position.X, pad.Position.Y - pad.HalfHeitgh - ball.HalfHeitgh);
             }
 
-            // Rebond de la balle sur la raquette
-            if (SprPad.BoundingBox.Intersects(SprBalle.BoundingBox))
+            RebondRaquette();
+            CollisionSolidBricks();
+            CollisionBricks();
+            CollisionPersonnage();
+            CollisionBulletsBricks();
+            GetBonus();
+            LoseLife();
+            NextLevel();
+
+            base.Update();
+        }
+
+        public void RebondRaquette()
+        {
+            if (pad.BoundingBox.Intersects(ball.BoundingBox))
             {
-                AssetsManager.PlaySFX(audio.PadRebound);
-                SprBalle.Vitesse = new Vector2(SprBalle.Vitesse.X, -SprBalle.Vitesse.Y);
-                SprBalle.SetPosition(SprBalle.Position.X, SprPad.Position.Y - SprBalle.HauteurSprite);   
+                audio.PlaySFX(audio.PadRebound);
+                ball.Vitesse = new Vector2(ball.Vitesse.X, -ball.Vitesse.Y);
+                ball.SetPosition(ball.Position.X, pad.Position.Y - ball.SpriteHeight);
             }
+        }
 
-            // Si la balle sort de l'écran
-            if (SprBalle.Position.Y > ResolutionEcran.Height)
+        public void NextLevel()
+        {
+            if (!level.listBriques.Any(brique => brique.isBreakable)) // comme count mais avec de meilleur performance/ Proposé par VisualStudio
             {
-                hud.Vie--;
-                AssetsManager.PlaySFX(audio.ballLost);
-                Stick = true;
-                if (hud.Vie <= 0)
+                level.listPerso.Clear();
+                listeBonus.Clear();
+                bullet.ListeBalles.Clear();
+                currentBackground++;
+                hud.level++;
+
+                if (hud.level > level.LevelMax)
                 {
-                    SprBalle.CurrentBallState = Balle.BallState.Dead;
-                    Status.ChangeScene(GameState.Scenes.GameOver);
-                    ResolutionEcran.currentState = ScreenManager.State.Basic;
-                    hud.Vie = 3;
+                    status.ChangeScene(GameState.Scenes.Win);
+                    screen.currentState = ScreenManager.State.Basic;
+                    hud.level = 1;
+                    currentBackground = 1;
+                }
+                else
+                {
+                    stick = true;
+                    LoadBackground();
+                    level.LoadLevel(hud.level);
                 }
             }
-
-            // Collissions avec les briques "incassables"
-            for (int bricks = niveau.lstSolidBricks.Count - 1; bricks >= 0; bricks--)
+        }
+        public void GetBonus()
+        {
+            for (int p = listeBonus.Count - 1; p >= 0; p--)
             {
-                Briques solidB = niveau.lstSolidBricks[bricks];
-                bool collision = false;
-                //bricks Update();
-                if (solidB.BoundingBox.Intersects(SprBalle.NextPositionX()))
-                {
-                    CamShake = 30;
-                    collision = true;
-                    AssetsManager.PlaySFX(audio.hitBricks);
-                    SprBalle.Vitesse = new Vector2(-SprBalle.Vitesse.X, SprBalle.Vitesse.Y);
-                   // SprBalle.SetPosition(Briques.Position.X + Briques.LargeurSprite/2, SprBalle.Position.Y);
-                }
-                if (solidB.BoundingBox.Intersects(SprBalle.NextPositionY()))
-                {
-                    CamShake = 30;
-                    collision = true;
-                    AssetsManager.PlaySFX(audio.hitBricks);
-                    SprBalle.Vitesse = new Vector2(SprBalle.Vitesse.X, -SprBalle.Vitesse.Y);
-                    //SprBalle.SetPosition(SprBalle.Position.X, Briques.Position.Y - Briques.HauteurSprite/2 - SprBalle.HauteurSprite);
-                }
+                Bonus mesitems = listeBonus[p];
+                mesitems.Update();
 
-                for (int bullet = arme.ListeBalles.Count - 1; bullet >= 0; bullet--)
+                if (pad.BoundingBox.Intersects(mesitems.NextPositionY()))
                 {
-                    Bullet bullets = arme.ListeBalles[bullet];
-                    if (bullets.BoundingBox.Intersects(solidB.BoundingBox))
+                    if (mesitems is BonusVie Vie)
                     {
-                        hud.GlobalScore += solidB.Points;
-                        AssetsManager.PlaySFX(audio.hitBricks);
-                        niveau.lstSolidBricks.Remove(solidB);
-                        arme.ListeBalles.Remove(bullets);
+                        mesitems.currentState = Bonus.BonusState.Catch;
+                        hud.Vie += mesitems.addlife;
+                        audio.PlaySFX(audio.CatchLife);
+                        listeBonus.RemoveAt(p);
+                    }
+                    else if (mesitems is BonusImpact BigBall)
+                    {
+                        mesitems.currentState = Bonus.BonusState.Catch;
+                        ball.CurrentBallState = Balle.BallState.Big;
+                        audio.PlaySFX(audio.CatchLife);
+                        listeBonus.RemoveAt(p);
                     }
                 }
-                   
-
             }
-            
-            // Collision avec les briques 
-            for (int b = niveau.ListeBriques.Count - 1; b >= 0; b--)
+        }
+
+        public void CollisionPersonnage()
+        {
+            for (int p = level.listPerso.Count - 1; p >= 0; p--)
             {
-                bool collision = false;
-                Briques mesBriques = niveau.ListeBriques[b];
+                ball.collision = false;
+                Personnages mesPerso = level.listPerso[p];
+                mesPerso.Update();
+
+                if (mesPerso.BoundingBox.Intersects(ball.NextPositionY()))
+                {
+                    ball.collision = true;
+                    audio.PlaySFX(audio.hitBricks);
+                    ball.InverseVitesseY();
+                }
+                else if (mesPerso.BoundingBox.Intersects(ball.NextPositionX()))
+                {
+                    ball.collision = true;
+                    audio.PlaySFX(audio.hitBricks);
+                    ball.InverseVitesseX(); 
+                }
+               
+
+                if (pad.BoundingBox.Intersects(mesPerso.NextPositionY()))
+                {
+                    if (mesPerso is PersonnageFire pFire)
+                    {
+                        pFire.CurrentState = Personnages.State.Catch;
+                        ball.CurrentBallState = Balle.BallState.SpeedUp;
+                        audio.PlaySFX(audio.CatchLife);
+                        screen.currentState = ScreenManager.State.Narrow;
+                        level.listPerso.Remove(pFire);
+                    }
+                    else if (mesPerso is PersonnageIce pIce)
+                    {
+                        pIce.CurrentState = Personnages.State.Catch;
+                        ball.CurrentBallState = Balle.BallState.SlowDown;
+                        audio.PlaySFX(audio.CatchLife);
+                        screen.currentState = ScreenManager.State.Wide;
+                        level.listPerso.Remove(pIce);
+                    }
+                }
+
+                if (ball.collision)
+                {
+                    mesPerso.CurrentState = Personnages.State.Falling;
+                    mesPerso.Tombe();
+                    if (mesPerso.Position.Y > screen.Height)
+                    {
+                        level.listPerso.Remove(mesPerso);
+                    }
+                }
+            }
+        }
+
+
+        public void CollisionBulletsBricks()
+        {
+            for (int b = level.listBriques.Count - 1; b >= 0; b--)
+            {
+                Briques mesBriques = level.listBriques[b];
                 mesBriques.Update();
 
-                if (mesBriques.isScalling == false)
+                if (mesBriques.IsScalling == false)
                 {
-                    if (mesBriques.BoundingBox.Intersects(SprBalle.NextPositionX()))
+                    for (int bullet = this.bullet.ListeBalles.Count - 1; bullet >= 0; bullet--)
                     {
-                        collision = true;
-                        AssetsManager.PlaySFX(audio.hitBricks);
-                        SprBalle.Vitesse = new Vector2(-SprBalle.Vitesse.X, SprBalle.Vitesse.Y);
-                        //SprBalle.SetPosition(mesBriques.Position.X + mesBriques.LargeurSprite/2, SprBalle.Position.Y);
-                    }
-
-                    if (mesBriques.BoundingBox.Intersects(SprBalle.NextPositionY()))
-                    {
-                        collision = true;
-                        AssetsManager.PlaySFX(audio.hitBricks);
-                        SprBalle.Vitesse = new Vector2(SprBalle.Vitesse.X, - SprBalle.Vitesse.Y);
-                        //SprBalle.SetPosition(SprBalle.Position.X, mesBriques.Position.Y - mesBriques.HauteurSprite/2 - SprBalle.HauteurSprite);
-                    }
-
-                    
-                    for (int bullet = arme.ListeBalles.Count - 1; bullet >= 0; bullet--)
-                    {
-
-                        Bullet bullets = arme.ListeBalles[bullet];
+                        Bullet bullets = this.bullet.ListeBalles[bullet];
                         bullets.Update();
                         if (bullets.BoundingBox.Intersects(mesBriques.BoundingBox))
                         {
-                            collision = true;
-                            AssetsManager.PlaySFX(audio.bulletHit);
-                            arme.ListeBalles.Remove(bullets);
+                            mesBriques.nbHits -= bullets.impact;
+                            this.bullet.ListeBalles.Remove(bullets);
                         }
-                        
-                     }
+                    }
 
-                    if (collision && mesBriques.isBreakable == true)
+                    if (mesBriques.nbHits <= 0)
                     {
-                        mesBriques.nbHits -= SprBalle.Impact;
-                        
+                        switch (mesBriques.id)
+                        {
+                            case Briques.ID.Feu:
+                                mesBriques.rotate = true;
+                                mesBriques.scalling = true;
+                                break;
+                            default:
+                                break;
+                        }
+                        mesBriques.scalling = true;
+                        hud.GlobalScore += mesBriques.points;
+                        pop.SetPosition(mesBriques.Position.X, mesBriques.Position.Y);
+                        listePopUp.Add(pop);
+                        break;
+                    }
+                    if (mesBriques.scale <= 0)
+                    {
+                        level.listBriques.Remove(mesBriques);
+                        listePopUp.Remove(pop);
+                    }
+                }
+            }
+        }
+        public void CollisionBricks()
+        {
+            for (int b = level.listBriques.Count - 1; b >= 0; b--)
+            {
+                ball.collision = false;
+                Briques mesBriques = level.listBriques[b];
+                mesBriques.Update();
+
+                if (mesBriques.IsScalling == false)
+                {
+                    if (mesBriques.BoundingBox.Intersects(ball.NextPositionY()))
+                    {
+                        ball.collision = true;
+                        audio.PlaySFX(audio.hitBricks);
+                        mesBriques.nbHits -= ball.Impact;
+                        ball.InverseVitesseY();
+                    }
+                    if (mesBriques.BoundingBox.Intersects(ball.NextPositionX()))
+                    {
+                        ball.collision = true;
+                        audio.PlaySFX(audio.hitBricks);
+                        mesBriques.nbHits -= ball.Impact;
+                        ball.InverseVitesseX();
+                    }
+
+                    else
+                    {
+                        ball.collision = false;
+                    }
+                   
+                    if (ball.collision && mesBriques.isBreakable == true)
+                    {
                         if (mesBriques.nbHits <= 0)
                         {
-                            if (mesBriques is BFeu Fire)
+                            if (mesBriques is BriqueFeu Fire)
                             {
                                 Fire.rotate = true;
-                                Fire.Scalling = true;
-                                hud.GlobalScore += Fire.Points;
+                                Fire.scalling = true;
+                                hud.GlobalScore += Fire.points;
                                 Fire.currentState = Briques.State.Broken;
 
                                 int dice = rnd.Next(1, 11);
-                                Trace.WriteLine(dice);
-                                if (dice >= 1 && dice <= 2)
+                                if (dice >= 1 && dice <= 10)
                                 {
-                                    Vie = new BonusVie(_content.Load<Texture2D>("bTime"));
-                                    Vie.SetPositionBonus(Fire.Position.X, Fire.Position.Y);
-                                    Vie.currentState = Bonus.BonusState.Free;
-                                    listeBonus.Add(Vie);
+                                    life = new BonusVie(_content.Load<Texture2D>("bTime"));
+                                    life.SetPositionBonus(Fire.Position.X, Fire.Position.Y);
+                                    life.currentState = Bonus.BonusState.Free;
+                                    listeBonus.Add(life);
                                 }
 
                                 pop.SetPosition(Fire.Position.X, Fire.Position.Y);
                                 listePopUp.Add(pop);
-                                
                             }
-                            if (mesBriques is BGlace Glace)
-                            { 
-                                Glace.Scalling = true;
-                                hud.GlobalScore += Glace.Points;
+                            if (mesBriques is BriqueGlace Glace)
+                            {
+                                Glace.scalling = true;
+                                hud.GlobalScore += Glace.points;
                                 Glace.currentState = Briques.State.Broken;
 
                                 int dice = rnd.Next(1, 11);
-                                Trace.WriteLine(dice);
-                                if (dice >= 1 && dice <= 2)
+                                if (dice >= 1 && dice <= 10)
                                 {
-                                    Ice = new BonusImpact(_content.Load<Texture2D>("bIce"));
-                                    Ice.SetPositionBonus(Glace.Position.X, Glace.Position.Y);
-                                    Ice.currentState = Bonus.BonusState.Free;
-                                    listeBonus.Add(Ice);
+                                    bigBall = new BonusImpact(_content.Load<Texture2D>("bIce"));
+                                    bigBall.SetPositionBonus(Glace.Position.X, Glace.Position.Y);
+                                    bigBall.currentState = Bonus.BonusState.Free;
+                                    listeBonus.Add(bigBall);
                                 }
 
                                 pop.SetPosition(Glace.Position.X, Glace.Position.Y);
@@ -297,136 +386,73 @@ namespace CasseBriques
                             }
                             else
                             {
-                                mesBriques.Scalling = true;
+                                mesBriques.scalling = true;
+                                hud.GlobalScore += mesBriques.points;
                                 pop.SetPosition(mesBriques.Position.X, mesBriques.Position.Y);
                                 listePopUp.Add(pop);
-                            } 
+                            }
                         }
                     }
                     if (mesBriques.scale <= 0)
                     {
-                        niveau.ListeBriques.Remove(mesBriques);
+                        level.listBriques.Remove(mesBriques);
                         listePopUp.Remove(pop);
                     }
-
-                    
-                }
-               
-            }
-
-            // Chargement du niveau suivant
-            if (!niveau.ListeBriques.Any(brique => brique.isBreakable)) // comme count mais avec de meilleur performance/ Proposé par VisualStudio
-            {
-                niveau.lstPerso.Clear();
-                SprBalle.CurrentBallState = Balle.BallState.Reset;
-                listeBonus.Clear();
-                
-                currentBackground++;
-                hud.level++;
-
-                if (currentBackground > niveau.LevelMax)
-                {
-                    Status.ChangeScene(GameState.Scenes.Win);
-                    ResolutionEcran.currentState = ScreenManager.State.Basic;
-                    hud.level = 1;
-                    currentBackground = 1;
-                }
-                else
-                {
-                    Stick = true;
-                    LoadBackground();
-                    niveau.LoadLevel(hud.level);
                 }
             }
-
-            // Collision et récupération des bonus
-            for (int p = listeBonus.Count - 1; p >= 0; p--)
-            {
-                Bonus mesitems = listeBonus[p];
-                mesitems.Update();
-
-                if (SprPad.BoundingBox.Intersects(mesitems.NextPositionY()))
-                {
-                    if (mesitems is BonusVie Vie)
-                    {
-                        mesitems.currentState = Bonus.BonusState.Catch;
-                        hud.Vie += mesitems.AddBonus;
-                        AssetsManager.PlaySFX(audio.CatchLife);
-                        listeBonus.RemoveAt(p);
-                    }
-                    else if (mesitems is BonusImpact Ice)
-                    {
-                        mesitems.currentState = Bonus.BonusState.Catch;
-                        SprBalle.CurrentBallState = Balle.BallState.Ice;
-                        AssetsManager.PlaySFX(audio.CatchLife);
-                        listeBonus.RemoveAt(p); 
-                    }
-                }
-            }
-
-            // Collision avec les personnages
-            for (int p = niveau.lstPerso.Count - 1; p >= 0; p--)
-            {
-                bool collision = false;
-                Personnages mesPerso = niveau.lstPerso[p];
-                mesPerso.Update();
-
-                if (mesPerso.BoundingBox.Intersects(SprBalle.NextPositionX()))
-                {
-                    collision = true;
-                    AssetsManager.PlaySFX(audio.hitBricks);
-                    SprBalle.Vitesse = new Vector2(-SprBalle.Vitesse.X, SprBalle.Vitesse.Y);
-                    //SprBalle.SetPosition(mesPerso.Position.X + mesPerso.LargeurSprite/2 + SprBalle.LargeurSprite, SprBalle.Position.Y);
-                }
-
-                if (mesPerso.BoundingBox.Intersects(SprBalle.NextPositionY()))
-                {
-                    collision = true;
-                    AssetsManager.PlaySFX(audio.hitBricks);
-                    SprBalle.Vitesse = new Vector2(SprBalle.Vitesse.X, -SprBalle.Vitesse.Y);
-                    //SprBalle.SetPosition(SprBalle.Position.X, mesPerso.Position.Y - mesPerso.HauteurSprite/2 - SprBalle.HauteurSprite);
-                }
-
-                if (SprPad.BoundingBox.Intersects(mesPerso.NextPositionY()))
-                {
-                    if (mesPerso is pFire pFire)
-                    {
-                        pFire.currentState = Personnages.State.Catch;
-                        SprBalle.CurrentBallState = Balle.BallState.SpeedUp;
-                        AssetsManager.PlaySFX(audio.CatchLife);
-                        ResolutionEcran.currentState = ScreenManager.State.Narrow;
-                        niveau.lstPerso.Remove(pFire);
-                        
-                    }
-                    else if (mesPerso is pIce pIce)
-                    {
-                        pIce.currentState = Personnages.State.Catch;
-                        SprBalle.CurrentBallState = Balle.BallState.SlowDown;
-                        AssetsManager.PlaySFX(audio.CatchLife);
-                        ResolutionEcran.currentState = ScreenManager.State.Wide;
-                        niveau.lstPerso.Remove(pIce);
-                        
-                    }
-                }
-
-                if (collision == true)
-                {
-                    mesPerso.currentState = Personnages.State.Falling;
-                    mesPerso.Tombe();
-                    if (mesPerso.Position.Y > ResolutionEcran.Height)
-                    {
-                        niveau.lstPerso.Remove(mesPerso);
-                    }
-                }
-
-               
-            }
-
-            
-            
-            base.Update();
         }
 
+        public void CollisionSolidBricks()
+        {
+            for (int bricks = level.listSolidBricks.Count - 1; bricks >= 0; bricks--)
+            {
+                Briques solidB = level.listSolidBricks[bricks];
+                solidB.Update();
+                if (solidB.BoundingBox.Intersects(ball.NextPositionY()))
+                {
+                    ball.collision = true;
+                    CamShake = 30;
+                    audio.PlaySFX(audio.hitBricks);
+                    ball.InverseVitesseY();
+                }
+                else if (solidB.BoundingBox.Intersects(ball.NextPositionX()))
+                {
+                    ball.collision = true;
+                    CamShake = 30;
+                    audio.PlaySFX(audio.hitBricks);
+                    ball.InverseVitesseX();
+                }
+
+                for (int bullet = this.bullet.ListeBalles.Count - 1; bullet >= 0; bullet--)
+                {
+                    Bullet bullets = this.bullet.ListeBalles[bullet];
+                    if (bullets.BoundingBox.Intersects(solidB.BoundingBox))
+                    {
+                        hud.GlobalScore += solidB.points;
+                        audio.PlaySFX(audio.hitBricks);
+                        level.listSolidBricks.Remove(solidB);
+                        this.bullet.ListeBalles.Remove(bullets);
+                    }
+                }
+            }          
+        }
+
+        public void LoseLife()
+        {
+            if (ball.Position.Y > screen.Height)
+            {
+                hud.Vie--;
+                //audio.PlaySFX(audio.ballLost);
+                stick = true;
+                if (hud.Vie <= 0)
+                {
+                    ball.CurrentBallState = Balle.BallState.Dead;
+                    status.ChangeScene(GameState.Scenes.GameOver);
+                    screen.currentState = ScreenManager.State.Basic;
+                    hud.Vie = 3;
+                }
+            }
+        }
         public override void DrawBackground()
         {
             SpriteBatch pBatch = ServiceLocator.GetService<SpriteBatch>();
@@ -438,8 +464,8 @@ namespace CasseBriques
             
             pBatch.Draw(hud.texture, new Vector2(0, 0), Color.White);
             hud.DrawScore();
-            SprPad.Draw();
-            SprBalle.DrawBall();
+            pad.Draw();
+            ball.DrawBall();
 
             foreach (var Bonus in listeBonus)
             {
@@ -448,26 +474,26 @@ namespace CasseBriques
                             null,
                             Color.White,
                             0,
-                            new Vector2(Bonus.CentreSpriteL, Bonus.CentreSpriteH),
+                            new Vector2(Bonus.HalfWidth, Bonus.HalfHeitgh),
                             1.0f,
                             SpriteEffects.None,
                             0);
             }
 
-            niveau.DrawLevel();
+            level.DrawLevel();
             foreach (var PopUp in listePopUp)
             {
-                foreach (var Briques in niveau.ListeBriques)
+                foreach (var Briques in level.listBriques)
                 {
                     if (Briques.nbHits <= 0)
                     {
-                        string points = "+" + Briques.Points.ToString();
+                        string points = "+" + Briques.points.ToString();
                         PopUp.DrawPopUp(points);
                     }
                 }
             }
-            arme.DrawWeapon();
-            
+
+            bullet.DrawWeapon();
         }
     }
 }

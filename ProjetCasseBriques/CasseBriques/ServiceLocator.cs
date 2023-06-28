@@ -18,8 +18,5 @@ namespace CasseBriques
         {
             return (T)listServices[typeof(T)];   // on récupère le service dont on a besoin
         }
-
-
-
     }
 }

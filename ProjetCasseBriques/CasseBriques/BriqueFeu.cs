@@ -7,28 +7,35 @@ using System.Threading.Tasks;
 
 namespace CasseBriques
 {
-    public class BFeu : Briques
+    public class BriqueFeu : Briques
     {
-        public float Rotation { get; set; }
-        public bool rotate;
+        public float rotation;
+        public bool IsRotating
+        {
+            get
+            {
+                return rotate;
+            }
+        }
 
-     public BFeu(Texture2D pTexture) : base(pTexture)
+     public BriqueFeu(Texture2D pTexture) : base(pTexture)
         {
             texture = pTexture;
-            Rotation = 0.0f;
+            rotation = 0.0f;
             rotate = false;
             scale = 1.0f;   
-            Scalling = false;
+            scalling = false;
             isBreakable = true;
             nbHits = 2;
-            Points = 200;
+            points = 200;
+            id = ID.Feu;
         }
 
         public override void Update()
         {
             if (rotate)
             {
-                Rotation += 10f;
+                rotation += 10f;
             }
             base.Update();
 

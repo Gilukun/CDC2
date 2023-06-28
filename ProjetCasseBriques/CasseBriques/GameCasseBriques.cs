@@ -18,15 +18,10 @@ namespace CasseBriques
         GraphicsDevice GraphDevice;
         public GameTime gameTime = new GameTime();
 
-        AssetsManager AssetsManager = new AssetsManager();
+        
 
         public GameState State;
-        public HUD hud;
-
-        ScenesManager Menu;
-        ScenesManager Gameplay;
-
-        public int MaxLevel;
+        public int maxLevel;
 
         public CasseBriques()
         {
@@ -42,15 +37,6 @@ namespace CasseBriques
             ServiceLocator.RegisterService<ScreenManager>(_screenManager);
             _Resolution = ServiceLocator.GetService<ScreenManager>();
             _Resolution.ChangeResolution(900, 900);
-
-            MaxLevel = 4;
-            for (int i = 1; i <= MaxLevel; i++) // le nombre de niveau correspond au nombre max de Background (4) que j'ai. Si je met 4, la boucle 
-            {
-                LevelManager level = new LevelManager(i);
-                level.RandomLevel();
-                level.Save();
-            }
-
             base.Initialize();
         }
 
@@ -62,17 +48,18 @@ namespace CasseBriques
             ServiceLocator.RegisterService<GraphicsDeviceManager>(_graphics);
             ServiceLocator.RegisterService<GameState>(State);
 
-            hud = new HUD(Content.Load<Texture2D>("HUD2"));
+            HUD hud = new HUD(Content.Load<Texture2D>("HUD2"));
             ServiceLocator.RegisterService<HUD>(hud);
 
-            Bullet arme = new Bullet(Content.Load<Texture2D>("bFire"));
-            ServiceLocator.RegisterService<Bullet>(arme);
+            Bullet bullet = new Bullet(Content.Load<Texture2D>("bFire"));
+            ServiceLocator.RegisterService<Bullet>(bullet);
 
+            AssetsManager AssetsManager = new AssetsManager();
             AssetsManager.Load();
             ServiceLocator.RegisterService<AssetsManager>(AssetsManager);
 
-            Menu = new Menu();
-            Gameplay = new Gameplay();
+            ScenesManager Menu = new Menu();
+            ScenesManager Gameplay = new Gameplay();
             
             State.ChangeScene(GameState.Scenes.Menu);
         }

@@ -9,25 +9,20 @@ using System.Threading.Tasks;
 
 namespace CasseBriques
 {
-    public class pIce : Personnages
+    public class PersonnageIce : Personnages
     {
-        public pIce(Texture2D pTexture) : base(pTexture)
+        public PersonnageIce(Texture2D pTexture) : base(pTexture)
         {
             texture = pTexture;
             spawnDelay = 0;
             spawnTimer = 20;
-            currentState = State.Idle;
+            CurrentState = State.Idle;
             isSpawn = false;
         }
 
         public override void Tombe()
         {
-            if (currentState != State.Moving)
-            {
-                currentState = State.Falling;
-                Vitesse = new Vector2(Vitesse.X, 1);
-            }
-
+            Vitesse = new Vector2(Vitesse.X, 1);
         }
 
         public override void SetPosition(float pX, float pY)
@@ -52,7 +47,7 @@ namespace CasseBriques
 
         public override void Update()
         {
-            if (currentState == State.Idle)
+            if (CurrentState == State.Idle)
             {
                 if (!TimerIsOver)
                 {
@@ -65,26 +60,26 @@ namespace CasseBriques
                     SetPosition(200, 400);
                     spawnDelay = 0;
                     isSpawn = true;
-                    currentState = State.Spawn;
+                    CurrentState = State.Spawn;
                     TimerIsOver = false;
                 }
             }
-            else if (currentState == State.Spawn)
+            else if (CurrentState == State.Spawn)
             {
-                currentState = State.Moving;
+                CurrentState = State.Moving;
 
             }
-            else if (currentState == State.Moving)
+            else if (CurrentState == State.Moving)
             {
                 Moving();
             }
-            else if (currentState == State.Falling)
+            else if (CurrentState == State.Falling)
             {
                 Vitesse = new Vector2(Vitesse.X, Vitesse.Y + 0.5f);
             }
-            else if (currentState == State.Catch)
+            else if (CurrentState == State.Catch)
             {
-                currentState = State.Idle;
+                CurrentState = State.Idle;
                 isSpawn = false;
             }
             base.Update();

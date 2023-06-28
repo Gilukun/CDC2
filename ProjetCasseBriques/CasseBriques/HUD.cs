@@ -13,14 +13,12 @@ namespace CasseBriques
 {
     public class HUD : GUI
     {
-        public Texture2D texture;
         Vector2 DimensionScore;
-        Vector2 positiontext;
-        Rectangle boundingBox;
+        //Vector2 positiontext;
+        //Rectangle boundingBox;
         Vector2 dimensionLife;
         Vector2 dimensionNiveau;
 
-        //public int hauteurBarre { get;set; }
         public int Hudhauteur
         { get
             { return texture.Height; ; }
@@ -56,7 +54,7 @@ namespace CasseBriques
             ScreenManager ResolutionEcran = ServiceLocator.GetService<ScreenManager>();
 
             Score = "SCORE" + " " + GlobalScore;
-            DimensionScore = AssetsManager.GetSize(Score, Font.HUDFont);
+            DimensionScore = Font.GetSize(Score, Font.HUDFont);
             float posXScore = 10f;
             float posYScore = texture.Height / 2 - DimensionScore.Y / 2;
            // boundingBox = AssetsManager.getBoundingBox(Score, Font.HUDFont, positiontext);
@@ -67,7 +65,7 @@ namespace CasseBriques
                             Color.White);
 
             Life = "VIE" + " " + Vie;
-            dimensionLife = AssetsManager.GetSize(Life, Font.HUDFont);
+            dimensionLife = Font.GetSize(Life, Font.HUDFont);
             float posX = ResolutionEcran.Width - dimensionLife.X;
             float posY = texture.Height / 2 - dimensionLife.Y / 2;
             pBatch.DrawString(Font.HUDFont,
@@ -76,11 +74,9 @@ namespace CasseBriques
                            Color.White);
 
             niveau = "Lvl : " + " " + level ;
-            dimensionNiveau= AssetsManager.GetSize(niveau, Font.HUDFont);
-            float posXLevel = ResolutionEcran.CenterWidth;
+            dimensionNiveau= Font.GetSize(niveau, Font.HUDFont);
+            float posXLevel = ResolutionEcran.HalfScreenWidth;
             float posYLevel = texture.Height / 2 - dimensionNiveau.Y / 2;
-            // boundingBox = AssetsManager.getBoundingBox(Score, Font.HUDFont, positiontext);
-            // pBatch.DrawRectangle(boundingBox, Color.Red);
             pBatch.DrawString(Font.HUDFont,
                             niveau,
                             new Vector2(posXLevel, posYLevel),

@@ -11,7 +11,7 @@ namespace CasseBriques
 {
     public class Raquette : Sprites
     {
-        ScreenManager ResolutionEcran = ServiceLocator.GetService<ScreenManager>();
+        ScreenManager screen = ServiceLocator.GetService<ScreenManager>();
         private int speed;
         public Raquette(Texture2D pTexture) : base(pTexture)
         {
@@ -28,13 +28,13 @@ namespace CasseBriques
             {
                 Position = new Vector2(Position.X + speed, Position.Y);
             }
-            if (Position.X + LargeurSprite/2  > ResolutionEcran.Width)
+            if (Position.X + SpriteWidth/2  > screen.Width)
             {
-                SetPosition(ResolutionEcran.Width - LargeurSprite/2, (int)Position.Y);
+                SetPosition(screen.Width - SpriteWidth/2, (int)Position.Y);
             }
-            if (Position.X - LargeurSprite /2 < 0)
+            if (Position.X - SpriteWidth /2 < 0)
             {
-                SetPosition(LargeurSprite / 2, (int)Position.Y);
+                SetPosition(SpriteWidth / 2, (int)Position.Y);
             }
             base.Update();
         }

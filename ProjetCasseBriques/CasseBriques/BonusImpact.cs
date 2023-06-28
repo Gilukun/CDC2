@@ -13,31 +13,27 @@ namespace CasseBriques
     {
         public BonusImpact(Texture2D pTexture) : base(pTexture)
         {
-        
-            AddBonus = 2;
+            texture = pTexture;
+            addBonus = 2;
             currentState = BonusState.Idle;
             Speed = 0.05f;
             Vitesse = new Vector2(0, 1);
-    }
-    public override void SetPositionBonus(float pX, float pY)
-    {
-        Position = new Vector2(pX, pY);
-    }
-    public override void Tombe()
-    {
-        Vitesse = new Vector2(Vitesse.X, Vitesse.Y + Speed);
-    }
-    public override void Update()
-
-    {
-        if (currentState == BonusState.Free)
-        {
-            Tombe();
         }
 
-        base.Update();
+
+        public override void Update()
+        {
+            if (currentState == BonusState.Free)
+            {
+                currentState = BonusState.Falling;
+            }
+            else if (currentState == BonusState.Falling)
+            {
+                Tombe();
+            }
+
+            base.Update();
+        }
     }
 
-
-}
 }

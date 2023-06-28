@@ -15,26 +15,22 @@ namespace CasseBriques
     public class ScenesManager
     {
         private Texture2D background;
-        public Rectangle DimensionEcran { get; set; }
+        public Rectangle Screen { get; set; }
         protected CasseBriques casseBriques;
-        private KeyboardState NewKbState;
-        private KeyboardState OldKbState;
+        private KeyboardState newKbState;
+        private KeyboardState oldKbState;
         GameState Status = ServiceLocator.GetService<GameState>();
-        GameState GameState;
-        private int Sand;
-        private float Timer;
         protected int CamShake;
         private Random rnd;
-        GameOver GO;
 
         // Constructeur 
         public ScenesManager()
         {
             ContentManager _content = ServiceLocator.GetService<ContentManager>();
-            GraphicsDeviceManager ResolutionEcran = ServiceLocator.GetService<GraphicsDeviceManager>();
-            int LargeurEcran = ResolutionEcran.PreferredBackBufferWidth;
-            int HauteurEcran = ResolutionEcran.PreferredBackBufferHeight;
-            DimensionEcran = new Rectangle(0, 0, LargeurEcran, HauteurEcran);
+            GraphicsDeviceManager screen = ServiceLocator.GetService<GraphicsDeviceManager>();
+            int screenWidth = screen.PreferredBackBufferWidth;
+            int screenHeight = screen.PreferredBackBufferHeight;
+            Screen = new Rectangle(0, 0, screenWidth, screenHeight);
             background = _content.Load<Texture2D>("background");
             rnd = new Random();
         }
@@ -51,13 +47,13 @@ namespace CasseBriques
      
         public virtual void Update()
         {
-            NewKbState = Keyboard.GetState();
+            newKbState = Keyboard.GetState();
 
-            if (NewKbState.IsKeyDown(Keys.M) && !OldKbState.IsKeyDown(Keys.M))
+            if (newKbState.IsKeyDown(Keys.M) && !oldKbState.IsKeyDown(Keys.M))
             {
                 Status.ChangeScene(GameState.Scenes.Menu);
             }
-            OldKbState = NewKbState;
+            oldKbState = newKbState;
   
         }
 
@@ -72,7 +68,7 @@ namespace CasseBriques
         {
             SpriteBatch pBatch = ServiceLocator.GetService<SpriteBatch>();
 
-            // premier batch qui affiche le background general et le background de chaque niveau
+            // premier batch qui affiche le background general
             pBatch.Begin();
             pBatch.Draw(background, new Vector2(0,0), Color.White);
             DrawBackground();

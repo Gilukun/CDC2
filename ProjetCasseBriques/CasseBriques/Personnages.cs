@@ -11,8 +11,7 @@ namespace CasseBriques
 {
     public class Personnages : Sprites
     {
-        public Texture2D texture;
-        ScreenManager ResolutionEcran = ServiceLocator.GetService<ScreenManager>();
+        ScreenManager Screen = ServiceLocator.GetService<ScreenManager>();
         public enum State
         { 
             Idle,
@@ -23,7 +22,7 @@ namespace CasseBriques
             Catch,
             Dead
         }
-        public State currentState { get; set; }
+        public State CurrentState { get; set; }
         protected float spawnDelay;
         protected float spawnTimer;
         protected bool TimerIsOver;
@@ -33,7 +32,7 @@ namespace CasseBriques
             texture = pTexture;
             spawnDelay = 0;
             spawnTimer = 3;
-            currentState = State.Idle;
+            CurrentState = State.Idle;
             isSpawn = false;
         }
         public virtual void Tombe()
@@ -55,9 +54,9 @@ namespace CasseBriques
   
             if (Position.X < 0)
             {
-                Position = new Vector2(ResolutionEcran.Width, Position.Y);
+                Position = new Vector2(Screen.Width, Position.Y);
             }
-            if (Position.X > ResolutionEcran.Width)
+            if (Position.X > Screen.Width)
             {
                 Position = new Vector2(0, Position.Y);
             }

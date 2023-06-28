@@ -3,13 +3,7 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.NetworkInformation;
-using System.Net.Security;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace CasseBriques
 {
@@ -22,13 +16,9 @@ namespace CasseBriques
         public SpriteFont ContextualFont { get; private set; }
         public SpriteFont PopUpFont { get; private set; }
         public SpriteFont Victory { get; private set; }
-
-
-
         public Song Intro { get; private set; }
         public Song End { get; private set; }
         public Song InGame { get; private set; }
-
         public SoundEffect PadRebound { get; private set; }
         public SoundEffect CatchLife { get; private set; }
         public SoundEffect Select { get; private set; }
@@ -39,14 +29,6 @@ namespace CasseBriques
         public SoundEffect hitMonster { get; private set; }
         public SoundEffect bulletHit { get; private set; }
         public SoundEffect ballLost { get; private set; }
-
-
-
-
-
-
-
-
 
         public void Load()
         {
@@ -77,25 +59,28 @@ namespace CasseBriques
             ballLost = pContent.Load<SoundEffect>("Musics\\Dead");
 
         }
-
-        public static Vector2 GetSize(string pText, SpriteFont pFont)
+        public Vector2 GetSize(string pText, SpriteFont pFont)
         {
             Vector2 textsize = pFont.MeasureString(pText);
             return textsize;
         }
-
-        public static Rectangle getBoundingBox(string pText, SpriteFont pFont, Vector2 position)
+        public  Rectangle getBoundingBox(string pText, SpriteFont pFont, Vector2 position)
         {
             Vector2 textsize = pFont.MeasureString(pText);
             Rectangle boundingBox = new Rectangle((int)position.X, (int)position.Y, (int)textsize.X, (int)textsize.Y);
             return boundingBox;
         }
 
-        public static void PlaySong(Song pSong)
+        public void PlaySong(Song pSong)
         {
             MediaPlayer.Play(pSong);
         }
-        public static SoundEffectInstance PlaySFX(SoundEffect pSound)
+
+        public void Stop()
+        {
+            MediaPlayer.Stop();
+        }
+        public  SoundEffectInstance PlaySFX(SoundEffect pSound)
         {
             SoundEffectInstance  instance = pSound.CreateInstance();
             instance.Play();
