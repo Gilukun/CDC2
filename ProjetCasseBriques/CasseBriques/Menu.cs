@@ -16,11 +16,11 @@ namespace CasseBriques
 {
     public class Menu : ScenesManager
     {
-        ScreenManager Screen = ServiceLocator.GetService<ScreenManager>();
+        ScreenManager screen = ServiceLocator.GetService<ScreenManager>();
         GameState status = ServiceLocator.GetService<GameState>();
-        AssetsManager font = ServiceLocator.GetService<AssetsManager>();
         ContentManager _content = ServiceLocator.GetService<ContentManager>();
         AssetsManager audio = ServiceLocator.GetService<AssetsManager>();
+        AssetsManager font = ServiceLocator.GetService<AssetsManager>();
 
         private GUI boutonEnter;
         private GUI boutonSettings;
@@ -74,7 +74,7 @@ namespace CasseBriques
             
             listeBoutons = new List<GUI>();
             boutonEnter = new GUI(_content.Load<Texture2D>("Bouton_2"));
-            boutonEnter.SetPosition(Screen.HalfScreenWidth, Screen.CenterHeight);
+            boutonEnter.SetPosition(screen.HalfScreenWidth, screen.CenterHeight);
 
             int LargeurBouton = boutonEnter.SpriteWidth;
             int HauteurBouton = boutonEnter.SpriteHeight;
@@ -84,9 +84,10 @@ namespace CasseBriques
             listeBoutons.Add(boutonEnter);
 
             boutonSettings = new GUI(_content.Load<Texture2D>("Bouton_2"));
-            boutonSettings.SetPosition(Screen.HalfScreenWidth, boutonEnter.Position.Y + HauteurBouton + spacing);
+            boutonSettings.SetPosition(screen.HalfScreenWidth, boutonEnter.Position.Y + HauteurBouton + spacing);
             boutonSettings.onClick = OnClick;
             listeBoutons.Add(boutonSettings);
+            
 
             titre = "FANTASOID";
             dimensionTitre = font.GetSize(titre, font.TitleFont);
@@ -129,7 +130,7 @@ namespace CasseBriques
             // Affichage du nom du jeu 
             pBatch.DrawString(font.TitleFont,
                               "FANTASOID",
-                              new Vector2(Screen.HalfScreenWidth - dimensionTitre.X / 2, 100 - dimensionTitre.Y / 2),
+                              new Vector2(screen.HalfScreenWidth - dimensionTitre.X / 2, 100 - dimensionTitre.Y / 2),
                               Color.DarkSlateBlue);
 
             // Affichage des textes au dessus des boutons

@@ -14,8 +14,6 @@ namespace CasseBriques
     {
         private float delay;
         private float timer;
-
-
         public PersonnageFire(Texture2D pTexture) : base(pTexture)
         {
             texture = pTexture;
@@ -25,20 +23,6 @@ namespace CasseBriques
             isSpawn = false;
             delay = 0;
             timer = 4;
-        }
-
-        public void TimerUpDown(float pIncrement)
-        {
-            delay += pIncrement;
-            if (delay > timer)
-            {
-                TimerIsOver = true;
-            }
-        }
-
-        public override void Tombe()
-        {
-                Vitesse = new Vector2(Vitesse.X, Vitesse.Y + 0.5f);
         }
 
         public override void SetPosition(float pX, float pY)
@@ -51,13 +35,13 @@ namespace CasseBriques
           
             if (Position.Y >= 600)
             {
-                float Up = 2f;
+                float Up = 1.5f;
                 Vitesse = new Vector2(-1, Vitesse.Y - Up);
                 Position += Vitesse;
             }
             else if (Position.Y <= 500) 
             {
-                float Down = 2f;
+                float Down = 1.5f;
                 Vitesse = new Vector2(-1, Vitesse.Y + Down);
                 Position += Vitesse;
             }
@@ -66,7 +50,7 @@ namespace CasseBriques
         public override void TimerON()
         {
             isSpawn = false;
-            spawnDelay += 0.02f;
+            spawnDelay += 0.2f;
             if (spawnDelay > spawnTimer)
             {
                 TimerIsOver = true;
@@ -95,7 +79,6 @@ namespace CasseBriques
             else if (CurrentState == State.Spawn)
             {
                 CurrentState = State.Moving;
-
             }
             else if (CurrentState == State.Moving)
             {

@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
@@ -19,6 +20,8 @@ namespace CasseBriques
         ContentManager _content = ServiceLocator.GetService<ContentManager>();
         GameState status = ServiceLocator.GetService<GameState>();
         AssetsManager audio = ServiceLocator.GetService<AssetsManager>();
+        AssetsManager textures = ServiceLocator.GetService<AssetsManager>();
+        Texture2D hudBarre; 
         HUD hud = ServiceLocator.GetService<HUD>();
         Bullet bullet = ServiceLocator.GetService<Bullet>();
 
@@ -74,18 +77,18 @@ namespace CasseBriques
             MediaPlayer.IsRepeating = true;
             MediaPlayer.Play(audio.InGame);
             
-            // texture de ma raquette
+            // RAQUETTE
             pad = new Raquette(_content.Load<Texture2D>("Pad_2"));
             pad.SetPosition(screen.HalfScreenWidth, screen.Height - pad.HalfHeitgh);
            
-            // Texture de ma balle
+            // BALLE
             ball = new Balle(_content.Load<Texture2D>("Balls\\bNormal"));
             ball.SetPosition(pad.Position.X, pad.Position.Y - pad.HalfHeitgh - ball.HalfHeitgh);
-
-            ball.Vitesse = new Vector2(1, -1);
+            ball.Vitesse = new Vector2(9, -9);
             stick = true;
 
-            hud.texture = _content.Load<Texture2D>("HUD2");
+            // Texture de la barre HUD
+            hudBarre = textures.GetTexture("HUD2");
             pop = new PopUp();
 
             oldKbState = Keyboard.GetState();
@@ -95,58 +98,82 @@ namespace CasseBriques
             delay = 0;
             timer = 5;
             rnd = new Random(); 
-
-            bullet.hasWeapon= true;
+            bullet.HasBullet= true;
         }
 
         public override void Update()
         {
             newKbState = Keyboard.GetState();
-            pad.Update();
-            
             if (newKbState.IsKeyDown(Keys.Space) && !oldKbState.IsKeyDown(Keys.Space))
             {
                 stick = false;
             }
-            if (bullet.hasWeapon)
+            if (bullet.HasBullet)
             {
                 if (newKbState.IsKeyDown(Keys.P) && !oldKbState.IsKeyDown(Keys.P))
                 {
-                    bullet.CreateBullet("Hero", pad.Position.X, pad.Position.Y, 5);
+                    bullet.CreateBullet("Rifle", pad.Position.X, pad.Position.Y,9);
                     audio.PlaySFX(audio.shoot);
                 }
             }
-
-            for (int b = bullet.ListeBalles.Count - 1; b >= 0; b--)
-            {
-                Bullet bullets = bullet.ListeBalles[b];
-                bullet.Update();
-                if (bullets.Position.Y <= hud.Hudhauteur)
-                {
-                    bullet.ListeBalles.Remove(bullets);
-                }
-            }
             oldKbState = newKbState;
+          
+            pad.Update();
+            // COLLISIONS BALLE ET BRIQUES
+            CollisionBricks();
+          
+
+            // COLLISIONS BALLE ET PERSONNAGES
             if (!ball.collision)
             {
                 ball.Update();
             }
+            for (int p = level.listPerso.Count - 1; p >= 0; p--)
+            {
+                ball.collision = false;
+                Personnages mesPerso = level.listPerso[p];
+                mesPerso.Update();
+                if (mesPerso.BoundingBox.Intersects(ball.NextPositionY()))
+                {
+                    ball.collision = true;
+                    audio.PlaySFX(audio.hitBricks);
+                    ball.InverseVitesseY();
+                }
+                else if (mesPerso.BoundingBox.Intersects(ball.NextPositionX()))
+                {
+                    ball.collision = true;
+                    audio.PlaySFX(audio.hitBricks);
+                    ball.InverseVitesseX();
+                }
 
-            // La balle reste collée à la raquette
+                if (ball.collision)
+                {
+                    mesPerso.CurrentState = Personnages.State.Falling;
+                    mesPerso.Tombe();
+                }
+
+                if (mesPerso.Position.Y > screen.Height)
+                {
+                    level.listPerso.Remove(mesPerso);
+                }
+            }
+            
+            // RESET DE LA BALLE SUR LA RAQUETTE
             if (stick)
             {
                 ball.SetPosition(pad.Position.X, pad.Position.Y - pad.HalfHeitgh - ball.HalfHeitgh);
             }
-
-            RebondRaquette();
-            CollisionSolidBricks();
-            CollisionBricks();
-            CollisionPersonnage();
+            // COLLISIONS BULLETS ET BRIQUES 
             CollisionBulletsBricks();
+            CollisionSolidBricks();
+            // COLLISIONS AVEC LA RAQUETTE
+            ColPadPerso();
             GetBonus();
             LoseLife();
+            RebondRaquette();
+
+            // CHARGEMENT DU NIVEAU SUIVANT
             NextLevel();
-           
             base.Update();
         }
 
@@ -212,27 +239,13 @@ namespace CasseBriques
             }
         }
 
-        public void CollisionPersonnage()
+        public void ColPadPerso()
         {
             for (int p = level.listPerso.Count - 1; p >= 0; p--)
             {
-                ball.collision = false;
                 Personnages mesPerso = level.listPerso[p];
                 mesPerso.Update();
 
-                if (mesPerso.BoundingBox.Intersects(ball.NextPositionY()))
-                {
-                    ball.collision = true;
-                    audio.PlaySFX(audio.hitBricks);
-                    ball.InverseVitesseY();
-                }
-                else if (mesPerso.BoundingBox.Intersects(ball.NextPositionX()))
-                {
-                    ball.collision = true;
-                    audio.PlaySFX(audio.hitBricks);
-                    ball.InverseVitesseX(); 
-                }
-               
                 if (pad.BoundingBox.Intersects(mesPerso.NextPositionY()))
                 {
                     if (mesPerso is PersonnageFire pFire)
@@ -252,63 +265,64 @@ namespace CasseBriques
                         level.listPerso.Remove(pIce);
                     }
                 }
-
-                if (ball.collision)
-                {
-                    mesPerso.CurrentState = Personnages.State.Falling;
-                    mesPerso.Tombe();
-                    if (mesPerso.Position.Y > screen.Height)
-                    {
-                        level.listPerso.Remove(mesPerso);
-                    }
-                }
             }
         }
 
 
         public void CollisionBulletsBricks()
         {
-            for (int b = level.listBriques.Count - 1; b >= 0; b--)
+            for (int bl = bullet.ListeBalles.Count - 1; bl >= 0; bl--)
             {
-                Briques mesBriques = level.listBriques[b];
-                mesBriques.Update();
-
-                if (mesBriques.IsScalling == false)
+                bullet.collision = false;
+                Bullet bullets = bullet.ListeBalles[bl];
+                for (int b = level.listBriques.Count - 1; b >= 0; b--)
                 {
-                    for (int bl = bullet.ListeBalles.Count - 1; bl >= 0; bl --)
+                    Briques mesBriques = level.listBriques[b];
+                    mesBriques.Update();
+                    if (mesBriques.IsScalling == false)
                     {
-                        Bullet bullets = bullet.ListeBalles[bl];
-                        bullets.Update();
                         if (bullets.BoundingBox.Intersects(mesBriques.BoundingBox))
                         {
+                            bullet.collision = true;
                             mesBriques.nbHits -= bullets.impact;
                             bullet.ListeBalles.Remove(bullets);
                         }
-                    }
 
-                    if (mesBriques.nbHits <= 0)
-                    {
-                        switch (mesBriques.id)
+                        if (mesBriques.nbHits <= 0)
                         {
-                            case Briques.ID.Feu:
-                                mesBriques.rotate = true;
-                                mesBriques.scalling = true;
-                                break;
-                            default:
-                                break;
+                            switch (mesBriques.id)
+                            {
+                                case Briques.ID.Feu:
+                                    mesBriques.rotate = true;
+                                    //mesBriques.scalling = true;
+                                    break;
+                                default:
+                                    break;
+                            }
+                            mesBriques.scalling = true;
+                            hud.GlobalScore += mesBriques.points;
+                            pop.SetPosition(mesBriques.Position.X, mesBriques.Position.Y);
+                            listePopUp.Add(pop);
+                            break;
                         }
-                        mesBriques.scalling = true;
-                        hud.GlobalScore += mesBriques.points;
-                        pop.SetPosition(mesBriques.Position.X, mesBriques.Position.Y);
-                        listePopUp.Add(pop);
-                        break;
-                    }
-                    if (mesBriques.scale <= 0)
-                    {
-                        level.listBriques.Remove(mesBriques);
-                        listePopUp.Remove(pop);
+                        if (mesBriques.scale <= 0)
+                        {
+                            level.listBriques.Remove(mesBriques);
+                            listePopUp.Remove(pop);
+                        }
                     }
                 }
+
+                if (bullets.Position.Y <= hud.Hudhauteur)
+                {
+                    bullet.ListeBalles.Remove(bullets);
+                }
+
+                if (!bullet.collision)
+                {
+                    bullets.Update();
+                }
+
             }
         }
         public void CollisionBricks()
@@ -415,7 +429,7 @@ namespace CasseBriques
                     audio.PlaySFX(audio.hitBricks);
                     ball.InverseVitesseX();
                 }
-              
+
 
                 for (int b = bullet.ListeBalles.Count - 1; b >= 0; b--)
                 {
@@ -456,7 +470,7 @@ namespace CasseBriques
         {
             SpriteBatch pBatch = ServiceLocator.GetService<SpriteBatch>();
             
-            pBatch.Draw(hud.texture, new Vector2(0, 0), Color.White);
+            pBatch.Draw(hudBarre, new Vector2(0, 0), Color.White);
             hud.DrawScore();
             pad.Draw();
             ball.DrawBall();
@@ -488,7 +502,6 @@ namespace CasseBriques
             }
 
             bullet.DrawWeapon();
-            
         }
     }
 }

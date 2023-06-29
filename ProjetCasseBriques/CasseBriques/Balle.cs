@@ -13,7 +13,7 @@ namespace CasseBriques
         AssetsManager audio = ServiceLocator.GetService<AssetsManager>();   
        
         Texture2D Big;
-        private int initSpeed;
+        private float initSpeed;
         private float bonusSpeed;
         private float bonusSlowdown;
 
@@ -37,14 +37,13 @@ namespace CasseBriques
         {
             texture = pTexture;
             CurrentBallState = BallState.Alive;
-            initSpeed = 10;
+            initSpeed = 2f;
             Delay  = 0;
             Timer = 5;
-            bonusSpeed = 15;
-            bonusSlowdown = 5f;
+            bonusSpeed = 1.3f;
+            bonusSlowdown = 0.7f;
             Impact = 1;
             Big = _content.Load<Texture2D>("bMenu");
-            collision = false;
         }
 
         public  void TimerON(float pIncrement)
@@ -59,6 +58,11 @@ namespace CasseBriques
         public override void Load()
         {
             
+        }
+
+        public override void Move()
+        {
+            Position += Vitesse;
         }
 
         public void SpeedUp()
@@ -94,7 +98,8 @@ namespace CasseBriques
         }
         public override void Update()
         {
-            Position += Vitesse * initSpeed;
+            //Position += Vitesse;
+            Rebounds();
 
             if (CurrentBallState == BallState.SpeedUp)
             {
@@ -129,7 +134,6 @@ namespace CasseBriques
                 }
             }
             
-            Rebounds();
             base.Update();
         }
 
@@ -147,7 +151,7 @@ namespace CasseBriques
                         1f,
                         SpriteEffects.None,
                         0);
-            pBatch.DrawRectangle(BoundingBox, Color.Red); // affichage des boundingBox
+            //pBatch.DrawRectangle(BoundingBox, Color.Red);
         }
     }
 }

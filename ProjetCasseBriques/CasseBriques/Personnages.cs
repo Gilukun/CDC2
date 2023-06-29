@@ -37,7 +37,7 @@ namespace CasseBriques
         }
         public virtual void Tombe()
         {
-       
+            Vitesse = new Vector2(Vitesse.X, Vitesse.Y + 0.05f);
         }
 
         public virtual void Moving()
@@ -51,12 +51,11 @@ namespace CasseBriques
 
         public override void Update()
         {
-  
             if (Position.X < 0)
             {
                 Position = new Vector2(Screen.Width, Position.Y);
             }
-            if (Position.X > Screen.Width)
+            else if (Position.X > Screen.Width)
             {
                 Position = new Vector2(0, Position.Y);
             }

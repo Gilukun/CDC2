@@ -67,7 +67,6 @@ namespace CasseBriques
             else if (CurrentState == State.Spawn)
             {
                 CurrentState = State.Moving;
-
             }
             else if (CurrentState == State.Moving)
             {
@@ -75,7 +74,7 @@ namespace CasseBriques
             }
             else if (CurrentState == State.Falling)
             {
-                Vitesse = new Vector2(Vitesse.X, Vitesse.Y + 0.5f);
+                Tombe();
             }
             else if (CurrentState == State.Catch)
             {

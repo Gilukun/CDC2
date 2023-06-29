@@ -32,31 +32,31 @@ namespace CasseBriques
 
         public void Load()
         {
-            ContentManager pContent = ServiceLocator.GetService<ContentManager>();
-            TitleFont = pContent.Load<SpriteFont>("TitleFont");
-            MenuFont = pContent.Load<SpriteFont>("MenuFont");
-            HUDFont = pContent.Load<SpriteFont>("HUD1Font");
-            GameOverFont = pContent.Load<SpriteFont>("GameOver");
-            ContextualFont = pContent.Load<SpriteFont>("PopUpFont");
-            PopUpFont = pContent.Load<SpriteFont>("PopUps");
-            Victory = pContent.Load<SpriteFont>("Victory");
+            //Fonts
+            TitleFont = GetFont("TitleFont");
+            MenuFont = GetFont("MenuFont");
+            HUDFont = GetFont("HUD1Font");
+            GameOverFont = GetFont("GameOver");
+            ContextualFont = GetFont("PopUpFont");
+            PopUpFont = GetFont("PopUps");
+            Victory = GetFont("Victory");
 
             // Soundtracks
-            Intro = pContent.Load<Song>("Musics\\Intro");
-            InGame = pContent.Load<Song>("Musics\\GamePlay");
-            End = pContent.Load<Song>("Musics\\End");
+            Intro = GetSong("Musics\\Intro");
+            InGame = GetSong("Musics\\GamePlay");
+            End = GetSong("Musics\\End");
 
             // SFX
-            PadRebound = pContent.Load<SoundEffect>("Musics\\HitMetal");
-            CatchLife = pContent.Load<SoundEffect>("Musics\\CatchPersonnage");
-            Select = pContent.Load<SoundEffect>("Musics\\Selection");
-            hitBricks = pContent.Load<SoundEffect>("Musics\\HitFreeze");
-            hitWalls = pContent.Load<SoundEffect>("Musics\\hitcadre");
-            shoot = pContent.Load<SoundEffect>("Musics\\shoot");
-            enlarge = pContent.Load<SoundEffect>("Musics\\enlarge");
-            hitMonster = pContent.Load<SoundEffect>("Musics\\hitMonster");
-            bulletHit = pContent.Load<SoundEffect>("Musics\\BulletHits");
-            ballLost = pContent.Load<SoundEffect>("Musics\\Dead");
+            PadRebound = GetSFX("Musics\\HitMetal");
+            CatchLife = GetSFX("Musics\\CatchPersonnage");
+            Select = GetSFX("Musics\\Selection");
+            hitBricks = GetSFX("Musics\\HitFreeze");
+            hitWalls = GetSFX("Musics\\hitcadre");
+            shoot = GetSFX("Musics\\shoot");
+            enlarge = GetSFX("Musics\\enlarge");
+            hitMonster = GetSFX("Musics\\hitMonster");
+            bulletHit = GetSFX("Musics\\BulletHits");
+            ballLost = GetSFX("Musics\\Dead");
 
         }
         public Vector2 GetSize(string pText, SpriteFont pFont)
@@ -86,5 +86,35 @@ namespace CasseBriques
             instance.Play();
             return instance;
         }
+
+        public Texture2D GetTexture(string pName)
+        {
+            ContentManager _content = ServiceLocator.GetService<ContentManager>();
+            Texture2D texture = _content.Load<Texture2D>(pName);
+            return texture;
+        }
+
+        public SpriteFont GetFont(string pName) 
+        
+        {
+            ContentManager _content = ServiceLocator.GetService<ContentManager>();
+            SpriteFont font = _content.Load<SpriteFont>(pName);
+            return font;
+        }
+        public Song GetSong(string pName)
+
+        {
+            ContentManager _content = ServiceLocator.GetService<ContentManager>();
+            Song song = _content.Load<Song>(pName);
+            return song;
+        }
+
+        public SoundEffect GetSFX(string pName)
+        {
+            ContentManager _content = ServiceLocator.GetService<ContentManager>();
+            SoundEffect sfx = _content.Load<SoundEffect>(pName);
+            return sfx;
+        }
     }
+    
 }

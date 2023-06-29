@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -19,7 +20,7 @@ namespace CasseBriques
             spriteBatch.Draw(pixel, new Rectangle(rectangle.Left, rectangle.Top, rectangle.Width, 1), color);
             spriteBatch.Draw(pixel, new Rectangle(rectangle.Left, rectangle.Bottom, rectangle.Width, 1), color);
             spriteBatch.Draw(pixel, new Rectangle(rectangle.Left, rectangle.Top, 1, rectangle.Height), color);
-            spriteBatch.Draw(pixel, new Rectangle(rectangle.Right, rectangle.Top, 1, rectangle.Height + 1), color);
+            spriteBatch.Draw(pixel, new Rectangle(rectangle.Right-1, rectangle.Top, 1, rectangle.Height + 1), color);
         }
     }
     public abstract class Sprites
@@ -27,7 +28,7 @@ namespace CasseBriques
         public Texture2D texture;
         public Vector2 Position { get; set; }
         public Vector2 Vitesse { get; set; }
-
+        
         public float Speed;
         protected int hauteurEcran;
         protected int largeurEcran;
@@ -41,16 +42,19 @@ namespace CasseBriques
             get
             { return texture.Height; }
         }
+
         public int HalfWidth
         {
             get
             { return texture.Width/2; }
         }
+
         public int HalfHeitgh
         {
             get
             { return texture.Height/2; }
         }
+
         public Rectangle BoundingBox;
 
         // Constructeur
@@ -89,10 +93,15 @@ namespace CasseBriques
         public virtual void Load()
         { 
         }
+
+        public virtual void Move()
+        {
+            Position += Vitesse;
+        }
         public virtual void Update( )
         {
-            Position += Vitesse; // Pour les sprites avec de la vitesse on aura automatiquement la mise à jour de la vitesse
-            BoundingBox = new Rectangle((int)Position.X-SpriteWidth/2,(int)Position.Y-SpriteHeight/2, SpriteWidth, SpriteHeight);
+            Move();
+            BoundingBox = new Rectangle((int)(Position.X-HalfWidth),(int)(Position.Y-HalfHeitgh), SpriteWidth, SpriteHeight);
         }
 
         public virtual void DrawScore()
@@ -107,7 +116,7 @@ namespace CasseBriques
                         null,
                         Color.White,
                         0,
-                        new Vector2(SpriteWidth/2, SpriteHeight/2),
+                        new Vector2(HalfWidth, HalfHeitgh),
                         1f,
                         SpriteEffects.None,
                         0);

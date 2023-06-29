@@ -14,14 +14,16 @@ namespace CasseBriques
 {
     public class LevelManager
     {
-        ScreenManager ResolutionEcran = ServiceLocator.GetService<ScreenManager>();
+        ScreenManager screen = ServiceLocator.GetService<ScreenManager>();
         HUD hud = ServiceLocator.GetService<HUD>();
+        AssetsManager textures = ServiceLocator.GetService<AssetsManager>();
+        Texture2D Briques;
         public int numero { get; set; } 
         public int[][] Map { get; set; } 
         public int LevelMax;
         
         LevelManager currentLevel;
-        Briques SprBriques;
+        //Briques SprBriques;
         public Briques bNormal;
         PersonnageIce iceMan1;
         PersonnageFire fireMan1;
@@ -43,6 +45,8 @@ namespace CasseBriques
             LevelMax = 4;
 
         }
+
+    
         public void RandomLevel()
         {
             int colNb = 10;
@@ -89,13 +93,14 @@ namespace CasseBriques
             string levelData = File.ReadAllText("level" + pLevel + ".json");
             currentLevel = JsonSerializer.Deserialize<LevelManager>(levelData);
 
-            SprBriques = new Briques(_content.Load<Texture2D>("Bricks\\Brique_1"));
+            Briques = textures.GetTexture("Bricks\\Brique_1");
+            //SprBriques = new Briques(_content.Load<Texture2D>("Bricks\\Brique_1"));
 
             int NiveauHauteur = currentLevel.Map.GetLength(0);
             int NiveauLargeur = currentLevel.Map[1].Length;
-            int largeurGrille = NiveauLargeur * SprBriques.SpriteWidth;
-            int hauteurGrille = NiveauHauteur  * SprBriques.SpriteHeight;
-            int spacing = (ResolutionEcran.Width - largeurGrille) / 2;
+            int largeurGrille = NiveauLargeur * Briques.Width;
+            int hauteurGrille = NiveauHauteur * Briques.Height;
+            int spacing = (screen.Width - largeurGrille) / 2;
 
             for (int l = 0; l < NiveauHauteur; l++)
             {
@@ -186,7 +191,7 @@ namespace CasseBriques
                                SpriteEffects.None,
                                0);
                
-                pBatch.DrawRectangle(Briques.BoundingBox, Color.Red);
+                //pBatch.DrawRectangle(Briques.BoundingBox, Color.Red);
             }
 
             foreach (var Perso in listPerso)
@@ -202,7 +207,7 @@ namespace CasseBriques
                                    1.0f,
                                    SpriteEffects.None,
                                    0);
-                  pBatch.DrawRectangle(Perso.BoundingBox, Color.Yellow);
+                  //pBatch.DrawRectangle(Perso.BoundingBox, Color.Yellow);
                 }
             }
             foreach (var Briques in listSolidBricks)
@@ -217,7 +222,7 @@ namespace CasseBriques
                                     1.0f,
                                     SpriteEffects.None,
                                     0);
-                   pBatch.DrawRectangle(Briques.BoundingBox, Color.Yellow);
+                   //pBatch.DrawRectangle(Briques.BoundingBox, Color.Yellow);
             }
         }
     

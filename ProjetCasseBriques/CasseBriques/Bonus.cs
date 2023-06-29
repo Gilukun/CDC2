@@ -43,7 +43,8 @@ namespace CasseBriques
         }
 
         public override void Update()
-        { 
+        {
+            Move();
             base.Update();
         }
 

@@ -16,9 +16,9 @@ namespace CasseBriques
     {
         ContentManager _content = ServiceLocator.GetService<ContentManager>();
         public List<Bullet> ListeBalles;
-        public bool hasWeapon;
+        public bool HasBullet;
         public int impact;
-
+        public bool collision;
         public enum State
         {
             noHit,
@@ -33,9 +33,8 @@ namespace CasseBriques
             Bulletstate = State.noHit;
         } 
 
-        public void CreateBullet(string pNom, float pX, float pY, int pSpeed)
+        public void CreateBullet(string pNom, float pX, float pY, float pSpeed)
         {
-
             Bullet bullet = new Bullet(_content.Load<Texture2D>("Balls\\bFire"));
             bullet.SetPosition(pX,pY);
             bullet.Vitesse = new Vector2(0, -1);
@@ -43,13 +42,14 @@ namespace CasseBriques
             ListeBalles.Add(bullet);
         }
 
+        public void BulletMoves()
+        {
+            Position += Vitesse * Speed;
+        }
+
         public override void Update()
         {
-            foreach (var item in ListeBalles) 
-            {
-                item.Position += item.Vitesse * item.Speed;
-            }
-
+            BulletMoves();
             base.Update();
         }
 
