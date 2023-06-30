@@ -1,20 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static CasseBriques.Bonus;
+
 
 namespace CasseBriques
 {
-    internal class BonusImpact : Bonus
+    internal class BonusGun : Bonus
     {
-        public BonusImpact(Texture2D pTexture) : base(pTexture)
+        public BonusGun(Texture2D pTexture) : base(pTexture)
         {
             texture = pTexture;
-            addBonus = 2;
             currentState = BonusState.Idle;
             Speed = 0.05f;
             Vitesse = new Vector2(0, 1);
@@ -29,9 +23,7 @@ namespace CasseBriques
             {
                 Tombe();
             }
-
             base.Update();
         }
     }
-
 }

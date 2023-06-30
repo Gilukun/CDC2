@@ -19,18 +19,32 @@ namespace CasseBriques
         public bool HasBullet;
         public int impact;
         public bool collision;
+        private float  Delay = 0;
+        private int Timer = 5;
+        private bool TimerIsOver;
         public enum State
         {
-            noHit,
-            Hit,
+            NoTActivated,
+            Activated,
         }
-        public State Bulletstate;
+        public State Bulletstate { get;set; }
+
+        
+        public void TimerON(float pIncrement)
+        {
+            Delay += pIncrement;
+            if (Delay >= Timer)
+            {
+                TimerIsOver = true;
+            }
+        }
         public Bullet(Texture2D ptexture) : base(ptexture)
         {
             texture = ptexture;
             impact = 1;
             ListeBalles = new List<Bullet>();
-            Bulletstate = State.noHit;
+            Bulletstate = State.NoTActivated;
+            Speed = 1;
         } 
 
         public void CreateBullet(string pNom, float pX, float pY, float pSpeed)
@@ -50,6 +64,19 @@ namespace CasseBriques
         public override void Update()
         {
             BulletMoves();
+            if (Bulletstate == State.Activated) 
+            {
+                if (!TimerIsOver)
+                {
+                    TimerON(0.01f);
+                }
+                if (Delay >= Timer)
+                {
+                    Delay = 0;
+                    Bulletstate = State.NoTActivated;
+                }
+            }
+            TimerIsOver = false;
             base.Update();
         }
 

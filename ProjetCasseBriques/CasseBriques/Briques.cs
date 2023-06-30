@@ -53,7 +53,7 @@ namespace CasseBriques
         {
             if (scalling)
             {
-                scale -= 0.01f;
+                scale -= 0.05f;
                 if (scale <= 0)
                 {
                     scale = 0f;

@@ -8,18 +8,17 @@ namespace CasseBriques
     public class Balle : Sprites
     {
         ContentManager _content = ServiceLocator.GetService<ContentManager>();
-        ScreenManager ResolutionEcran = ServiceLocator.GetService<ScreenManager>();
+        ScreenManager screen = ServiceLocator.GetService<ScreenManager>();
         HUD hud = ServiceLocator.GetService<HUD>();
         AssetsManager audio = ServiceLocator.GetService<AssetsManager>();   
        
         Texture2D Big;
-        private float initSpeed;
         private float bonusSpeed;
         private float bonusSlowdown;
 
-        protected float Delay;
-        protected float Timer;
-        protected bool TimerIsOver;
+        private float delay;
+        private float timer;
+        private bool TimerIsOver;
         public int Impact { get; private set; }
         public bool collision;
 
@@ -37,19 +36,19 @@ namespace CasseBriques
         {
             texture = pTexture;
             CurrentBallState = BallState.Alive;
-            initSpeed = 2f;
-            Delay  = 0;
-            Timer = 5;
-            bonusSpeed = 1.3f;
-            bonusSlowdown = 0.7f;
+            delay  = 0;
+            timer = 5;
+            bonusSpeed = 1.2f;
+            bonusSlowdown = 0.3f;
             Impact = 1;
             Big = _content.Load<Texture2D>("bMenu");
+            Vitesse = new Vector2(9, -9);
         }
 
         public  void TimerON(float pIncrement)
         {
-            Delay += pIncrement;
-            if (Delay > Timer)
+            delay += pIncrement;
+            if (delay > timer)
             {
                 TimerIsOver = true;
             }
@@ -83,42 +82,41 @@ namespace CasseBriques
                 audio.PlaySFX(audio.hitWalls);
                 SetPosition(0, Position.Y);
             }
-              if (Position.X + SpriteWidth > ResolutionEcran.Width)
+              if (Position.X + SpriteWidth > screen.Width)
             {
                 Vitesse = new Vector2(-Vitesse.X, Vitesse.Y);
                 audio.PlaySFX(audio.hitWalls);
-                SetPosition(ResolutionEcran.Width - SpriteWidth, Position.Y);
+                SetPosition(screen.Width - SpriteWidth, Position.Y);
             }
-            if (Position.Y < hud.Hudhauteur)
+            if (Position.Y <= hud.Hudhauteur)
             {
                 Vitesse = new Vector2(Vitesse.X, -Vitesse.Y);
                 audio.PlaySFX(audio.hitWalls);
-                SetPosition(Position.X, hud.Hudhauteur);
+                SetPosition(Position.X, hud.Hudhauteur + HalfHeitgh);
             }
         }
         public override void Update()
         {
-            //Position += Vitesse;
-            Rebounds();
+            
 
             if (CurrentBallState == BallState.SpeedUp)
             {
                 SpeedUp();
                 TimerON(0.005f);
-                if (Delay > Timer) 
+                if (delay > timer) 
                 {
                     CurrentBallState = BallState.Alive;
-                    Delay = 0; 
+                    delay = 0; 
                 }
             }
             else if  (CurrentBallState == BallState.SlowDown)
             {
                 SlowDown();
                 TimerON(0.005f);
-                if (Delay > Timer)
+                if (delay > timer)
                 {
                     CurrentBallState = BallState.Alive;
-                    Delay = 0;  
+                    delay = 0;  
                 }
             }
             else if (CurrentBallState == BallState.Big)
@@ -126,14 +124,14 @@ namespace CasseBriques
                 Impact = 3;
                 TimerON(0.005f);
                 
-                if (Delay > Timer)
+                if (delay > timer)
                 {
                     CurrentBallState = BallState.Alive;
                     Impact = 1;
-                    Delay = 0;
+                    delay = 0;
                 }
             }
-            
+            Rebounds();
             base.Update();
         }
 

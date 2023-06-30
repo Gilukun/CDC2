@@ -301,12 +301,36 @@
 /processorParam:TextureFormat=Color
 /build:Button1.png
 
+#begin Explosion.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Explosion.png
+
 #begin GameOver.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
 /build:GameOver.spritefont
+
+#begin Heart.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Heart.png
 
 #begin HUD.png
 /importer:TextureImporter
@@ -371,29 +395,11 @@
 /processorParam:Quality=Best
 /build:Musics/Catch.wav
 
-#begin Musics/Catch.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Musics/Catch.wav
-
 #begin Musics/Catch2.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Musics/Catch2.wav
-
-#begin Musics/Catch2.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Musics/Catch2.wav
-
-#begin Musics/CatchPersonnage.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Musics/CatchPersonnage.wav
 
 #begin Musics/CatchPersonnage.wav
 /importer:WavImporter
@@ -413,23 +419,11 @@
 /processorParam:Quality=Best
 /build:Musics/End.mp3
 
-#begin Musics/End.mp3
-/importer:Mp3Importer
-/processor:SongProcessor
-/processorParam:Quality=Best
-/build:Musics/End.mp3
-
 #begin Musics/enlarge.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Musics/enlarge.wav
-
-#begin Musics/GamePlay.mp3
-/importer:Mp3Importer
-/processor:SongProcessor
-/processorParam:Quality=Best
-/build:Musics/GamePlay.mp3
 
 #begin Musics/GamePlay.mp3
 /importer:Mp3Importer
@@ -449,18 +443,6 @@
 /processorParam:Quality=Best
 /build:Musics/hitfreeze.wav
 
-#begin Musics/hitfreeze.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Musics/hitfreeze.wav
-
-#begin Musics/hitMetal.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Musics/hitMetal.wav
-
 #begin Musics/hitMetal.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -479,18 +461,6 @@
 /processorParam:Quality=Best
 /build:Musics/Intro.mp3
 
-#begin Musics/Intro.mp3
-/importer:Mp3Importer
-/processor:SongProcessor
-/processorParam:Quality=Best
-/build:Musics/Intro.mp3
-
-#begin Musics/MegaBall.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Musics/MegaBall.wav
-
 #begin Musics/MegaBall.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -502,18 +472,6 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Musics/multiball.wav
-
-#begin Musics/multiball.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Musics/multiball.wav
-
-#begin Musics/Selection.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Musics/Selection.wav
 
 #begin Musics/Selection.wav
 /importer:WavImporter

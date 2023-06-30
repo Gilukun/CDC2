@@ -18,8 +18,6 @@ namespace CasseBriques
         GraphicsDevice GraphDevice;
         public GameTime gameTime = new GameTime();
 
-        
-
         public GameState State;
         public int maxLevel;
 

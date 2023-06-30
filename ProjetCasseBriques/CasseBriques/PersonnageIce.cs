@@ -38,7 +38,7 @@ namespace CasseBriques
 
         public override void TimerON()
         {
-            spawnDelay += 0.1f;
+            spawnDelay += 0.01f;
             if (spawnDelay > spawnTimer)
             {
                 TimerIsOver = true;

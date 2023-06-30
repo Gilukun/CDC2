@@ -49,23 +49,31 @@ namespace CasseBriques
         }
 
 
-     
-
         public enum State
         {
-
             Basic, 
             Wide,
             Narrow,
-
         }
 
         public State currentState = new State();
-
+        private float Delay;
+        private float Timer;
+        private bool TimerIsOver;
+        public void TimerON(float pIncrement)
+        {
+            Delay += pIncrement;
+            if (Delay >= Timer)
+            {
+                TimerIsOver = true;
+            }
+        }
         public ScreenManager(GraphicsDeviceManager pGraphics)
         {
             _graphics = pGraphics;
             currentState = State.Basic;
+            Delay = 0;
+            Timer = 5;
         }
         public Point GetScreenSize()
         {
@@ -78,7 +86,6 @@ namespace CasseBriques
             _graphics.ApplyChanges();
 
         }
-
 
         //public void AddSize2()
         //{
@@ -95,16 +102,15 @@ namespace CasseBriques
         //    {
         //        Width = 1024;
         //    }
-            
-        //}
 
+        //}
+        
         public void AddSize()
         {
             ChangeResolution(1024, 900);
             GetScreenSize();
         }
 
-        
         public void RemoveSize()
         {
             ChangeResolution(800, 900);
@@ -119,25 +125,43 @@ namespace CasseBriques
 
         public void Update()
         {
+            TimerIsOver = false;
             if (currentState == State.Basic)
             {
-                BasicSize();
-                
+                BasicSize();   
             }
             else if (currentState == State.Wide)
             {
                 AddSize();
+                if (!TimerIsOver)
+                {   
+                    TimerON(0.005f); 
+                }
+
+                if (Delay>= Timer)
+                {
+                    Delay = 0;
+                    currentState = State.Basic;  
+                }
+                
             }
             else if (currentState == State.Narrow)
             { 
                 RemoveSize();
+                if (!TimerIsOver)
+                {
+                    TimerON(0.005f);
+                }
+                if (Delay >= Timer)
+                {
+                    Delay = 0;
+                    currentState = State.Basic;
+                }
+                
             }
-
         }
         public void Draw()
         { 
         }
-
-
     }
 }

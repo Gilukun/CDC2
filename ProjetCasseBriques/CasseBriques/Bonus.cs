@@ -13,8 +13,7 @@ namespace CasseBriques
     public class Bonus : Sprites
     {
         public int addBonus;
-        internal int addlife;
-
+        public int addlife;
         public enum BonusState
         {
             Idle,

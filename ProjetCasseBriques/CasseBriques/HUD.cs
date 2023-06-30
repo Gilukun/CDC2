@@ -14,22 +14,22 @@ namespace CasseBriques
     public class HUD : GUI
     {
         Vector2 DimensionScore;
-        //Vector2 positiontext;
-        //Rectangle boundingBox;
         Vector2 dimensionLife;
         Vector2 dimensionNiveau;
 
         public int Hudhauteur
         { get
-            { return texture.Height; ; }
+            { 
+                return texture.Height;
             }
+        }
 
         public int level;
 
-        public int GlobalScore;
+        public int globalScore;
         public int Vie { get; set; }
-        private string Score;
-        private string Life;
+        private string score;
+        private string life;
         private string niveau;
 
         public Balle balle;
@@ -38,7 +38,7 @@ namespace CasseBriques
         public HUD(Texture2D pTexture) : base(pTexture)
         {
             texture = pTexture;
-            GlobalScore = 0;
+            globalScore = 0;
             Vie = 3;
             level = 1; 
         }
@@ -50,34 +50,34 @@ namespace CasseBriques
         public override void DrawScore()
         {
             SpriteBatch pBatch = ServiceLocator.GetService<SpriteBatch>();
-            AssetsManager Font = ServiceLocator.GetService<AssetsManager>();
-            ScreenManager ResolutionEcran = ServiceLocator.GetService<ScreenManager>();
+            AssetsManager font = ServiceLocator.GetService<AssetsManager>();
+            ScreenManager screen = ServiceLocator.GetService<ScreenManager>();
 
-            Score = "SCORE" + " " + GlobalScore;
-            DimensionScore = Font.GetSize(Score, Font.HUDFont);
+            score = "SCORE" + " " + globalScore;
+            DimensionScore = font.GetSize(score, font.HUDFont);
             float posXScore = 10f;
             float posYScore = texture.Height / 2 - DimensionScore.Y / 2;
            // boundingBox = AssetsManager.getBoundingBox(Score, Font.HUDFont, positiontext);
            // pBatch.DrawRectangle(boundingBox, Color.Red);
-            pBatch.DrawString(Font.HUDFont,   
-                            Score,
+            pBatch.DrawString(font.HUDFont,   
+                            score,
                             new Vector2 (posXScore, posYScore),
                             Color.White);
 
-            Life = "VIE" + " " + Vie;
-            dimensionLife = Font.GetSize(Life, Font.HUDFont);
-            float posX = ResolutionEcran.Width - dimensionLife.X;
+            life = "VIE" + " " + Vie;
+            dimensionLife = font.GetSize(life, font.HUDFont);
+            float posX = screen.Width - dimensionLife.X;
             float posY = texture.Height / 2 - dimensionLife.Y / 2;
-            pBatch.DrawString(Font.HUDFont,
-                           Life,
+            pBatch.DrawString(font.HUDFont,
+                           life,
                            new Vector2(posX, posY),
                            Color.White);
 
             niveau = "Lvl : " + " " + level ;
-            dimensionNiveau= Font.GetSize(niveau, Font.HUDFont);
-            float posXLevel = ResolutionEcran.HalfScreenWidth;
+            dimensionNiveau= font.GetSize(niveau, font.HUDFont);
+            float posXLevel = screen.HalfScreenWidth;
             float posYLevel = texture.Height / 2 - dimensionNiveau.Y / 2;
-            pBatch.DrawString(Font.HUDFont,
+            pBatch.DrawString(font.HUDFont,
                             niveau,
                             new Vector2(posXLevel, posYLevel),
                             Color.White);

@@ -94,7 +94,6 @@ namespace CasseBriques
             currentLevel = JsonSerializer.Deserialize<LevelManager>(levelData);
 
             Briques = textures.GetTexture("Bricks\\Brique_1");
-            //SprBriques = new Briques(_content.Load<Texture2D>("Bricks\\Brique_1"));
 
             int NiveauHauteur = currentLevel.Map.GetLength(0);
             int NiveauLargeur = currentLevel.Map[1].Length;
