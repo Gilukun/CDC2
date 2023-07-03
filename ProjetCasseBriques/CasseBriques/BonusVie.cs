@@ -16,21 +16,20 @@ namespace CasseBriques
             texture = pTexture;
             addlife = 1;
             currentState = BonusState.Idle;
-            Speed = 0.05f;
+            Speed = 0.04f;
             Vitesse = new Vector2 (0, 1);
         }
-
         public override void Update()
 
         {
-           if (currentState == BonusState.Free)
-           {
-              currentState = BonusState.Falling;
-           }
-           else if (currentState == BonusState.Falling)
-            {
-                Tombe();
-            }
+           //if (currentState == BonusState.Free)
+           //{
+           //   currentState = BonusState.Falling;
+           //}
+           //else if (currentState == BonusState.Falling)
+           // {
+           //     Tombe();
+           // }
   
            base.Update();
         }

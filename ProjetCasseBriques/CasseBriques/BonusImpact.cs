@@ -21,14 +21,14 @@ namespace CasseBriques
         }
         public override void Update()
         {
-            if (currentState == BonusState.Free)
-            {
-                currentState = BonusState.Falling;
-            }
-            else if (currentState == BonusState.Falling)
-            {
-                Tombe();
-            }
+        //    if (currentState == BonusState.Free)
+        //    {
+        //        currentState = BonusState.Falling;
+        //    }
+        //    else if (currentState == BonusState.Falling)
+        //    {
+        //        Tombe();
+        //    }
 
             base.Update();
         }

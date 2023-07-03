@@ -40,7 +40,7 @@ namespace CasseBriques
                 return _graphics.PreferredBackBufferWidth / 2;
             }
         }
-        public int CenterHeight
+        public int HalfScreenHeight
         {
             get
             {
@@ -57,13 +57,13 @@ namespace CasseBriques
         }
 
         public State currentState = new State();
-        private float Delay;
-        private float Timer;
+        private float delay;
+        private float timer;
         private bool TimerIsOver;
         public void TimerON(float pIncrement)
         {
-            Delay += pIncrement;
-            if (Delay >= Timer)
+            delay += pIncrement;
+            if (delay >= timer)
             {
                 TimerIsOver = true;
             }
@@ -72,8 +72,8 @@ namespace CasseBriques
         {
             _graphics = pGraphics;
             currentState = State.Basic;
-            Delay = 0;
-            Timer = 5;
+            delay = 0;
+            timer = 5;
         }
         public Point GetScreenSize()
         {
@@ -138,9 +138,9 @@ namespace CasseBriques
                     TimerON(0.005f); 
                 }
 
-                if (Delay>= Timer)
+                if (delay>= timer)
                 {
-                    Delay = 0;
+                    delay = 0;
                     currentState = State.Basic;  
                 }
                 
@@ -152,9 +152,9 @@ namespace CasseBriques
                 {
                     TimerON(0.005f);
                 }
-                if (Delay >= Timer)
+                if (delay >= timer)
                 {
-                    Delay = 0;
+                    delay = 0;
                     currentState = State.Basic;
                 }
                 

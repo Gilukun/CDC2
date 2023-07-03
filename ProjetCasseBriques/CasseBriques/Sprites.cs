@@ -30,8 +30,6 @@ namespace CasseBriques
         public Vector2 Vitesse { get; set; }
         
         public float Speed;
-        protected int hauteurEcran;
-        protected int largeurEcran;
         public int SpriteWidth
         {
             get
@@ -57,7 +55,6 @@ namespace CasseBriques
 
         public Rectangle BoundingBox;
 
-        // Constructeur
         public Sprites(Texture2D pTexture)
         { 
             texture = pTexture;
@@ -104,7 +101,7 @@ namespace CasseBriques
             BoundingBox = new Rectangle((int)(Position.X-HalfWidth),(int)(Position.Y-HalfHeitgh), SpriteWidth, SpriteHeight);
         }
 
-        public virtual void DrawScore()
+        public virtual void DrawData()
         { 
         }
         public virtual void Draw()
@@ -120,7 +117,7 @@ namespace CasseBriques
                         1f,
                         SpriteEffects.None,
                         0);
-            pBatch.DrawRectangle(BoundingBox, Color.Red); // affichage des boundingBox
+            //pBatch.DrawRectangle(BoundingBox, Color.Red); // affichage des boundingBox
         }
     }
 }

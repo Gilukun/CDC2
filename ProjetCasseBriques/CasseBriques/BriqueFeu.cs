@@ -38,8 +38,6 @@ namespace CasseBriques
                 rotation += 10f;
             }
             base.Update();
-
         }
-       
     }
 }

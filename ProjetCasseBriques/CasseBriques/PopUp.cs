@@ -22,11 +22,9 @@ namespace CasseBriques
             Position = new Vector2(pX, pY);
         }
 
-
         public void DrawPopUp(string pString)
         {
             SpriteBatch pBatch = ServiceLocator.GetService<SpriteBatch>();
-            
             pBatch.DrawString(font.PopUpFont,
                                 pString,    
                                 new Vector2(Position.X, Position.Y),

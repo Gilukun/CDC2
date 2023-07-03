@@ -43,7 +43,14 @@ namespace CasseBriques
 
         public override void Update()
         {
-            Move();
+            if (currentState == BonusState.Free)
+            {
+                currentState = BonusState.Falling;
+            }
+            else if (currentState == BonusState.Falling)
+            {
+                Tombe();
+            }
             base.Update();
         }
 

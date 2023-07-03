@@ -28,13 +28,13 @@ namespace CasseBriques
             {
                 Position = new Vector2(Position.X + speed, Position.Y);
             }
-            if (Position.X + SpriteWidth/2  > screen.Width)
+            if (Position.X + HalfWidth > screen.Width)
             {
-                SetPosition(screen.Width - SpriteWidth/2, (int)Position.Y);
+                SetPosition(screen.Width - HalfWidth, (int)Position.Y);
             }
-            if (Position.X - SpriteWidth /2 < 0)
+            if (Position.X - HalfWidth < 0)
             {
-                SetPosition(SpriteWidth / 2, (int)Position.Y);
+                SetPosition(HalfWidth, (int)Position.Y);
             }
             base.Update();
         }

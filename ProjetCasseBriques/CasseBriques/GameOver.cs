@@ -13,12 +13,10 @@ namespace CasseBriques
 {
     public class GameOver : ScenesManager
     {
-        ContentManager _content = ServiceLocator.GetService<ContentManager>();
-        AssetsManager font = ServiceLocator.GetService<AssetsManager>();
+        AssetsManager assets = ServiceLocator.GetService<AssetsManager>();
         ScreenManager screen = ServiceLocator.GetService<ScreenManager>();
-        AssetsManager audio = ServiceLocator.GetService<AssetsManager>();
 
-        Texture2D background;
+        private Texture2D background;
         private string gOver;
         private string backToMenu;
 
@@ -35,19 +33,19 @@ namespace CasseBriques
        
         public GameOver()
         {
-            background = _content.Load<Texture2D>("Backgrounds\\Back_7");
-            MediaPlayer.Play(audio.End);
+            background = assets.GetTexture("Backgrounds\\Back_7");
+            MediaPlayer.Play(assets.End);
         }
 
         public override void Load()
         {
             gOver = "GAMEOVER";
-            dimensionGameOver = font.GetSize(gOver, font.GameOverFont);
+            dimensionGameOver = assets.GetSize(gOver, assets.GameOverFont);
             currentAlpha = 0;
             fadeSpeed = 0.005f;
 
             backToMenu = "Appuyez sur M pour revenir au Menu";
-            dimensionBackToMenu = font.GetSize(backToMenu, font.ContextualFont);
+            dimensionBackToMenu = assets.GetSize(backToMenu, assets.ContextualFont);
             blinkSpeed = 0.05f;
             blinkTimer = 0;
             blinkMax = 4;
@@ -89,16 +87,16 @@ namespace CasseBriques
             pBatch.Draw(background, new Vector2(0, 0), Color.White);
             
             Color textColor = new Color(Color.Black, currentAlpha);
-            pBatch.DrawString(font.GameOverFont,
+            pBatch.DrawString(assets.GameOverFont,
                              gOver,
-                             new Vector2(screen.HalfScreenWidth - dimensionGameOver.X/2, screen.CenterHeight - dimensionGameOver.Y/2),
+                             new Vector2(screen.HalfScreenWidth - dimensionGameOver.X/2, screen.HalfScreenHeight - dimensionGameOver.Y/2),
                              textColor);
 
             if (textVisible)
             {
-                pBatch.DrawString(font.ContextualFont,
+                pBatch.DrawString(assets.ContextualFont,
                                  backToMenu,
-                                 new Vector2(screen.HalfScreenWidth - dimensionBackToMenu.X / 2, screen.CenterHeight + dimensionGameOver.Y / 2),
+                                 new Vector2(screen.HalfScreenWidth - dimensionBackToMenu.X / 2, screen.HalfScreenHeight + dimensionGameOver.Y / 2),
                                  Color.DarkCyan);
             }
         }

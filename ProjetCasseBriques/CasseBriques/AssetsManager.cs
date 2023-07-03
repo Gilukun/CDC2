@@ -76,7 +76,7 @@ namespace CasseBriques
             MediaPlayer.Play(pSong);
         }
 
-        public void Stop()
+        public void StopSong()
         {
             MediaPlayer.Stop();
         }
@@ -115,6 +115,5 @@ namespace CasseBriques
             SoundEffect sfx = _content.Load<SoundEffect>(pName);
             return sfx;
         }
-    }
-    
+    }  
 }

@@ -38,7 +38,7 @@ namespace CasseBriques
             CurrentBallState = BallState.Alive;
             delay  = 0;
             timer = 5;
-            bonusSpeed = 1.2f;
+            bonusSpeed = 1.1f;
             bonusSlowdown = 0.3f;
             Impact = 1;
             Big = _content.Load<Texture2D>("bMenu");
@@ -57,11 +57,6 @@ namespace CasseBriques
         public override void Load()
         {
             
-        }
-
-        public override void Move()
-        {
-            Position += Vitesse;
         }
 
         public void SpeedUp()
@@ -97,8 +92,6 @@ namespace CasseBriques
         }
         public override void Update()
         {
-            
-
             if (CurrentBallState == BallState.SpeedUp)
             {
                 SpeedUp();

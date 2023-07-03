@@ -14,10 +14,8 @@ namespace CasseBriques
     internal class Win : ScenesManager
     {
         ContentManager _content = ServiceLocator.GetService<ContentManager>();
-        AssetsManager Font = ServiceLocator.GetService<AssetsManager>();
-        SpriteBatch _spriteBatch = ServiceLocator.GetService<SpriteBatch>();
+        AssetsManager assets = ServiceLocator.GetService<AssetsManager>();
         ScreenManager ResolutionEcran = ServiceLocator.GetService<ScreenManager>();
-        AssetsManager Audio = ServiceLocator.GetService<AssetsManager>();
 
         Texture2D background;
         private string win;
@@ -28,32 +26,28 @@ namespace CasseBriques
 
         private float fadeSpeed;
         private float currentAlpha;
-        Color textColor = Color.Black;
 
         private float blinkSpeed;
-        private float blinkMax;
         private bool textVisible;
         private float blinkTimer;
 
-        private List<Balle> listeBalles = new List<Balle>();
         public Win()
         {
-            background = _content.Load<Texture2D>("Backgrounds\\Back_7");
-            MediaPlayer.Play(Audio.End);
+            background = assets.GetTexture("Backgrounds\\Back_7");
+            MediaPlayer.Play(assets.End);
         }
 
         public override void Load()
         {
             win = "YOU WIN";
-            DimensionWin = Font.GetSize(win, Font.Victory);
+            DimensionWin = assets.GetSize(win, assets.Victory);
             currentAlpha = 0;
             fadeSpeed = 0.002f;
 
             BackToMenu = "Appuyez sur M pour revenir au Menu";
-            DimensionBackToMenu = Font.GetSize(BackToMenu, Font.ContextualFont);
+            DimensionBackToMenu = assets.GetSize(BackToMenu, assets.ContextualFont);
             blinkSpeed = 0.05f;
             blinkTimer = 0;
-            blinkMax = 4;
             base.Load();
         }
 
@@ -90,21 +84,19 @@ namespace CasseBriques
             SpriteBatch pBatch = ServiceLocator.GetService<SpriteBatch>();
             pBatch.Draw(background, new Vector2(0, 0), Color.White);
 
-            textColor = new Color(Color.DarkRed, currentAlpha);
-            pBatch.DrawString(Font.Victory,
+            Color textColor = new Color(Color.DarkRed, currentAlpha);
+            pBatch.DrawString(assets.Victory,
                              win,
-                             new Vector2(ResolutionEcran.HalfScreenWidth - DimensionWin.X / 2, ResolutionEcran.CenterHeight - DimensionWin.Y / 2),
+                             new Vector2(ResolutionEcran.HalfScreenWidth - DimensionWin.X / 2, ResolutionEcran.HalfScreenHeight - DimensionWin.Y / 2),
                              textColor);
-
 
             if (textVisible)
             {
-                pBatch.DrawString(Font.ContextualFont,
+                pBatch.DrawString(assets.ContextualFont,
                                  BackToMenu,
-                                 new Vector2(ResolutionEcran.HalfScreenWidth - DimensionBackToMenu.X / 2, ResolutionEcran.CenterHeight + DimensionWin.Y / 2),
+                                 new Vector2(ResolutionEcran.HalfScreenWidth - DimensionBackToMenu.X / 2, ResolutionEcran.HalfScreenHeight + DimensionWin.Y / 2),
                                  Color.DarkCyan);
             }
         }
-
     }
 }

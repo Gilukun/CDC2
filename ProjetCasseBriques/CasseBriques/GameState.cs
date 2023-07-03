@@ -13,7 +13,6 @@ namespace CasseBriques
     {
         public ScenesManager CurrentScene { get; set; }
         protected CasseBriques casseBriques;
-   
         public Scenes currentState { get; set; }
         public GameState(CasseBriques pGame)
         {

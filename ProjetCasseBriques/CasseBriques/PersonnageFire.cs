@@ -11,9 +11,7 @@ using static CasseBriques.Personnages;
 namespace CasseBriques
 {
     public class PersonnageFire : Personnages
-    {
-        private float delay;
-        private float timer;
+    { 
         public PersonnageFire(Texture2D pTexture) : base(pTexture)
         {
             texture = pTexture;
@@ -21,8 +19,6 @@ namespace CasseBriques
             spawnTimer = 5;
             CurrentState = State.Idle;
             isSpawn = false;
-            delay = 0;
-            timer = 4;
         }
 
         public override void SetPosition(float pX, float pY)

@@ -1,16 +1,12 @@
-﻿using Microsoft.VisualBasic;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.Design;
-using System.Diagnostics;
 using System.Linq;
-using System.Threading;
+
 
 namespace CasseBriques
 {
@@ -43,28 +39,7 @@ namespace CasseBriques
         KeyboardState newKbState;
 
         private int currentBackground;
-
-        private float delay;
-        private float timer;
-        private bool timerOff;
-
         private Random rnd;
-
-        public int LevelNB
-        {
-            get 
-            { 
-                return hud.level; 
-            }
-        }
-        public void TimerON(float pIncrement)
-        {
-            delay += pIncrement;
-            if (delay > timer)
-            {
-                timerOff = true;
-            }
-        }
 
         public void LoadBackground()
         {
@@ -80,7 +55,7 @@ namespace CasseBriques
             //Soundtracks
             MediaPlayer.Volume = 0.1f;
             MediaPlayer.IsRepeating = true;
-            MediaPlayer.Play(assets.InGame);
+            assets.PlaySong(assets.InGame);
             
             // RAQUETTE
             pad = new Raquette(_content.Load<Texture2D>("Pad_2"));
@@ -96,16 +71,16 @@ namespace CasseBriques
             hudBarre = assets.GetTexture("HUD2");
             pop = new PopUp();
 
-            // Status du clavier
+            // Etats du clavier
             oldKbState = Keyboard.GetState();
 
             // Chargement du premier niveau lors de de la création de Gameplay
             hud.level = 1;
+            level.InitializeLevel(4);
             level.LoadLevel(hud.level);
-            delay = 0;
-            timer = 5;
+
             rnd = new Random(); 
-            //bullet.HasBullet= true;
+
         }
 
         public override void Update()
@@ -115,7 +90,8 @@ namespace CasseBriques
             {
                 stick = false;
             }
-            if (bullet.Bulletstate == Bullet.State.Activated)
+            // Création et tirs des balles
+            if (bullet.BulletState == Bullet.State.Activated)
             {
                 if (newKbState.IsKeyDown(Keys.P) && !oldKbState.IsKeyDown(Keys.P))
                 {
@@ -126,6 +102,7 @@ namespace CasseBriques
             oldKbState = newKbState;
           
             pad.Update();
+
             // COLLISIONS BALLE ET BRIQUES
             CollisionBricks();
           
@@ -171,11 +148,13 @@ namespace CasseBriques
             }
             // COLLISIONS BULLETS ET BRIQUES 
             CollisionBulletsBricks();
+
+            // Collisions aves les briques metals
             CollisionSolidBricks();
 
             // COLLISIONS AVEC LA RAQUETTE
             ColPadPerso();
-            GetBonus();
+            CollectBonus();
             PadRebound();
 
             // BALLE QUI SORT DE L'ECRAN
@@ -183,8 +162,10 @@ namespace CasseBriques
 
             // CHARGEMENT DU NIVEAU SUIVANT
             NextLevel();
+
+            // Updates de l'écran et des bullets
             screen.Update();
-            bullet.Update(); // pour démarrer le timer
+            bullet.Update(); 
             base.Update();
         }
 
@@ -223,7 +204,7 @@ namespace CasseBriques
                 }
             }
         }
-        public void GetBonus()
+        public void CollectBonus()
         {
             for (int p = listeBonus.Count - 1; p >= 0; p--)
             {
@@ -249,7 +230,7 @@ namespace CasseBriques
                     else  if (mesitems is BonusGun gun)
                     {
                         mesitems.currentState = Bonus.BonusState.Catch;
-                        bullet.Bulletstate = Bullet.State.Activated;
+                        bullet.BulletState = Bullet.State.Activated;
                         assets.PlaySFX(assets.CatchLife);
                         listeBonus.RemoveAt(p);
                     }
@@ -379,16 +360,16 @@ namespace CasseBriques
                                 Fire.currentState = Briques.State.Broken;
 
                                 int dice = rnd.Next(1, 11);
-                                if (dice >= 1 && dice <= 2)
+                                if (dice >= 1 && dice <= 5)
                                 {
                                     life = new BonusVie(_content.Load<Texture2D>("Heart"));
                                     life.SetPositionBonus(Fire.Position.X, Fire.Position.Y);
                                     life.currentState = Bonus.BonusState.Free;
                                     listeBonus.Add(life);
                                 }
-                                else if (dice >= 3 && dice <= 10)
+                                else if (dice >= 6 && dice <= 10)
                                 {
-                                    gun = new BonusGun(_content.Load<Texture2D>("Explosion"));
+                                    gun = new BonusGun(_content.Load<Texture2D>("Gun"));
                                     gun.SetPositionBonus(Fire.Position.X, Fire.Position.Y);
                                     gun.currentState = Bonus.BonusState.Free;
                                     listeBonus.Add(gun);
@@ -496,7 +477,7 @@ namespace CasseBriques
             ball.DrawBall();
 
             pBatch.Draw(hudBarre, new Vector2(0, 0), Color.White);
-            hud.DrawScore();
+            hud.DrawData();
 
             foreach (var Bonus in listeBonus)
             {
@@ -512,6 +493,7 @@ namespace CasseBriques
             }
 
             level.DrawLevel();
+
             foreach (var PopUp in listePopUp)
             {
                 foreach (var Briques in level.listBriques)
@@ -523,8 +505,6 @@ namespace CasseBriques
                     }
                 }
             }
-
-           
         }
     }
 }

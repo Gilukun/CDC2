@@ -3,11 +3,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-//using System.Drawing;
 using System.IO;
-using System.Net.Security;
-//using System.Numerics;
 using System.Text.Json;
 
 namespace CasseBriques
@@ -43,9 +39,7 @@ namespace CasseBriques
         {
             numero = pNumero;
             LevelMax = 4;
-
         }
-
     
         public void RandomLevel()
         {
@@ -62,27 +56,17 @@ namespace CasseBriques
                 }
             }
         }
-
-        public void InitializeLevel()
-        {
-            LevelMax = 4;
-            for (int i = 1; i <= LevelMax; i++)
-            {
-                LevelManager level = new LevelManager(i);
-                level.RandomLevel();
-                level.Save();
-            }
-        }
-
         public void Save()
         {
             string jsonLevel = JsonSerializer.Serialize(this); // on créer le fichier JSON
             File.WriteAllText("level" + numero + ".json", jsonLevel); // on l'exporte en fichier .Json
         }
+       
+
+        
 
         public void LoadLevel(int pLevel)
         {
-            InitializeLevel();
 
             listBriques = new List<Briques>();
             listPerso = new List<Personnages>();
@@ -209,6 +193,7 @@ namespace CasseBriques
                   //pBatch.DrawRectangle(Perso.BoundingBox, Color.Yellow);
                 }
             }
+
             foreach (var Briques in listSolidBricks)
             {
            
