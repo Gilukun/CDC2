@@ -106,11 +106,13 @@ namespace CasseBriques
             // COLLISIONS BALLE ET BRIQUES
             CollisionBricks();
           
-            // COLLISIONS BALLE ET PERSONNAGES
+           
             if (!ball.collision)
             {
                 ball.Update();
             }
+
+            // COLLISIONS BALLE ET PERSONNAGES
             for (int p = level.listPerso.Count - 1; p >= 0; p--)
             {
                 ball.collision = false;
@@ -385,7 +387,7 @@ namespace CasseBriques
                                 Glace.currentState = Briques.State.Broken;
 
                                 int dice = rnd.Next(1, 11);
-                                if (dice >= 1 && dice <= 10)
+                                if (dice >= 1 && dice <= 5)
                                 {
                                     bigBall = new BonusImpact(_content.Load<Texture2D>("bMenu"));
                                     bigBall.SetPositionBonus(Glace.Position.X, Glace.Position.Y);

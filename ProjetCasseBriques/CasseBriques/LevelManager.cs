@@ -41,6 +41,16 @@ namespace CasseBriques
             LevelMax = 4;
         }
     
+         public void InitializeLevel(int pLevelMax)
+        {
+            LevelMax = pLevelMax;
+            for (int i = 1; i <= LevelMax; i++)
+            {
+                LevelManager level = new LevelManager(i);
+                level.RandomLevel();
+                level.Save();
+            }
+        }
         public void RandomLevel()
         {
             int colNb = 10;
@@ -61,13 +71,9 @@ namespace CasseBriques
             string jsonLevel = JsonSerializer.Serialize(this); // on créer le fichier JSON
             File.WriteAllText("level" + numero + ".json", jsonLevel); // on l'exporte en fichier .Json
         }
-       
-
-        
 
         public void LoadLevel(int pLevel)
         {
-
             listBriques = new List<Briques>();
             listPerso = new List<Personnages>();
             listPerso2 = new List<Personnages>();
@@ -157,7 +163,6 @@ namespace CasseBriques
                 if (Briques is BriqueFeu Fire)
                 {
                     rotation = Fire.rotation;
-                   
                 }
                 else
                 {
@@ -173,7 +178,6 @@ namespace CasseBriques
                                Briques.scale,
                                SpriteEffects.None,
                                0);
-               
                 //pBatch.DrawRectangle(Briques.BoundingBox, Color.Red);
             }
 

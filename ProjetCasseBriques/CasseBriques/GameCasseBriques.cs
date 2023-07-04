@@ -34,6 +34,8 @@ namespace CasseBriques
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+            
+
             ServiceLocator.RegisterService<SpriteBatch>(_spriteBatch);
             ServiceLocator.RegisterService<ContentManager>(Content);
             ServiceLocator.RegisterService<GraphicsDeviceManager>(_graphics);

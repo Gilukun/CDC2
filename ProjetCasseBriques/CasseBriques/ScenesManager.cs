@@ -32,7 +32,7 @@ namespace CasseBriques
             int screenHeight = screen.PreferredBackBufferHeight;
             Screen = new Rectangle(0, 0, screenWidth, screenHeight);
             background = _content.Load<Texture2D>("background");
-            rnd = new Random();
+            rnd = new Random(); 
         }
          
 
